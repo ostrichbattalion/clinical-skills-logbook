@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid Verification</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* --- Inline Check Styles (from style.css) --- */
+        .verification-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+            margin-top: 20px;
+        }
+        .verification-col h3 { margin-top: 0; }
+        .verification-col .data-point { margin-bottom: 20px; }
+        .verification-col .data-point label { font-weight: 600; display: block; }
+        .verification-col .data-point p { margin: 5px 0 0 0; font-size: 1.1em; }
+        .verification-col .snippet-img {
+            border: 2px dashed #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .verification-col .snippet-img img { width: 100%; height: auto; }
+        .verification-actions { border-top: 2px solid #eee; padding-top: 20px; margin-top: 20px; }
+        .skill-checklist { list-style-type: none; padding: 0; }
+        .skill-checklist li { padding: 8px 0; }
+        .skill-checklist input { margin-right: 10px; }
+        
+        /* This is the new list for skills */
+        .claimed-skills-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 5px 0 0 0;
+        }
+        .claimed-skills-list li {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        /* This is the inline check box */
+        .inline-check {
+            margin-top: 10px;
+            background: #f0f8ff;
+            border: 1px solid #cce4ff;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .inline-check label {
+            font-weight: normal;
+            display: inline;
+        }
+        .inline-check input {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="admin_dashboard.html" class="btn btn-link">&larr; Back to Dashboard</a>
+        <h1>Rapid Verification for Form: A-00123</h1>
+        <p>Confirm the student's typed data against the server-cropped "proof snippets" from the scan.</p>
+
+        <!-- The main form now wraps the grid and the buttons -->
+        <form action="admin_dashboard.html" class="verification-actions">
+            <div class="verification-grid">
+                
+                <!-- Column 1: What the Student Typed (with inline checks) -->
+                <div class="verification-col">
+                    <h3>Student's Claim (Typed Data)</h3>
+                    
+                    <div class="data-point">
+                        <label>Form ID:</label>
+                        <p>A-00123</p>
+                        <div class="inline-check">
+                            <input type="checkbox" id="c1">
+                            <label for="c1">Form ID matches snippet.</label>
+                        </div>
+                    </div>
+                    
+                    <div class="data-point">
+                        <label>Supervisor Info (Signer #1):</label>
+                        <p>B. Jones (PC-12345)</p>
+                        <div class="inline-check">
+                            <input type="checkbox" id="c2">
+                            <label for="c2">Reg. Code & Signature are present.</label>
+                        </div>
+                    </div>
+
+                    <!-- THIS IS THE NEW BLOCK YOU REQUESTED -->
+                    <div class="data-point">
+                        <label>Claimed Skills (for Signer #1):</label>
+                        <ul class="claimed-skills-list">
+                            <li>Patient Assessment</li>
+                            <li>Vital Signs</li>
+                            <li>IV Cannulation</li>
+                        </ul>
+                        <div class="inline-check">
+                            <input type="checkbox" id="c4">
+                            <label for="c4">Claimed skills match snippets.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: What the Server Cropped -->
+                <div class="verification-col">
+                    <h3>Proof Snippets (From Scan)</h3>
+                    <div class="data-point">
+                        <label>Snippet 1 (Form ID):</label>
+                        <div class="snippet-img">
+                            <img src="https://placehold.co/300x100/f9f9f9/555?text=A-00123" alt="Cropped Form ID">
+                        </div>
+                    </div>
+                    <div class="data-point">
+                        <label>Snippet 2 (Supervisor Block #1):</label>
+                        <div class="snippet-img">
+                            <img src="https://placehold.co/300x150/f9f9f9/555?text=B.+Jones+PC-12345" alt="Cropped Supervisor Signature">
+                        </div>
+                    </div>
+                    
+                    <!-- THIS IS THE NEW PROOF SNIPPET -->
+                    <div class="data-point">
+                        <label>Snippet 3 (Skills Log):</label>
+                        <div class="snippet-img"> // changed link
+                            <img src="https://placehold.co/300x200/f9f9f9/555?text=Pt+123+|+Vital+Signs+|+1%0D...Pt+123+|+IV+Can+|+1" alt="Cropped Skills Checklist">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The final "Gatekeeper" actions -->
+            <div style="display: flex; gap: 10px; margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px;">
+                <button type="submit" class="btn btn-approve" style="flex: 2;">Approve Log</button>
+                <button type="submit" class="btn btn-reject" style="flex: 1;">Reject Log</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

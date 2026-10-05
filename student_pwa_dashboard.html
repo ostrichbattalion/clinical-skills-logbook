@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student PWA Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 1. The TWO new log buttons -->
+        <div class="log-options">
+            <a href="log_new_encounter.html" class="btn btn-primary" style="font-size: 1.1em;">+ Log Patient Encounter</a>
+            <a href="log_single_skill.html" class="btn btn-primary" style="font-size: 1.1em;">+ Log Single Skill</a>
+        </div>
+        <!-- 2. The new skills tracker button -->
+        <div class="dashboard-utils" style="margin-bottom: 20px;">
+            <a href="skills_tracker.html" class="btn btn-secondary">
+                🏆 View Skills Mastery Tracker
+            </a>
+        </div>
+
+<div class="pending-list">
+
+        
+
+        <!-- 2. The "Pending" List (The "Shopping Cart") -->
+        <div class="pending-list">
+            <h2>Pending Signatures (3)</h2>
+            <p>Select the encounters you want a supervisor to sign for now.</p>
+            <ul>
+                <li>
+                    <input type="checkbox" id="enc1">
+                    <label for="enc1" class="details">
+                        <strong>Patient #123 (Ambulance)</strong>
+                        <div class="sub-details">Logged: 09:30 AM | 3 Skills</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="enc2">
+                    <label for="enc2" class="details">
+                        <strong>Patient #124 (Ambulance)</strong>
+                        <div class="sub-details">Logged: 10:15 AM | 2 Skills</div>
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="enc3">
+                    <label for="enc3" class="details">
+                        <strong>Skills @ Triage Desk</strong>
+                        <div class="sub-details">Logged: 11:05 AM | 5 Skills</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. The "Checkout" Button (Links to Phase 3) -->
+        <div style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px;">
+            <a href="request_signature.html" class="btn btn-approve">
+                Request Signature for Selected Encounters
+            </a>
+            <a href="paper_flow.html" class="btn btn-link">
+                ...or submit a paper form
+            </a>
+        </div>
+        
+        <!-- 4. The "Completed" List -->
+        <div class="completed-list">
+            <h2>✅ Recently Completed</h2>
+            <ul>
+                <li>
+                    <span class="status-icon" style="color: #28a745;">✓</span>
+                    <div class="details">
+                        <strong>Patient #121 (Clinic)</strong>
+                        <div class="sub-details">Signed by B. Jones (Paper Scan)</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

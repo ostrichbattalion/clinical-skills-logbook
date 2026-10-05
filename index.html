@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logbook POC: Demo Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px; /* Reduced slightly for better readability in a single-column list */
+            margin: 0 auto;
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 50px;
+        }
+        
+        /* Phase Stack List */
+        .phase-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Forces cards into a single column list */
+            gap: 30px;
+        }
+        .phase-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid #ccc;
+            transition: transform 0.2s ease;
+        }
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        /* Phase Colors */
+        .phase-1 { border-left-color: #007bff; } /* Blue */
+        .phase-2 { border-left-color: #28a745; } /* Green */
+        .phase-3 { border-left-color: #6610f2; } /* Purple */
+        .phase-4 { border-left-color: #dc3545; } /* Red */
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .phase-badge {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 15px;
+            color: white;
+        }
+        .phase-1 .phase-badge { background-color: #007bff; }
+        .phase-2 .phase-badge { background-color: #28a745; }
+        .phase-3 .phase-badge { background-color: #6610f2; }
+        .phase-4 .phase-badge { background-color: #dc3545; }
+
+        .phase-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .phase-desc {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .launch-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+        .launch-btn:hover {
+            background-color: #333;
+        }
+        
+        .prop-link {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Digital Student Logbook</h1>
+        <p class="subtitle">Proof of Concept Presentation Guide</p>
+
+        <div class="phase-grid">
+
+            <div class="phase-card phase-1">
+                <div class="phase-header">
+                    <span class="phase-badge">Phase 1</span>
+                    <h3 class="phase-title">Audit & Paper Fallback</h3>
+                </div>
+                <p class="phase-desc">
+                    <strong>The Problem:</strong> Auditing paper binders is impossible.<br>
+                    <strong>The Solution:</strong> A centralized dashboard with "Rapid Verification" for paper scans and detailed analytics.
+                </p>
+                <a href="admin_dashboard.html" class="launch-btn" target="_blank">Launch Admin Dashboard &rarr;</a>
+                <a href="smart_log_sheet_prop.html" class="prop-link" target="_blank">View Printable Log Sheet Prop</a>
+            </div>
+
+            <div class="phase-card phase-2">
+                <div class="phase-header">
+                    <span class="phase-badge">Phase 2</span>
+                    <h3 class="phase-title">Smart PWA Logging</h3>
+                </div>
+                <p class="phase-desc">
+                    <strong>The Problem:</strong> Friction. Logging 100+ skills is too slow.<br>
+                    <strong>The Solution:</strong> An offline PWA with "Smart Templates" and a "Shopping Cart" workflow for batch logging.
+                </p>
+                <a href="student_pwa_dashboard.html" class="launch-btn" target="_blank">Launch PWA Demo &rarr;</a>
+            </div>
+
+            <div class="phase-card phase-3">
+                <div class="phase-header">
+                    <span class="phase-badge">Phase 3</span>
+                    <h3 class="phase-title">Flexible Sign-off</h3>
+                </div>
+                <p class="phase-desc">
+                    <strong>The Problem:</strong> Supervisors are busy, tech-averse, or absent.<br>
+                    <strong>The Solution:</strong> 4 Asynchronous paths: Hand-Over, QR Code, Share Link, or Paper Fallback.
+                </p>
+                <a href="request_signature.html" class="launch-btn" target="_blank">Launch Signature Demo &rarr;</a>
+            </div>
+
+            <div class="phase-card phase-4">
+                <div class="phase-header">
+                    <span class="phase-badge">Phase 4</span>
+                    <h3 class="phase-title">Readiness & Lifecycle</h3>
+                </div>
+                <p class="phase-desc">
+                    <strong>The Problem:</strong> Students logging skills before they are competent.<br>
+                    <strong>The Solution:</strong> A "locked" dashboard that requires Peer & Lecturer sign-off before field logging is enabled.
+                </p>
+                <a href="login.html" class="launch-btn" target="_blank">Launch Readiness Demo &rarr;</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

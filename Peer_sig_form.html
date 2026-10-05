@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Sign-Off</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Peer Skill Sign-Off</h1>
+        <p>You are confirming that you directly observed <strong>Jane Doe</strong> performing the following skills. Please uncheck any skills you did <strong>not</strong> witness.</p>
+        
+        <div class="encounter-group">
+            <h3>🩸 Circulation (IV Cannulation)</h3>
+            <ul class="skill-list">
+                <li><input type="checkbox" id="s1" checked><label for="s1">Competent</label></li>
+            </ul>
+        </div>
+                
+        <form action="student_pwa_dashboard.html">
+            <div>
+                <label for="peer-name">Your Full Name</label>
+                <input type="text" id="peer-name" name="peer-name" placeholder="e.g., J. Smith" required>
+            </div>
+            <div>
+                <label for="peer-id">Your Student/Staff ID</label>
+                <input type="text" id="peer-id" name="peer-id" placeholder="e.g., ST123456" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Confirm & Sign-Off</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

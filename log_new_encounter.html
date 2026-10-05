@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Patient Encounter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Log New Patient Encounter</h1>
+        <form action="student_pwa_dashboard.html">
+            <div>
+                <label for="patient-id">Patient ID / Reference</label>
+                <input type="text" id="patient-id" name="patient-id" placeholder="e.g., #123 or 'Male, 40s'">
+            </div>
+            <input type="hidden" name="location" value="Ambulance">
+
+            <div class="skill-group">
+                <h3>Common Skills (Ambulance)</h3>
+                <ul class="skill-checklist">
+                    <li><input type="checkbox" id="skill-assess" checked><label for="skill-assess"><strong>Clinical assessment</strong></label></li>
+                    <li><input type="checkbox" id="skill-vitals"><label for="skill-vitals"><strong>Vital Sign Assessment</strong></label></li>
+                    <li><input type="checkbox" id="skill-o2"><label for="skill-o2">Oxygen administration</label></li>
+                    <li><input type="checkbox" id="skill-iv"><label for="skill-iv">Peripheral intravenous (IV) cannulation</label></li>
+                    <li><input type="checkbox" id="skill-transport"><label for="skill-transport">Inter-facility transfer</label></li>
+                </ul>
+            </div>
+            
+            <a href="skill_reference_list.html" class="btn btn-link">[+ Add Advanced/Other Skill from Master List]</a>
+            
+            <div>
+                <button type="submit" class="btn btn-primary">Save to Pending List</button>
+                <a href="student_pwa_dashboard.html" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

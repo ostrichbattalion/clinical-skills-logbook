@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Signature Request</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .qr-container {
+            text-align: center;
+            padding: 30px;
+        }
+        .qr-container img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border: 10px solid #eee;
+            border-radius: 8px;
+        }
+        .instructions {
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="qr-container">
+            <a href="request_signature.html" class="btn btn-link">&larr; Back to Dashboard</a>
+            
+            <h1>Show this to your Supervisor</h1>
+            <p class="instructions">Please ask your supervisor to scan this QR code with their phone to open the digital signature form.</p>
+            
+            <!-- This is a placeholder image styled to look like a QR code -->
+            <img src="https://placehold.co/300x300/eee/333?text=Mock+QR+Code" alt="Mock QR Code for demo">
+            
+            <p>
+                <strong>Demo Note:</strong> In the real app, this QR code would link to the <a href="supervisor_sig_form.html" target="_blank">Paramedic Signature Form</a>.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

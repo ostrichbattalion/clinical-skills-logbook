@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Mastery Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="student_pwa_dashboard.html" class="btn btn-link" style="margin: 0;">&larr; Back to Dashboard</a>
+            <div style="text-align: right; font-size: 0.9em; color: #666;">
+                <strong>Overall Completion:</strong> 35%
+            </div>
+        </div>
+
+        <h1>Skills Mastery Tracker</h1>
+        <p>Track your progress toward clinical competence. Complete the quotas to unlock mastery badges.</p>
+
+        <div class="tracker-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">In Progress</button>
+            <button class="filter-btn">Action Required</button>
+            <button class="filter-btn">Completed</button>
+        </div>
+
+        <div class="achievements-grid">
+
+            <div class="achievement-card completed">
+                <div class="card-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Clinical Assessment</h3>
+                    <div class="badge badge-success">Mastered</div>
+                    <p class="quota-text">Quota: 50 / 50 Logged</p>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-card in-progress">
+                <div class="card-icon">
+                    <i class="fas fa-syringe"></i>
+                </div>
+                <div class="card-content">
+                    <h3>IV Cannulation</h3>
+                    <div class="badge badge-primary">Level 2 / 5</div>
+                    <p class="quota-text">Quota: 12 / 20 Logged</p>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-card pending-peer">
+                <div class="card-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Airway (Basic)</h3>
+                    <div class="badge badge-warning">Peer Sign-off Needed</div>
+                    <p class="quota-text">3 Instances Pending Review</p>
+                    <div class="progress-track">
+                        <div class="progress-fill warning-fill" style="width: 40%;"></div>
+                    </div>
+                    <a href="student_dashboard_locked.html" class="btn btn-sm btn-secondary" style="margin-top: 10px;">Request Sign-off</a>
+                </div>
+            </div>
+
+            <div class="achievement-card pending-lecturer">
+                <div class="card-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Patient Management</h3>
+                    <div class="badge badge-info">Lecturer Review</div>
+                    <p class="quota-text">Final Competency Check</p>
+                    <div class="progress-track">
+                        <div class="progress-fill info-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-card locked">
+                <div class="card-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Advanced Cardiac (ALS)</h3>
+                    <div class="badge badge-locked">Locked</div>
+                    <p class="quota-text">Requires "IV Cannulation" Mastery</p>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievement-card in-progress">
+                <div class="card-icon">
+                    <i class="fas fa-band-aid"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Wound Care</h3>
+                    <div class="badge badge-primary">Level 1</div>
+                    <p class="quota-text">Quota: 2 / 10 Logged</p>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 20%;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

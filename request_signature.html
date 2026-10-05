@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Signature</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="student_pwa_dashboard.html" class="btn btn-link">&larr; Back to List</a>
+        <h1>Request Signature</h1>
+        <p>You are requesting a signature for <strong>2 Encounters</strong>. How would you like to proceed?</p>
+
+        <div class="skill-summary">
+            <strong>Selected Items:</strong>
+            <ul>
+                <li>Patient #123 (Ambulance) (3 Skills)</li>
+                <li>Skills @ Triage Desk (5 Skills)</li>
+            </ul>
+        </div>
+
+        <h2>Select Signature Method</h2>
+        
+        <!-- Option 1: Hand-Over -->
+        <a href="supervisor_sig_form.html" class="btn btn-primary" style="margin-bottom: 10px;">Use This Device (Hand-Over)</a>
+        
+        <!-- Option 2: QR Code (mock) -->
+        <a href="digital_qr_code.html" class="btn btn-secondary" style="margin-bottom: 10px;">Show QR Code (For Supervisor's Phone)</a>
+        
+        <!-- Option 3: Share Link (mock) -->
+        <a href="student_pwa_dashboard.html" class="btn btn-secondary" style="margin-bottom: 10px;">Share Signature Link (WhatsApp, SMS)</a>
+        
+        <!-- Option 4: Paper Fallback -->
+        <a href="paper_flow.html" class="btn btn-link" style="text-align: center;">...or log with a paper form</a>
+
+    </div>
+</body>
+</html>

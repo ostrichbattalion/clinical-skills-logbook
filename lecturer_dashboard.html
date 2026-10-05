@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lecturer Dashboard</h1>
+        <p>Students are awaiting your sign-off for their Foundational Skills.</p>
+
+        <h2>⚠️ Pending Readiness Assessments (2)</h2>
+        
+        <!-- Assessment 1 -->
+        <div class="encounter-group" style="background: #fff; border: 1px solid #ddd;">
+            <h3>Student: <strong>K. Lee</strong></h3>
+            <div class="skill-summary">
+                <strong>Requesting sign-off for 2 skills:</strong>
+                <ul>
+                    <li>Patient Assessment (Peer Approved 2/2)</li>
+                    <li>Airway Management (Basic) (Peer Approved 2/2)</li>
+                </ul>
+            </div>
+            <!-- This "Review" button would open a signature form -->
+            <a href="supervisor_sig_form.html" class="btn btn-primary btn-icon">Review & Sign</a>
+        </div>
+
+        <!-- Assessment 2 -->
+        <div class="encounter-group" style="background: #fff; border: 1px solid #ddd;">
+            <h3>Student: <strong>J. Doe</strong></h3>
+            <div class="skill-summary">
+                <strong>Requesting sign-off for 1 skill:</strong>
+                <ul>
+                    <li>IV Cannulation (Pending Peer Review 1/2)</li>
+                </ul>
+            </div>
+            <a href="#" class="btn btn-disabled btn-icon">(Awaiting Peer Review)</a>
+        </div>
+
+        <p style="text-align: center; margin-top: 20px;">
+            (Demo: After signing, the student's dashboard becomes <a href="student_pwa_dashboard.html">this PWA</a>)
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Log Sheet Prop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. Base Setup --- */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #e2e8f0; /* The "desk" background */
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px 0;
+            place-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f1f5f9; /* The "desk" color */
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            /* Center the "paper" on the "desk" */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- 2. The "A4 Paper" Prop --- */
+        .a4-paper {
+            width: 480px;
+            height: 680px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            padding: 25px; /* Reduced padding slightly */
+            position: relative;
+            font-family: 'Lato', sans-serif;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- 3. Fiducial (Corner) Markers --- */
+        .marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: #1e293b;
+            border-style: solid;
+        }
+        .marker-tl { top: 10px; left: 10px; border-width: 3px 0 0 3px; }
+        .marker-tr { top: 10px; right: 10px; border-width: 3px 3px 0 0; }
+        .marker-bl { bottom: 10px; left: 10px; border-width: 0 0 3px 3px; }
+        .marker-br { bottom: 10px; right: 10px; border-width: 0 3px 3px 0; }
+
+        /* --- 4. Form Layout --- */
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #94a3b8;
+            padding-bottom: 10px;
+            flex-shrink: 0;
+        }
+        .header-info { font-size: 10px; line-height: 1.6; }
+        .header-info p { margin: 0; }
+        .form-id-box {
+            border: 2px solid #475569;
+            padding: 5px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0 10px 0; /* Reduced margin */
+            flex-shrink: 0;
+        }
+
+        /* --- 5. Main Log Table --- */
+        .table-container {
+            flex-grow: 1; 
+            overflow: hidden;
+        }
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+        }
+        .log-table th, .log-table td {
+            border: 1px solid #cbd5e1;
+            padding: 3px; /* Reduced padding */
+            text-align: left;
+            height: 13px; /* Reduced height to fit more rows */
+        }
+        .log-table th {
+            background-color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        .col-patient { width: 25%; }
+        .col-skill { width: 55%; }
+        .col-signer { width: 20%; text-align: center; }
+
+        /* --- 6. Supervisor Footer --- */
+        .supervisor-legend {
+            margin-top: 10px;
+            border-top: 2px solid #94a3b8;
+            padding-top: 5px;
+            flex-shrink: 0; 
+        }
+        .supervisor-legend h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+        /* UPDATED: Single-line signer block */
+        .signer-block {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            margin-bottom: 3px; /* Reduced margin */
+        }
+        .signer-num {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: 1px solid #475569;
+            padding: 2px 4px;
+            margin-right: 3px;
+        }
+        .signer-field {
+            border-bottom: 1px solid #94a3b8;
+            flex-grow: 1;
+            margin-left: 3px;
+            height: 14px;
+        }
+        /* Adjusted widths */
+        .name-field { flex-basis: 30%; }
+        .reg-field { flex-basis: 25%; }
+        .sig-field { flex-basis: 45%; border-bottom-style: dotted; }
+
+        /* --- 7. Print-Specific Styles --- */
+        @media print {
+            /* Hide the "desk" and shadows, just print the paper */
+            body {
+                background-color: #ffffff;
+                padding: 0;
+                margin: 0;
+            }
+            .slide-container {
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .a4-paper {
+                width: 210mm; /* A4 Width */
+                height: 297mm; /* A4 Height */
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20mm; /* Standard print margins */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" id="slide1">
+        
+        <div class="a4-paper">
+            
+            <div class="marker marker-tl"></div>
+            <div class="marker marker-tr"></div>
+            <div class="marker marker-bl"></div>
+            <div class="marker marker-br"></div>
+            
+            <div class="form-header">
+                <div class="header-info">
+                    <p><strong>Student Name:</strong> ____________________________</p>
+                    <p><strong>Date:</strong> __________________ <strong>Location:</strong> _________________</p>
+                </div>
+                <div class="form-id-box">
+                    ID: A-00123
+                </div>
+            </div>
+            
+            <h2 class="form-title">LOG OF SKILLS PERFORMED</h2>
+
+            <div class="table-container">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th class="col-patient">Patient ID / Ref</th>
+                            <th class="col-skill">Skill Performed (Use reference list)</th>
+                            <th class="col-signer">Signer #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 26 blank rows for logging -->
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&Snbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="supervisor-legend">
+                <h3>SUPERVISOR LEGEND</h3>
+                <!-- UPDATED: Single-line layout -->
+                <div class="signer-block">
+                    <span class="signer-num">1</span>
+                    <strong>Name:</strong><span class="signer-field name-field"></span>
+                    <strong>Reg. Code:</strong><span class="signer-field reg-field"></span>
+                    <strong>Sig:</strong><span class="signer-field sig-field"></span>
+                </div>
+                <div class="signer-block">
+                    <span class="signer-num">2</span>
+                    <strong>Name:</strong><span class="signer-field name-field"></span>
+                    <strong>Reg. Code:</strong><span class="signer-field reg-field"></span>
+                    <strong>Sig:</strong><span class="signer-field sig-field"></span>
+                </div>
+                <div class="signer-block">
+                    <span class="signer-num">3</span>
+                    <strong>Name:</strong><span class="signer-field name-field"></span>
+                    <strong>Reg. Code:</strong><span class="signer-field reg-field"></span>
+                    <strong>Sig:</strong><span class="signer-field sig-field"></span>
+                </div>
+                <div class="signer-block">
+                    <span class="signer-num">4</span>
+                    <strong>Name:</strong><span class="signer-field name-field"></span>
+                    <strong>Reg. Code:</strong><span class="signer-field reg-field"></span>
+                    <strong>Sig:</strong><span class="signer-field sig-field"></span>
+                </div>
+                <div class="signer-block">
+                    <span class="signer-num">5</span>
+                    <strong>Name:</strong><span class="signer-field name-field"></span>
+                    <strong>Reg. Code:</strong><span class="signer-field reg-field"></span>
+                    <strong>Sig:</strong><span class="signer-field sig-field"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+```

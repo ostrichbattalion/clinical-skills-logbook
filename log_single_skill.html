@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Single Skill</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Log Single Skill (e.g., Triage)</h1>
+        <form action="student_pwa_dashboard.html">
+            <input type="hidden" name="location" value="Triage">
+
+            <div class="skill-group">
+                <h3>Common Skills (Triage)</h3>
+                <ul class="skill-checklist">
+                    <li><input type="checkbox" id="skill-assess" checked><label for="skill-assess"><strong>Clinical assessment</strong></label></li>
+                    <li><input type="checkbox" id="skill-vitals"><label for="skill-vitals"><strong>Vital Sign Assessment</strong></label></li>
+                    <li><input type="checkbox" id="skill-glucose"><label for="skill-glucose">Finger prick and blood glucose</label></li>
+                    <li><input type="checkbox" id="skill-wound"><label for="skill-wound">Emergency wound care</label></li>
+                </ul>
+            </div>
+            
+            <a href="skill_reference_list.html" class="btn btn-link">[+ Add Advanced/Other Skill from Master List]</a>
+            
+            <div>
+                <button type="submit" class="btn btn-primary">Save to Pending List</button>
+                <a href="student_pwa_dashboard.html" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

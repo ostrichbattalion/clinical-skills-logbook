@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Form Submission</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="student_pwa_dashboard.html" class="btn btn-link">&larr; Back to Dashboard</a>
+        <h1>Submit Signed Paper Form</h1>
+        <p>Transcribe the data from the paper form. The server will auto-crop the image using the corner markers.</p>
+
+        <form action="admin_dashboard.html">
+            <div>
+                <label for="form-id">Unique Form ID (Typed from form)</label>
+                <input type="text" id="form-id" name="form-id" placeholder="e.g., A-00123">
+            </div>
+            <div>
+                <label for="reg-code">Supervisor Professional Reg. Code (Typed from form)</label>
+                <input type="text" id="reg-code" name="reg-code" placeholder="e.g., PC-12345">
+            </div>
+            <div>
+                <label for="scan">Upload Full Scan/Photo of Form</label>
+                <input type="file" id="scan" name="scan">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit for Verification</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

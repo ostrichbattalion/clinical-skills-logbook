@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Administrator Dashboard</h1>
+
+        <!-- SECTION 1: AT-A-GLANCE -->
+        <h2>At-a-Glance</h2>
+        <div class="stats-grid">
+            <div class="stat-card alert">
+                <div class="stat-number">1</div>
+                <div class="stat-label">Pending Paper Verifications</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Students Awaiting Competence</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">45%</div>
+                <div class="stat-label">In-Field Quota Progress (Avg)</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Students Below Quota Target</div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: GROUP REPORTS -->
+        <h2>Group Progress & Reports</h2>
+        <div class="reports-section">
+            <div class="reports-filter">
+                <label for="program-select">Select Program to Generate Report:</label>
+                <select id="program-select">
+                    <option value="all">All Programs</option>
+                    <option value="btech">B.Tech Paramedicine (Group A)</option>
+                    <option value="diploma">Diploma EMS (Group B)</option>
+                </select>
+            </div>
+            <div class="reports-action">
+                <a href="#" class="btn btn-primary">Generate Report</a>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PENDING QUEUE -->
+        <h2>⚠️ Pending Paper Verification (1)</h2>
+        <p>These forms were submitted via the paper fallback and require manual, rapid verification.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Form ID</th>
+                    <th>Student</th>
+                    <th>Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>A-00123</strong></td>
+                    <td>K. Lee</td>
+                    <td>16 Nov 2025</td>
+                    <td><a href="rapid_verification.html" class="btn btn-primary btn-icon">Review</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 4: FINAL LOGBOOK -->
+        <h2>✅ Final Approved Logbook</h2>
+        <p>This is the permanent, auditable record from all signature paths.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Skill/Encounter</th>
+                    <th>Supervisor</th>
+                    <th>Reg. Code</th>
+                    <th>Signature Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>J. Doe</td>
+                    <td>Patient #123 (3 Skills)</td>
+                    <td>B. Jones</td>
+                    <td>PC-12345</td>
+                    <td><strong>External Device</strong> (QR/Link)</td>
+                </tr>
+                <tr>
+                    <td>J. Doe</td>
+                    <td>Patient #124 (2 Skills)</td>
+                    <td>B. Jones</td>
+                    <td>PC-12345</td>
+                    <td><strong>Student Device</strong> (Hand-Over)</td>
+                </tr>
+                <tr>
+                    <td>M. Smith</td>
+                    <td>Patient #121 (1 Skill)</td>
+                    <td>A. Smith</td>
+                    <td>HPSCA-00123</td>
+                    <td><strong>Paper Scan</strong> (ID: A-00121)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

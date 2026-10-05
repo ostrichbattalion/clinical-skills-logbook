@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard (Locked)</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Dashboard</h1>
+        <p>Your Foundational Skills must be signed off by a Lecturer before you can begin logging field encounters. Select the skills you are ready to be assessed on.</p>
+
+        <!-- The "Shopping Cart" for foundational skills -->
+        <div class="pending-list">
+            <h2>Foundational Skills (Locked)</h2>
+            <ul>
+                <li class="unlocked">
+                    <input type="checkbox" id="enc1">
+                    <label for="enc1" class="details">
+                        <strong>💨 Airway Management (Basic)</strong>
+                        <div class="sub-details">Status: <strong>Unlocked</strong> (Awaiting Lecturer Sign-off)</div>
+                    </label>
+                </li>
+                <li class="locked">
+                    <input type="checkbox" id="enc2">
+                    <label for="enc2" class="details">
+                        <strong>🩺 Patient Assessment</strong>
+                        <div class="sub-details">Status: <strong>Locked</strong> (Awaiting Peer & Lecturer)</div>
+                    </label>
+                </li>
+                <li class="unlocked">
+                    <input type="checkbox" id="enc3">
+                    <label for="enc3" class="details">
+                        <strong>🩸 Circulation (IV Cannulation)</strong>
+                        <div class="sub-details">Status: <strong>Unlocked</strong> (Awaiting Peer & Lecturer)</div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- The "Checkout" Button (Links to Lecturer) -->
+        <div style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px;">
+            <a id="action-btn" href="lecturer_dashboard.html" class="btn btn-primary">
+                Request Lecturer Sign-off for Selected
+            </a>
+
+            </a>
+            <a id="logbook-btn" href="#" class="btn btn-disabled" style="margin-top: 20px;">
+                Go to Field Logbook (Locked)
+            </a>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const checkboxes = document.querySelectorAll(".pending-list input[type='checkbox']");
+    const actionBtn = document.querySelector("#action-btn");
+    const logbookBtn = document.querySelector("#logbook-btn");
+
+    function updateButton() {
+        let anySelected = false;
+        let needsLecturer = false;
+        let hasLocked = false;
+
+        // Check each selected checkbox
+        checkboxes.forEach(cb => {
+            const li = cb.closest("li");                      // get the li element
+            const statusText = li.querySelector(".sub-details").innerText.toLowerCase();
+
+            if (cb.checked) {
+                anySelected = true;
+
+                // Use the li class to detect locked skills
+                if (li.classList.contains("locked")) {
+                    hasLocked = true;
+                } else if (statusText.includes("lecturer sign-off")) {
+                    needsLecturer = true;
+                }
+            }
+        });
+
+        // --- Update main action button ---
+        if (!anySelected) {
+            actionBtn.innerText = "Select a Skill";
+            actionBtn.classList.add("btn-disabled");
+            actionBtn.href = "#";
+        } else if (hasLocked) {
+            actionBtn.innerText = "Locked – Cannot Proceed";
+            actionBtn.classList.add("btn-disabled");
+            actionBtn.href = "#";
+        } else {
+            actionBtn.innerText = "Request Sign-off";
+            actionBtn.classList.remove("btn-disabled");
+            actionBtn.href = needsLecturer 
+                ? "Lecturer_sig_form.html" 
+                : "Peer_sig_form.html";
+        }
+
+        // --- Update Field Logbook Button ---
+        let allSignedOff = true;
+        checkboxes.forEach(cb => {
+            const statusText = cb.closest("li").querySelector(".sub-details").innerText.toLowerCase();
+            if (statusText.includes("awaiting")) {
+                allSignedOff = false;
+            }
+        });
+
+        if (allSignedOff) { //Changed logic to point to WIL logbook
+            logbookBtn.innerText = "Go to Field Logbook";
+            // FIX: Point to the existing PWA dashboard
+            logbookBtn.href = "student_pwa_dashboard.html"; 
+            logbookBtn.classList.remove("btn-disabled");
+        } else {
+            logbookBtn.innerText = "Go to Field Logbook (Locked)";
+            logbookBtn.href = "#";
+            logbookBtn.classList.add("btn-disabled");
+        }
+    }
+
+    // Attach event listener to all checkboxes
+    checkboxes.forEach(cb => cb.addEventListener("change", updateButton));
+    updateButton(); // initialize button state
+    });
+    </script>
+
+
+
+
+</body>
+</html>
