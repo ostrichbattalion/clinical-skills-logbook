@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cohort Progress</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
+</head>
+<body>
+    <div class="container wide">
+        <a href="lecturer_dashboard.html" class="btn btn-link" id="back">&larr; Sign-off Queue</a>
+        <h1>Cohort Progress</h1>
+        <p><strong id="institution">…</strong></p>
+        <p id="report-msg" role="alert" hidden></p>
+
+        <div class="toolbar">
+            <div class="field"><label for="programme">Programme</label><select id="programme"><option value="">All programmes</option></select></div>
+            <div class="field"><label for="year">Year of study</label><select id="year" disabled><option value="">All years</option></select></div>
+            <button type="button" class="btn btn-secondary" id="export">⬇ Export spreadsheet (CSV)</button>
+            <a class="btn btn-primary" id="summary-link" href="#" hidden>HPCSA progress summary</a>
+            <a class="btn btn-link" href="requirements_gap.html">Requirement gap check</a>
+        </div>
+        <p id="elapsed" class="sub-details"></p>
+
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-number" id="count-total">…</div><div class="stat-label">Students</div></div>
+            <div class="stat-card"><div class="stat-number" id="count-on-track">…</div><div class="stat-label">On track</div></div>
+            <div class="stat-card warning"><div class="stat-number" id="count-behind">…</div><div class="stat-label">Behind</div></div>
+            <div class="stat-card alert"><div class="stat-number" id="count-at-risk">…</div><div class="stat-label">At risk</div></div>
+            <div class="stat-card"><div class="stat-number" id="count-no-activity">…</div><div class="stat-label">No activity</div></div>
+        </div>
+
+        <h2>Students</h2>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead><tr><th>Student</th><th>Programme</th><th class="num">College, this year</th><th class="num">HPCSA total</th><th class="num">Awaiting signature</th><th>Last logged</th><th>Pace</th></tr></thead>
+                <tbody id="students"></tbody>
+            </table>
+        </div>
+
+        <section id="skills-section" hidden>
+            <h2>Skills this year</h2>
+            <p class="sub-details">Skills where at least 30% of students are below pace are marked ⚠ and listed first.</p>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead><tr><th>Skill</th><th class="num">Students met</th><th class="num">Below pace</th><th class="num">Median signed</th></tr></thead>
+                    <tbody id="skills"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <p class="method">Pace: "on track" is within 10 percentage points of where the academic year is; "behind" within 25; otherwise "at risk". College students are measured on this year's college minimums, HPCSA-only students on their Annexure A total. A skill is below pace for a student when they have signed fewer than 75% of the count the elapsed year predicts. Only supervisor- or lecturer-signed skills count.</p>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>

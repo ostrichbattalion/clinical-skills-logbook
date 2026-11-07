@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirement Gap Check</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
+</head>
+<body>
+    <div class="container wide">
+        <a href="reports.html" class="btn btn-link">&larr; Cohort Progress</a>
+        <h1>Requirement Gap Check</h1>
+        <p>Would a student who meets every college minimum also meet the HPCSA Annexure A minimums at graduation? College minimums are added across all years of the programme and counted against the Annexure A skill they map to.</p>
+        <p id="gap-msg" role="alert" hidden></p>
+        <div id="gap"><p class="empty">Loading…</p></div>
+        <p class="method">The mapping of college logbook skills to Annexure A is in <code>backend/data/requirement-sets/</code>. Rows marked REVIEW there are judgement calls that a clinical lead should confirm.</p>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/requirements-gap.js"></script>
+</body>
+</html>

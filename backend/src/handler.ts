@@ -1,14 +1,12 @@
 import { randomBytes } from 'node:crypto';
 import type { APIGatewayProxyEventV2WithJWTAuthorizer, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { callerFromEvent, requireRole } from './auth.js';
-import { catalogue } from './catalogue.js';
 import * as db from './db.js';
 import {
   applyReturn,
   applySignature,
   buildEntry,
   canRequestSignature,
-  computeProgress,
   HttpError,
   validateNewEntry,
   validateSign,
@@ -16,7 +14,10 @@ import {
   type Caller,
   type Entry,
 } from './domain.js';
-import { findUserByEmail, findUserBySub } from './users.js';
+import { academicYear, computeCollegeProgress, computeHpcsaProgress } from './progress.js';
+import { cohortReport, gapReport, hpcsaSummary } from './reports.js';
+import { getProgramme, loggableSkills, lookupLoggable, setsForInstitution, skillName } from './requirements.js';
+import { findUserByEmail, findUserBySub, listStudents } from './users.js';
 
 type Event = APIGatewayProxyEventV2WithJWTAuthorizer;
 
@@ -44,8 +45,8 @@ const param = (event: Event, name: string) => {
   return v;
 };
 
-/** What a student or verifier sees of an entry (drops nothing sensitive today; kept as one place to redact later). */
-const view = (e: Entry) => e;
+/** What a student or verifier sees of an entry: adds skill names so any client can show college skills. */
+const view = (e: Entry) => ({ ...e, skills: e.skills.map((s) => ({ ...s, name: skillName(s.skillId) })) });
 
 async function loadAssigned(event: Event, caller: Caller) {
   requireRole(caller, ...VERIFIER_ROLES);
@@ -58,19 +59,21 @@ async function loadAssigned(event: Event, caller: Caller) {
 const routes: Record<string, (event: Event, caller: Caller) => Promise<unknown>> = {
   'GET /me': async (_e, caller) => caller,
 
-  'GET /catalogue': async (_e, caller) => ({
-    source: catalogue.source,
-    version: catalogue.version,
-    category: caller.category ?? null,
-    skills: catalogue.skills.map((s) => ({
-      id: s.id,
-      name: s.name,
-      paediatric: s.paediatric,
-      derived: s.derived,
-      minimum: caller.category ? s.minimums[caller.category] : undefined,
-      minimums: s.minimums,
-    })),
-  }),
+  'GET /catalogue': async (_e, caller) => {
+    const programme = getProgramme(caller.programmeId);
+    const year = caller.studyYear ?? 1;
+    return {
+      framework: programme ? 'college' : 'hpcsa',
+      source: programme ? programme.set.source : 'HPCSA PBEC Annexure A (14 March 2021)',
+      programme: programme ? { id: programme.programme.id, name: programme.programme.name, years: programme.programme.years } : null,
+      studyYear: programme ? year : null,
+      category: caller.category ?? null,
+      skills: loggableSkills(programme?.programme.id).map((s) => ({
+        id: s.id, name: s.name, group: s.group, derived: s.derived, recordOnly: s.recordOnly, hpcsaSkillId: s.hpcsaSkillId,
+        minimumThisYear: programme ? s.yearMinimums?.[year - 1] ?? null : null,
+      })),
+    };
+  },
 
   'GET /entries': async (_e, caller) => {
     requireRole(caller, 'student');
@@ -79,7 +82,7 @@ const routes: Record<string, (event: Event, caller: Caller) => Promise<unknown>>
 
   'POST /entries': async (event, caller) => {
     requireRole(caller, 'student');
-    const input = validateNewEntry(body(event), todayInSA());
+    const input = validateNewEntry(body(event), todayInSA(), (id) => lookupLoggable(id, caller.programmeId));
     const entry = buildEntry(input, caller, newEntryId(), new Date().toISOString());
     await db.createEntry(entry);
     return { entry: view(entry) };
@@ -140,8 +143,51 @@ const routes: Record<string, (event: Event, caller: Caller) => Promise<unknown>>
         throw new HttpError(404, 'No student with that id at your institution');
     } else requireRole(caller, 'student');
     if (!student.category) throw new HttpError(409, 'This student has no registration category set');
-    const progress = computeProgress(await db.listEntries(studentSub), student.category);
-    return { student: { sub: student.sub, name: student.name, institution: student.institution }, ...progress };
+    const entries = await db.listEntries(studentSub);
+    const programme = getProgramme(student.programmeId);
+    return {
+      student: { sub: student.sub, name: student.name, institution: student.institution, programmeId: student.programmeId ?? null, studyYear: student.studyYear ?? null },
+      academicYear: academicYear(),
+      hpcsa: computeHpcsaProgress(entries, student.category),
+      college: programme ? computeCollegeProgress(entries, programme.programme.id, student.studyYear ?? 1) : null,
+    };
+  },
+
+  'GET /reports/cohort': async (event, caller) => {
+    requireRole(caller, 'lecturer', 'admin');
+    const q = event.queryStringParameters ?? {};
+    const studyYear = q.year ? Number(q.year) : undefined;
+    if (studyYear !== undefined && !(Number.isInteger(studyYear) && studyYear >= 1 && studyYear <= 6)) throw new HttpError(400, 'year must be 1 to 6');
+    const [students, entries] = await Promise.all([listStudents(caller.institution), db.listInstitutionEntries(caller.institution)]);
+    const year = academicYear();
+    return {
+      institution: caller.institution,
+      generatedAt: new Date().toISOString(),
+      academicYear: year,
+      programmes: [
+        ...setsForInstitution(caller.institution).flatMap((s) => s.programmes.map((p) => ({ id: p.id, name: p.name, years: p.years, category: p.category }))),
+        ...(students.some((s) => !getProgramme(s.programmeId)) ? [{ id: 'none', name: 'No programme (HPCSA only)', years: 1, category: null }] : []),
+      ],
+      filter: { programmeId: q.programme ?? null, studyYear: studyYear ?? null },
+      ...cohortReport(students, entries, { programmeId: q.programme || undefined, studyYear }, year.elapsed, q.detail === '1'),
+    };
+  },
+
+  'GET /reports/hpcsa-summary': async (event, caller) => {
+    requireRole(caller, 'lecturer', 'admin');
+    const programmeId = event.queryStringParameters?.programme;
+    const set = setsForInstitution(caller.institution).find((s) => s.programmes.some((p) => p.id === programmeId));
+    if (!programmeId || !set) throw new HttpError(404, 'Choose a programme run by your institution');
+    const [students, entries] = await Promise.all([listStudents(caller.institution), db.listInstitutionEntries(caller.institution)]);
+    const year = academicYear();
+    return { generatedAt: new Date().toISOString(), academicYear: year, ...hpcsaSummary(students, entries, programmeId, year.elapsed, set) };
+  },
+
+  'GET /reports/gap': async (_e, caller) => {
+    requireRole(caller, 'lecturer', 'admin');
+    const sets = setsForInstitution(caller.institution);
+    if (!sets.length) throw new HttpError(404, 'No requirement set is loaded for your institution');
+    return { sets: sets.map(gapReport) };
   },
 
   'GET /queue': async (_e, caller) => {

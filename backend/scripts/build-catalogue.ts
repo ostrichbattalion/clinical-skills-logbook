@@ -6,34 +6,11 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { parseCsv } from './csv.js';
 import { PATIENTS_SEEN_ID, slugify, type CatalogueSkill } from '../src/catalogue-types.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-export function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = '';
-  let quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
-      else if (c === '"') quoted = false;
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === ',') { row.push(field); field = ''; }
-    else if (c === '\n' || c === '\r') {
-      if (c === '\r' && text[i + 1] === '\n') i++;
-      row.push(field); field = '';
-      if (row.some((f) => f.trim() !== '')) rows.push(row);
-      row = [];
-    } else field += c;
-  }
-  row.push(field);
-  if (row.some((f) => f.trim() !== '')) rows.push(row);
-  return rows;
-}
 
 const [header, ...rows] = parseCsv(readFileSync(join(root, 'data/hpcsa_2021_annexure_a.csv'), 'utf8'));
 if (header[0] !== 'skill' || header.length < 4) throw new Error(`Unexpected CSV header: ${header.join(',')}`);

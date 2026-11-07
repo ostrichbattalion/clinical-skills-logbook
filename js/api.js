@@ -104,7 +104,7 @@
     homeFor(user) {
       if (user.roles.includes('student')) return 'student_pwa_dashboard.html';
       if (user.roles.includes('supervisor') || user.roles.includes('lecturer')) return 'lecturer_dashboard.html';
-      if (user.roles.includes('admin')) return 'admin_dashboard.html';
+      if (user.roles.includes('admin')) return 'reports.html';
       return 'login.html';
     },
 

@@ -15,15 +15,14 @@
   document.getElementById('signer-name').value = user.name;
   document.getElementById('reg-code').value = user.regNo || '';
 
-  Promise.all([L.api('GET', '/catalogue'), L.api('GET', path)]).then(([cat, { entry: e }]) => {
-    const names = new Map(cat.skills.map((s) => [s.id, s.name]));
+  L.api('GET', path).then(({ entry: e }) => {
     document.getElementById('student-name').textContent = e.studentName;
     document.getElementById('entry-title').textContent =
       `${e.kind === 'encounter' ? 'Patient encounter' : 'Skills session'} · ${e.setting}${e.encounterRef ? ' · ' + e.encounterRef : ''} · ${L.formatDate(e.performedOn)}`;
     if (e.notes) { const n = document.getElementById('entry-notes'); n.textContent = `Student's note: ${e.notes}`; n.hidden = false; }
     const list = document.getElementById('skill-list');
     list.innerHTML = e.skills.map((s, i) => `<li><input type="checkbox" id="s${i}" value="${L.esc(s.skillId)}" checked>
-      <label for="s${i}">${L.esc(names.get(s.skillId) || s.skillId)}${s.count > 1 ? ` <strong>×${s.count}</strong>` : ''}</label></li>`).join('');
+      <label for="s${i}">${L.esc(s.name || s.skillId)}${s.count > 1 ? ` <strong>×${s.count}</strong>` : ''}</label></li>`).join('');
     signForm.hidden = false;
     document.getElementById('return-section').hidden = false;
   }).catch((err) => L.notice(msg, err.message));

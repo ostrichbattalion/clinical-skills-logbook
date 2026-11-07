@@ -6,11 +6,13 @@
   "description": "AWS serverless backend (Cognito, API Gateway, Lambda, DynamoDB) for the clinical skills logbook",
   "scripts": {
     "catalogue": "tsx scripts/build-catalogue.ts",
+    "requirements": "tsx scripts/build-requirements.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test test/*.test.ts",
     "synth": "cdk synth",
     "deploy": "cdk deploy --outputs-file cdk-outputs.json && tsx scripts/write-frontend-config.ts",
-    "create-user": "tsx scripts/create-user.ts"
+    "create-user": "tsx scripts/create-user.ts",
+    "set-year": "tsx scripts/set-study-year.ts"
   },
   "engines": {
     "node": ">=20"

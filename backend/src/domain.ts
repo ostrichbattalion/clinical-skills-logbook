@@ -6,7 +6,8 @@
  *     ▲                       │
  *     └──────── RETURNED ◀────┘ return (verifier sends it back with a reason)
  */
-import { catalogue, CATEGORIES, getSkill, PATIENTS_SEEN_ID, type Category } from './catalogue.js';
+import { CATEGORIES, type Category } from './catalogue.js';
+import { getProgramme, lookupLoggable, type LoggableSkill } from './requirements.js';
 
 export const ROLES = ['student', 'supervisor', 'lecturer', 'admin'] as const;
 export type Role = (typeof ROLES)[number];
@@ -39,6 +40,9 @@ export interface Entry {
   studentEmail: string;
   institution: string;
   category: Category;
+  /** college programme and year of study when the entry was logged (absent for HPCSA-only students) */
+  programmeId?: string;
+  studyYear?: number;
   kind: EntryKind;
   performedOn: string; // YYYY-MM-DD
   setting: string;
@@ -61,6 +65,8 @@ export interface Caller {
   institution: string;
   category?: Category;
   regNo?: string;
+  programmeId?: string;
+  studyYear?: number;
 }
 
 export class HttpError extends Error {
@@ -99,7 +105,11 @@ export interface NewEntryInput {
 }
 
 /** Validates a student's new log entry. `today` is injected for testability (YYYY-MM-DD). */
-export function validateNewEntry(body: unknown, today: string): NewEntryInput {
+export function validateNewEntry(
+  body: unknown,
+  today: string,
+  lookup: (skillId: string) => LoggableSkill | undefined = (id) => lookupLoggable(id),
+): NewEntryInput {
   if (!body || typeof body !== 'object') throw new HttpError(400, 'Request body must be a JSON object');
   const b = body as Record<string, unknown>;
 
@@ -117,8 +127,8 @@ export function validateNewEntry(body: unknown, today: string): NewEntryInput {
   const skills = b.skills.map((s: unknown) => {
     const { skillId, count } = (s ?? {}) as Record<string, unknown>;
     if (typeof skillId !== 'string') throw new HttpError(400, 'Each skill needs a skillId');
-    const skill = getSkill(skillId);
-    if (!skill) throw new HttpError(400, `Unknown skill: ${skillId}`);
+    const skill = lookup(skillId);
+    if (!skill) throw new HttpError(400, `Unknown skill for your programme: ${skillId}`);
     if (skill.derived) throw new HttpError(400, `${skill.name} is counted automatically from signed encounters`);
     if (seen.has(skillId)) throw new HttpError(400, `${skill.name} is listed twice`);
     seen.add(skillId);
@@ -140,6 +150,10 @@ export function validateNewEntry(body: unknown, today: string): NewEntryInput {
 
 export function buildEntry(input: NewEntryInput, student: Caller, entryId: string, now: string): Entry {
   if (!student.category) throw new HttpError(403, 'Your account has no registration category; ask an administrator to set it');
+  const programme = getProgramme(student.programmeId);
+  if (student.programmeId && !programme) throw new HttpError(403, 'Your programme is not set up in the logbook; ask an administrator');
+  if (programme && !(student.studyYear && student.studyYear >= 1 && student.studyYear <= programme.programme.years))
+    throw new HttpError(403, 'Your year of study is not set; ask an administrator to set it');
   return {
     entryId,
     studentSub: student.sub,
@@ -147,6 +161,7 @@ export function buildEntry(input: NewEntryInput, student: Caller, entryId: strin
     studentEmail: student.email,
     institution: student.institution,
     category: student.category,
+    ...(programme && { programmeId: programme.programme.id, studyYear: student.studyYear }),
     kind: input.kind,
     performedOn: input.performedOn,
     setting: input.setting,
@@ -217,63 +232,4 @@ function assertCanActOn(entry: Entry, verifier: Caller) {
   if (entry.status !== 'AWAITING_SIGNATURE') throw new HttpError(409, 'This entry is not awaiting a signature');
   if (entry.request?.verifierSub !== verifier.sub) throw new HttpError(403, 'This entry was sent to a different verifier');
   if (entry.studentSub === verifier.sub) throw new HttpError(403, 'You cannot sign your own entry');
-}
-
-export interface SkillProgress {
-  skillId: string;
-  name: string;
-  paediatric: boolean;
-  minimum: number;
-  verified: number;
-  pending: number;
-  met: boolean;
-}
-
-export interface Progress {
-  category: Category;
-  catalogueVersion: string;
-  totals: { required: number; met: number; withMinimum: number; percentComplete: number };
-  skills: SkillProgress[];
-}
-
-/**
- * Counts toward Annexure A: only VERIFIED skills on SIGNED entries count. Pending = claimed on entries that
- * are draft, returned or awaiting a signature. Each signed encounter counts as one patient seen.
- */
-export function computeProgress(entries: Entry[], category: Category): Progress {
-  const verified = new Map<string, number>();
-  const pending = new Map<string, number>();
-  const add = (m: Map<string, number>, id: string, n: number) => m.set(id, (m.get(id) ?? 0) + n);
-
-  for (const e of entries) {
-    if (e.status === 'SIGNED') {
-      if (e.kind === 'encounter') add(verified, PATIENTS_SEEN_ID, 1);
-      for (const s of e.skills) if (s.status === 'VERIFIED') add(verified, s.skillId, s.count);
-    } else {
-      if (e.kind === 'encounter') add(pending, PATIENTS_SEEN_ID, 1);
-      for (const s of e.skills) add(pending, s.skillId, s.count);
-    }
-  }
-
-  const skills = catalogue.skills.map((s) => {
-    const minimum = s.minimums[category];
-    const v = verified.get(s.id) ?? 0;
-    return { skillId: s.id, name: s.name, paediatric: s.paediatric, minimum, verified: v, pending: pending.get(s.id) ?? 0, met: v >= minimum };
-  });
-
-  // Overall % = verified counts (capped at each minimum) / sum of minimums, so one over-logged skill can't inflate it.
-  const withMin = skills.filter((s) => s.minimum > 0);
-  const required = withMin.reduce((a, s) => a + s.minimum, 0);
-  const achieved = withMin.reduce((a, s) => a + Math.min(s.verified, s.minimum), 0);
-  return {
-    category,
-    catalogueVersion: catalogue.version,
-    totals: {
-      required,
-      met: withMin.filter((s) => s.met).length,
-      withMinimum: withMin.length,
-      percentComplete: required === 0 ? 100 : Math.floor((achieved / required) * 100),
-    },
-    skills,
-  };
 }

@@ -5,7 +5,7 @@ import {
   DeleteCommand, DynamoDBDocumentClient, GetCommand, PutCommand, QueryCommand, TransactWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import {
-  AdminListGroupsForUserCommand, CognitoIdentityProviderClient, ListUsersCommand,
+  AdminListGroupsForUserCommand, CognitoIdentityProviderClient, ListUsersCommand, ListUsersInGroupCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
 
 process.env.TABLE_NAME = 'test-table';
@@ -31,7 +31,13 @@ const users = [
   { sub: 'lec-1', email: 'lec@wcg.za', name: 'L Ecturer', groups: ['lecturer'], institution: 'WCG' },
   { sub: 'lec-2', email: 'lec@other.za', name: 'Other Lecturer', groups: ['lecturer'], institution: 'OTHER' },
   { sub: 'stu-2', email: 'sam@wcg.za', name: 'Sam', groups: ['student'], institution: 'WCG', category: 'PARAMEDIC' },
-];
+  // college programme students and staff
+  { sub: 'dip-1', email: 'dee@cec.za', name: 'Dee Dip', groups: ['student'], institution: 'WCG College of Emergency Care', category: 'PARAMEDIC', programme: 'WCG-DIPEMC', year: '2' },
+  { sub: 'dip-2', email: 'dan@cec.za', name: 'Dan Dip', groups: ['student'], institution: 'WCG College of Emergency Care', category: 'PARAMEDIC', programme: 'WCG-DIPEMC', year: '2' },
+  { sub: 'hc-1', email: 'hal@cec.za', name: 'Hal Cert', groups: ['student'], institution: 'WCG College of Emergency Care', category: 'ECA', programme: 'WCG-HCEMC', year: '1' },
+  { sub: 'cec-lec', email: 'lec@cec.za', name: 'CEC Lecturer', groups: ['lecturer'], institution: 'WCG College of Emergency Care' },
+  { sub: 'cec-sup', email: 'sup@cec.za', name: 'CEC Supervisor', groups: ['supervisor'], institution: 'WCG College of Emergency Care' },
+] as any[];
 
 beforeEach(() => {
   items = new Map();
@@ -48,6 +54,7 @@ beforeEach(() => {
     const all = [...items.values()];
     const found = IndexName === 'GSI1'
       ? all.filter((i) => i.GSI1PK === v[':pk']).sort((a, b) => a.GSI1SK.localeCompare(b.GSI1SK))
+      : IndexName === 'GSI2' ? all.filter((i) => i.GSI2PK === v[':pk'])
       : all.filter((i) => i.PK === v[':pk'] && i.SK.startsWith(v[':sk'])).sort((a, b) => b.SK.localeCompare(a.SK));
     return { Items: structuredClone(found) };
   });
@@ -77,12 +84,24 @@ beforeEach(() => {
           { Name: 'sub', Value: x.sub }, { Name: 'email', Value: x.email }, { Name: 'name', Value: x.name },
           { Name: 'custom:institution', Value: x.institution },
           ...(x.category ? [{ Name: 'custom:category', Value: x.category }] : []),
+          ...(x.programme ? [{ Name: 'custom:programme', Value: x.programme }, { Name: 'custom:study_year', Value: x.year }] : []),
         ],
       })),
     };
   });
+  cognito.on(ListUsersInGroupCommand).callsFake(({ GroupName }: { GroupName: string }) => ({
+    Users: users.filter((u) => u.groups.includes(GroupName)).map((x) => ({
+      Username: x.email, Enabled: true,
+      Attributes: [
+        { Name: 'sub', Value: x.sub }, { Name: 'email', Value: x.email }, { Name: 'name', Value: x.name },
+        { Name: 'custom:institution', Value: x.institution },
+        ...(x.category ? [{ Name: 'custom:category', Value: x.category }] : []),
+        ...(x.programme ? [{ Name: 'custom:programme', Value: x.programme }, { Name: 'custom:study_year', Value: x.year }] : []),
+      ],
+    })),
+  }));
   cognito.on(AdminListGroupsForUserCommand).callsFake(({ Username }) => ({
-    Groups: users.find((u) => u.email === Username)!.groups.map((GroupName) => ({ GroupName })),
+    Groups: users.find((u) => u.email === Username)!.groups.map((GroupName: string) => ({ GroupName })),
   }));
 });
 
@@ -92,6 +111,7 @@ async function call(as: string, routeKey: string, opts: { body?: unknown; path?:
   const claims: Record<string, string> = {
     token_use: 'id', sub: u.sub, email: u.email, name: u.name, 'cognito:groups': `[${u.groups.join(' ')}]`,
     'custom:institution': u.institution, ...(u.category && { 'custom:category': u.category }),
+    ...(u.programme && { 'custom:programme': u.programme, 'custom:study_year': u.year }),
   };
   const res: any = await handler({
     routeKey,
@@ -147,7 +167,8 @@ test('log → request → sign / return → progress', async () => {
 
   const p = await call('stu-1', 'GET /progress');
   assert.equal(p.status, 200);
-  const get = (id: string) => p.data.skills.find((s: any) => s.skillId === id);
+  const get = (id: string) => p.data.hpcsa.skills.find((s: any) => s.skillId === id);
+  assert.equal(p.data.college, null); // HPCSA-only student
   assert.deepEqual([get(GCS).verified, get(GCS).pending, get(GCS).minimum], [1, 3, 70]);
   assert.equal(get(PULSE).verified, 0);
   assert.equal(get('patients-seen').verified, 1);
@@ -184,5 +205,51 @@ test('bad requests get clear errors, not 500s', async () => {
   assert.equal((await call('stu-1', 'GET /nowhere')).status, 404);
   const catalogue = await call('stu-1', 'GET /catalogue');
   assert.equal(catalogue.data.skills.length, 139);
-  assert.equal(catalogue.data.skills.find((s: any) => s.id === GCS).minimum, 70);
+  assert.equal(catalogue.data.framework, 'hpcsa');
+});
+
+test('programme students log college skills; lecturers get cohort, HPCSA summary and gap reports', async () => {
+  const GCS_C = 'wcg-cec-2024/glasgow-coma-scale-adult';
+  const cat = await call('dip-1', 'GET /catalogue');
+  assert.equal(cat.data.framework, 'college');
+  assert.equal(cat.data.programme.id, 'WCG-DIPEMC');
+  assert.equal(cat.data.skills.find((s: any) => s.id === GCS_C).minimumThisYear, 60);
+  // HPCSA ids are refused for a programme student
+  assert.equal((await call('dip-1', 'POST /entries', { body: newEntry({ skills: [{ skillId: GCS }] }) })).status, 400);
+  const e = await call('dip-1', 'POST /entries', { body: newEntry({ skills: [{ skillId: GCS_C, count: 5 }, { skillId: 'wcg-cec-2024/needle-cricothyroidotomy' }] }) });
+  assert.equal(e.status, 200, JSON.stringify(e.data));
+  assert.deepEqual([e.data.entry.programmeId, e.data.entry.studyYear], ['WCG-DIPEMC', 2]);
+  await call('dip-1', 'POST /entries/request-signature', { body: { entryIds: [e.data.entry.entryId], verifierEmail: 'sup@cec.za' } });
+  const s = await call('cec-sup', 'POST /queue/{studentSub}/{entryId}/sign', { path: { studentSub: 'dip-1', entryId: e.data.entry.entryId }, body: { witnessedSkillIds: [GCS_C, 'wcg-cec-2024/needle-cricothyroidotomy'], regNo: 'PA9' } });
+  assert.equal(s.status, 200, JSON.stringify(s.data));
+
+  const p = await call('dip-1', 'GET /progress');
+  assert.equal(p.data.college.programmeId, 'WCG-DIPEMC');
+  assert.deepEqual(p.data.college.skills.find((k: any) => k.skillId === GCS_C).thisYear, { minimum: 60, verified: 5, pending: 0, met: false });
+  assert.equal(p.data.hpcsa.skills.find((k: any) => k.skillId === GCS).verified, 5);
+  assert.equal(p.data.hpcsa.skills.find((k: any) => k.skillId === 'patients-seen').verified, 1);
+
+  // reports: lecturer at the college sees its three students; filters work
+  const all = await call('cec-lec', 'GET /reports/cohort');
+  assert.equal(all.status, 200, JSON.stringify(all.data));
+  assert.deepEqual(all.data.students.map((x: any) => x.name), ['Dan Dip', 'Dee Dip', 'Hal Cert']);
+  assert.deepEqual(all.data.programmes.map((x: any) => x.id), ['WCG-HCEMC', 'WCG-DIPEMC']);
+  const dip = await call('cec-lec', 'GET /reports/cohort', { query: { programme: 'WCG-DIPEMC', year: '2', detail: '1' } });
+  assert.equal(dip.data.students.length, 2);
+  assert.ok(dip.data.skills.length > 50);
+  assert.ok(dip.data.detail.some((d: any) => d.student === 'Dee Dip' && d.skill === 'Glasgow coma scale - adult' && d.yearVerified === 5));
+  const sum = await call('cec-lec', 'GET /reports/hpcsa-summary', { query: { programme: 'WCG-DIPEMC' } });
+  assert.equal(sum.status, 200, JSON.stringify(sum.data));
+  assert.equal(sum.data.cohort.total, 2);
+  assert.equal(sum.data.category, 'PARAMEDIC');
+  const gap = await call('cec-lec', 'GET /reports/gap');
+  assert.equal(gap.data.sets[0].programmes.length, 2);
+
+  // other institutions and other roles are kept out
+  assert.equal((await call('lec-1', 'GET /reports/cohort')).data.students.every((x: any) => x.name !== 'Dee Dip'), true);
+  assert.equal((await call('lec-1', 'GET /reports/gap')).status, 404);
+  assert.equal((await call('lec-1', 'GET /reports/hpcsa-summary', { query: { programme: 'WCG-DIPEMC' } })).status, 404);
+  assert.equal((await call('cec-sup', 'GET /reports/cohort')).status, 403);
+  assert.equal((await call('dip-1', 'GET /reports/cohort')).status, 403);
+  assert.equal((await call('cec-lec', 'GET /reports/cohort', { query: { year: '9' } })).status, 400);
 });

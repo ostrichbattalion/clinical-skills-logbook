@@ -10,13 +10,18 @@
 <body>
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <a href="student_pwa_dashboard.html" id="back" class="btn btn-link" style="margin: 0; width: auto;">&larr; Back to Dashboard</a>
+            <a href="student_pwa_dashboard.html" id="back" class="btn btn-link" style="margin: 0; width: auto;">&larr; Back</a>
             <div style="text-align: right; font-size: 0.9em; color: #666;">
                 <strong>Overall:</strong> <span id="overall">…</span><br><span id="met"></span>
             </div>
         </div>
-        <h1>Progress Against HPCSA Minimums</h1>
-        <p><span id="who"></span><span id="category">…</span>. Only skills signed by a supervisor or lecturer count. Minimums are cumulative to graduation (HPCSA PBEC, Annexure A, March 2021).</p>
+        <h1>Skills Progress <span id="who" class="sub-details"></span></h1>
+        <div class="tracker-filters view-tabs" id="view-tabs" hidden>
+            <button class="filter-btn" data-view="year" aria-pressed="false">College: this year</button>
+            <button class="filter-btn" data-view="total" aria-pressed="false">College: to graduation</button>
+            <button class="filter-btn" data-view="hpcsa" aria-pressed="false">HPCSA Annexure A</button>
+        </div>
+        <p id="framework-note"></p>
         <p id="tracker-msg" role="alert" hidden></p>
         <div class="tracker-filters">
             <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
@@ -24,8 +29,9 @@
             <button class="filter-btn" data-filter="notstarted" aria-pressed="false">Not Started</button>
             <button class="filter-btn" data-filter="met" aria-pressed="false">Met</button>
             <button class="filter-btn" data-filter="paeds" aria-pressed="false">Paediatric</button>
+            <button class="filter-btn" data-filter="record" aria-pressed="false" hidden>Medications</button>
         </div>
-        <p><input type="checkbox" id="show-zero"> <label for="show-zero" style="display:inline">Show skills with no minimum for this category</label></p>
+        <p><input type="checkbox" id="show-zero"> <label for="show-zero" style="display:inline">Show skills with no minimum here</label></p>
         <div class="achievements-grid" id="grid"><p class="empty">Loading…</p></div>
     </div>
     <script src="js/config.js"></script>

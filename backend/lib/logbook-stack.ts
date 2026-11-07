@@ -40,6 +40,11 @@ export class LogbookStack extends cdk.Stack {
           partitionKey: { name: 'GSI1PK', type: dynamodb.AttributeType.STRING },
           sortKey: { name: 'GSI1SK', type: dynamodb.AttributeType.STRING },
         },
+        {
+          indexName: 'GSI2',
+          partitionKey: { name: 'GSI2PK', type: dynamodb.AttributeType.STRING },
+          sortKey: { name: 'GSI2SK', type: dynamodb.AttributeType.STRING },
+        },
       ],
     });
 
@@ -54,6 +59,8 @@ export class LogbookStack extends cdk.Stack {
         institution: new cognito.StringAttribute({ minLen: 1, maxLen: 120, mutable: true }),
         category: new cognito.StringAttribute({ minLen: 3, maxLen: 12, mutable: true }), // ECA | PARAMEDIC | ECP
         reg_no: new cognito.StringAttribute({ maxLen: 40, mutable: true }), // HPCSA registration number
+        programme: new cognito.StringAttribute({ maxLen: 40, mutable: true }), // requirement-set programme id, e.g. WCG-DIPEMC
+        study_year: new cognito.StringAttribute({ maxLen: 2, mutable: true }), // current year of study, "1".."6"
       },
       passwordPolicy: { minLength: 10, requireLowercase: true, requireUppercase: true, requireDigits: true, requireSymbols: false },
       mfa: cognito.Mfa.OPTIONAL,
@@ -81,7 +88,7 @@ export class LogbookStack extends cdk.Stack {
       refreshTokenValidity: cdk.Duration.days(30),
       readAttributes: new cognito.ClientAttributes()
         .withStandardAttributes({ email: true, emailVerified: true, fullname: true })
-        .withCustomAttributes('institution', 'category', 'reg_no'),
+        .withCustomAttributes('institution', 'category', 'reg_no', 'programme', 'study_year'),
       writeAttributes: new cognito.ClientAttributes(),
     });
 
@@ -91,8 +98,8 @@ export class LogbookStack extends cdk.Stack {
       handler: 'handler',
       runtime: lambda.Runtime.NODEJS_22_X,
       architecture: lambda.Architecture.ARM_64,
-      memorySize: 512,
-      timeout: cdk.Duration.seconds(10),
+      memorySize: 1024, // reports compute a whole cohort in one request
+      timeout: cdk.Duration.seconds(20),
       environment: { TABLE_NAME: table.tableName, USER_POOL_ID: userPool.userPoolId },
       bundling: { format: OutputFormat.ESM, minify: true, sourceMap: true, target: 'node22',
         banner: "import { createRequire } from 'module';const require = createRequire(import.meta.url);" },
@@ -104,7 +111,7 @@ export class LogbookStack extends cdk.Stack {
     table.grantReadWriteData(fn);
     fn.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ['cognito-idp:ListUsers', 'cognito-idp:AdminListGroupsForUser'],
+        actions: ['cognito-idp:ListUsers', 'cognito-idp:ListUsersInGroup', 'cognito-idp:AdminListGroupsForUser'],
         resources: [userPool.userPoolArn],
       }),
     );

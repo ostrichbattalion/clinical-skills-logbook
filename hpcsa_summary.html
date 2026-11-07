@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPCSA Progress Summary</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
+</head>
+<body>
+    <div class="container wide">
+        <div class="no-print">
+            <a href="reports.html" class="btn btn-link" id="back">&larr; Cohort Progress</a>
+            <div class="toolbar">
+                <button type="button" class="btn btn-primary" id="print">🖨 Print or save as PDF</button>
+                <label style="display:inline-flex;gap:6px;align-items:center;font-weight:normal"><input type="checkbox" id="include-names"> Include names of students needing support</label>
+            </div>
+            <p class="sub-details">Student names are left out by default; the PBEC report asks about the cohort, not individuals.</p>
+        </div>
+        <p id="summary-msg" role="alert" hidden></p>
+
+        <article class="report-doc" id="doc" hidden>
+            <h1>Clinical Learning Progress Report</h1>
+            <p>Progress toward the minimum clinical skill and patient-related activities at the point of graduation (HPCSA Professional Board for Emergency Care, letter of 14 March 2021, Annexure A).</p>
+            <dl class="report-meta">
+                <dt>Institution</dt><dd id="m-institution"></dd>
+                <dt>Programme</dt><dd id="m-programme"></dd>
+                <dt>Registration category</dt><dd id="m-category"></dd>
+                <dt>Academic year</dt><dd id="m-period"></dd>
+                <dt>Cohort</dt><dd id="m-cohort"></dd>
+                <dt>Report date</dt><dd id="m-date"></dd>
+            </dl>
+
+            <h2>1. Anticipated difficulties in obtaining the clinical skill requirements</h2>
+            <p id="difficulty-answer"></p>
+            <div class="table-wrap" id="difficulty-table">
+                <table class="data-table">
+                    <thead><tr><th>Skill (Annexure A)</th><th class="num">Minimum</th><th class="num">Students below pace</th><th>College plan</th></tr></thead>
+                    <tbody id="difficulties"></tbody>
+                </table>
+            </div>
+
+            <h2>2. Progress on every required skill</h2>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead><tr><th>Skill (Annexure A)</th><th class="num">Minimum</th><th class="num">Students met</th><th class="num">Below pace</th><th>Anticipated difficulty</th><th>College plan</th></tr></thead>
+                    <tbody id="all-skills"></tbody>
+                </table>
+            </div>
+
+            <h2>3. College requirements compared with Annexure A</h2>
+            <p>Annexure A skills where the college's own minimums, added across all years, are lower than the HPCSA minimum.</p>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead><tr><th>Skill (Annexure A)</th><th class="num">HPCSA minimum</th><th class="num">College minimum</th><th>Status</th></tr></thead>
+                    <tbody id="shortfalls"></tbody>
+                </table>
+            </div>
+
+            <h2>4. Students needing support</h2>
+            <p id="support-count"></p>
+            <div id="names-block" hidden><ul id="names"></ul></div>
+
+            <h2>5. Comments and planned interventions</h2>
+            <textarea rows="6" style="width:100%;box-sizing:border-box" aria-label="Comments and planned interventions" placeholder="e.g. additional placements arranged with clinical learning partners"></textarea>
+
+            <div class="signature-line"><div>Head of Department</div><div>Signature</div><div>Date</div></div>
+
+            <p class="method">Method: counts include only skills performed on patients and signed by a registered supervisor or lecturer. College logbook skills are mapped to their Annexure A equivalent. A student is below pace on a skill when they have signed fewer than 75% of the count expected by now, where expected = minimum × (completed years + share of this academic year elapsed) ÷ years in the programme. A skill is an anticipated difficulty when 30% or more of the cohort is below pace on it.</p>
+        </article>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/hpcsa-summary.js"></script>
+</body>
+</html>

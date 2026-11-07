@@ -12,13 +12,12 @@
   const awaitingList = document.getElementById('awaiting-list');
   const signedList = document.getElementById('signed-list');
   const requestBtn = document.getElementById('request-btn');
-  let names = new Map();
 
   if (new URLSearchParams(location.search).get('saved')) L.notice(msg, 'Entry saved to your pending list.', 'ok');
   if (new URLSearchParams(location.search).get('requested')) L.notice(msg, 'Signature request sent.', 'ok');
 
   const skillLine = (e) => e.skills.map((s) => {
-    const n = L.esc(names.get(s.skillId) || s.skillId) + (s.count > 1 ? ` ×${s.count}` : '');
+    const n = L.esc(s.name || s.skillId) + (s.count > 1 ? ` ×${s.count}` : '');
     return s.status === 'NOT_WITNESSED' ? `<s title="Not witnessed">${n}</s>` : n;
   }).join(', ');
   const title = (e) => (e.kind === 'encounter' ? 'Patient encounter' : 'Skills session') + ` · ${L.esc(e.setting)}` + (e.encounterRef ? ` · ${L.esc(e.encounterRef)}` : '');
@@ -85,8 +84,7 @@
 
   async function load() {
     try {
-      const [cat, data] = await Promise.all([names.size ? null : L.api('GET', '/catalogue'), L.api('GET', '/entries')]);
-      if (cat) names = new Map(cat.skills.map((s) => [s.id, s.name]));
+      const data = await L.api('GET', '/entries');
       render(data.entries);
     } catch (err) { L.notice(msg, err.message); }
   }

@@ -14,6 +14,8 @@ import type { Entry } from './domain.js';
  *   Entry:  PK = STUDENT#<studentSub>  SK = ENTRY#<entryId>
  *   GSI1 (verification queue, only while AWAITING_SIGNATURE):
  *           GSI1PK = VERIFIER#<verifierSub>  GSI1SK = <requestedAt>#<entryId>
+ *   GSI2 (institution reports, every entry):
+ *           GSI2PK = INST#<institution>      GSI2SK = <studentSub>#<entryId>
  */
 export const doc = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
   marshallOptions: { removeUndefinedValues: true },
@@ -24,10 +26,13 @@ const table = () => {
   return t;
 };
 
-type Item = Entry & { PK: string; SK: string; GSI1PK?: string; GSI1SK?: string; entityType: 'Entry' };
+type Item = Entry & { PK: string; SK: string; GSI1PK?: string; GSI1SK?: string; GSI2PK: string; GSI2SK: string; entityType: 'Entry' };
 
 export function toItem(e: Entry): Item {
-  const item: Item = { ...e, PK: `STUDENT#${e.studentSub}`, SK: `ENTRY#${e.entryId}`, entityType: 'Entry' };
+  const item: Item = {
+    ...e, PK: `STUDENT#${e.studentSub}`, SK: `ENTRY#${e.entryId}`, entityType: 'Entry',
+    GSI2PK: `INST#${e.institution}`, GSI2SK: `${e.studentSub}#${e.entryId}`,
+  };
   if (e.status === 'AWAITING_SIGNATURE' && e.request) {
     item.GSI1PK = `VERIFIER#${e.request.verifierSub}`;
     item.GSI1SK = `${e.request.requestedAt}#${e.entryId}`;
@@ -36,7 +41,7 @@ export function toItem(e: Entry): Item {
 }
 
 export function fromItem(item: Record<string, unknown>): Entry {
-  const { PK: _pk, SK: _sk, GSI1PK: _g1, GSI1SK: _g2, entityType: _t, ...entry } = item;
+  const { PK: _pk, SK: _sk, GSI1PK: _g1, GSI1SK: _g2, GSI2PK: _g3, GSI2SK: _g4, entityType: _t, ...entry } = item;
   return entry as unknown as Entry;
 }
 
@@ -75,6 +80,16 @@ export function listQueue(verifierSub: string): Promise<Entry[]> {
     IndexName: 'GSI1',
     KeyConditionExpression: 'GSI1PK = :pk',
     ExpressionAttributeValues: { ':pk': `VERIFIER#${verifierSub}` },
+  });
+}
+
+/** Every entry at an institution, for cohort reports. */
+export function listInstitutionEntries(institution: string): Promise<Entry[]> {
+  return queryAll({
+    TableName: table(),
+    IndexName: 'GSI2',
+    KeyConditionExpression: 'GSI2PK = :pk',
+    ExpressionAttributeValues: { ':pk': `INST#${institution}` },
   });
 }
 

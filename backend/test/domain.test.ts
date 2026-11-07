@@ -2,10 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { catalogue, PATIENTS_SEEN_ID } from '../src/catalogue.js';
 import {
-  applyReturn, applySignature, buildEntry, computeProgress, HttpError, validateNewEntry, validateSign,
+  applyReturn, applySignature, buildEntry, HttpError, validateNewEntry, validateSign,
   type Caller, type Entry,
 } from '../src/domain.js';
 import { parseGroups } from '../src/auth.js';
+import { computeHpcsaProgress as computeProgress } from '../src/progress.js';
 
 const student: Caller = { sub: 's1', email: 'jane@x.za', name: 'Jane', roles: ['student'], institution: 'WCG', category: 'ECA' };
 const supervisor: Caller = { sub: 'v1', email: 'bj@x.za', name: 'B Jones', roles: ['supervisor'], institution: 'WCG', regNo: 'PA1' };
@@ -85,7 +86,7 @@ test('progress counts only verified skills on signed entries', () => {
   const signed = applySignature(awaiting(), supervisor, { witnessedSkillIds: [GCS], regNo: 'x' }, 'T');
   const pending = { ...awaiting(), entryId: 'e2' };
   const p = computeProgress([signed, pending], 'ECA');
-  const get = (id: string) => p.skills.find((s) => s.skillId === id)!;
+  const get = (id: string) => p.skills.find((s: { skillId: string }) => s.skillId === id)!;
   assert.deepEqual([get(GCS).verified, get(GCS).pending, get(GCS).minimum], [1, 1, 70]);
   assert.deepEqual([get(PULSE).verified, get(PULSE).pending], [0, 2]); // not witnessed doesn't count
   assert.deepEqual([get(PATIENTS_SEEN_ID).verified, get(PATIENTS_SEEN_ID).pending], [1, 1]);
@@ -96,7 +97,7 @@ test('overall percentage caps each skill at its minimum', () => {
   const big: Entry = { ...awaiting(), status: 'SIGNED', kind: 'skills', skills: [{ skillId: GCS, count: 50, status: 'VERIFIED' }] };
   const many = Array.from({ length: 10 }, (_, i) => ({ ...big, entryId: `b${i}` })); // 500 GCS, minimum 70
   const p = computeProgress(many, 'ECA');
-  assert.equal(p.skills.find((s) => s.skillId === GCS)!.met, true);
+  assert.equal(p.skills.find((s: { skillId: string }) => s.skillId === GCS)!.met, true);
   assert.equal(p.totals.percentComplete, Math.floor((70 / p.totals.required) * 100));
   assert.equal(p.totals.met, 1);
 });

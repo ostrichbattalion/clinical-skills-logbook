@@ -1,0 +1,10 @@
+{
+  "id": "wcg-cec-2024",
+  "institution": "WCG College of Emergency Care",
+  "name": "WCG CEC clinical logbook",
+  "source": "WCG College of Emergency Care clinical logbook, 2024/2025 edition",
+  "programmes": [
+    { "id": "WCG-HCEMC", "column": "HCEMC", "name": "Higher Certificate in Emergency Medical Care", "category": "ECA", "years": 1 },
+    { "id": "WCG-DIPEMC", "column": "DIPEMC", "name": "Diploma in Emergency Medical Care", "category": "PARAMEDIC", "years": 3 }
+  ]
+}

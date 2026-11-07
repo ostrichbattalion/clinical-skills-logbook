@@ -66,13 +66,17 @@
 
   function renderCommon() {
     commonBox.innerHTML = '';
-    for (const id of COMMON) {
-      const s = skills.find((x) => x.id === id);
-      if (!s) continue;
+    const seen = new Set();
+    for (const hid of COMMON) {
+      // college lists: the first college skill that counts toward this HPCSA skill
+      const s = skills.find((x) => !x.derived && (x.id === hid || x.hpcsaSkillId === hid));
+      if (!s || seen.has(s.id)) continue;
+      seen.add(s.id);
+      const id = s.id;
       const li = document.createElement('li');
       const box = document.createElement('input');
       box.type = 'checkbox';
-      box.id = `common-${id}`;
+      box.id = `common-${hid}`;
       box.checked = chosen.has(id);
       box.addEventListener('change', () => { box.checked ? add(id) : (chosen.delete(id), renderChosen()); });
       const label = document.createElement('label');
@@ -88,14 +92,14 @@
     results.innerHTML = '';
     if (q.length < 2) { results.hidden = true; return; }
     const words = q.split(/\s+/);
-    const matches = skills.filter((s) => !s.derived && words.every((w) => s.name.toLowerCase().includes(w))).slice(0, 30);
+    const matches = skills.filter((s) => !s.derived && words.every((w) => (s.name + ' ' + s.group).toLowerCase().includes(w))).slice(0, 30);
     results.hidden = false;
-    if (!matches.length) { results.innerHTML = '<li class="empty" style="padding:10px">No matching skill in Annexure A.</li>'; return; }
+    if (!matches.length) { results.innerHTML = '<li class="empty" style="padding:10px">No matching skill in your logbook list.</li>'; return; }
     for (const s of matches) {
       const li = document.createElement('li');
       const b = document.createElement('button');
       b.type = 'button';
-      b.textContent = s.name + (chosen.has(s.id) ? ' ✓' : '');
+      b.innerHTML = `${L.esc(s.name)}${chosen.has(s.id) ? ' ✓' : ''}<span class="sub-details" style="display:block">${L.esc(s.group)}${s.recordOnly ? ' · record only' : ''}${s.minimumThisYear ? ` · this year's minimum ${s.minimumThisYear}` : ''}</span>`;
       b.addEventListener('click', () => { add(s.id); search.value = ''; renderResults(); search.focus(); });
       li.appendChild(b);
       results.appendChild(li);
@@ -105,6 +109,9 @@
 
   L.api('GET', '/catalogue').then((c) => {
     skills = c.skills;
+    document.getElementById('framework').textContent = c.programme
+      ? `Logging against ${c.programme.name}, year ${c.studyYear} (${c.source}). Skills also count toward the HPCSA minimums.`
+      : `Logging against ${c.source}.`;
     renderCommon();
     renderChosen();
   }).catch((err) => L.notice(msg, err.message));

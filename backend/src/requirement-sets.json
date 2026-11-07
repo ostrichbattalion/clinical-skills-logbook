@@ -1,0 +1,3081 @@
+{
+ "sets": [
+  {
+   "id": "wcg-cec-2024",
+   "institution": "WCG College of Emergency Care",
+   "name": "WCG CEC clinical logbook",
+   "source": "WCG College of Emergency Care clinical logbook, 2024/2025 edition",
+   "programmes": [
+    {
+     "id": "WCG-HCEMC",
+     "name": "Higher Certificate in Emergency Medical Care",
+     "category": "ECA",
+     "years": 1
+    },
+    {
+     "id": "WCG-DIPEMC",
+     "name": "Diploma in Emergency Medical Care",
+     "category": "PARAMEDIC",
+     "years": 3
+    }
+   ],
+   "skills": [
+    {
+     "id": "wcg-cec-2024/total-number-of-patients-seen-and-documented",
+     "name": "Total number of patients seen and documented",
+     "group": "General skills",
+     "hpcsaSkillId": "patients-seen",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": true,
+     "note": "Counted automatically from signed encounters",
+     "minimums": {
+      "WCG-HCEMC": [
+       100
+      ],
+      "WCG-DIPEMC": [
+       45,
+       70,
+       85
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/glasgow-coma-scale-adult",
+     "name": "Glasgow coma scale - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "glasgow-coma-scale-gcs-score",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       70
+      ],
+      "WCG-DIPEMC": [
+       45,
+       60,
+       40
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/history-taking-adult",
+     "name": "History taking - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "history-taking-registration-category-specific",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       60
+      ],
+      "WCG-DIPEMC": [
+       45,
+       45,
+       25
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/general-physical-assessment-medical-adult",
+     "name": "General physical assessment: medical - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "general-physical-assessment-medical",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       60
+      ],
+      "WCG-DIPEMC": [
+       45,
+       45,
+       25
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/general-physical-assessment-trauma-adult",
+     "name": "General physical assessment: trauma - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "general-physical-assessment-trauma",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       30
+      ],
+      "WCG-DIPEMC": [
+       15,
+       20,
+       25
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/pulse-with-characteristics-measurement-adult",
+     "name": "Pulse (with characteristics) measurement - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "pulse-with-characteristics-measurement",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       80
+      ],
+      "WCG-DIPEMC": [
+       45,
+       60,
+       45
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/respirations-with-characteristics-measurement-adult",
+     "name": "Respirations (with characteristics) measurement - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "respirations-with-characteristics-measurement",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       80
+      ],
+      "WCG-DIPEMC": [
+       45,
+       60,
+       45
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/temperature-measurement-oral-axillary-skin-adult",
+     "name": "Temperature measurement: oral/axillary/skin - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "temperature-measurement-oral-axillary-skin",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       20
+      ],
+      "WCG-DIPEMC": [
+       20,
+       20,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/temperature-measurement-tympanic-adult",
+     "name": "Temperature measurement: tympanic - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "temperature-measurement-tympanic",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       2,
+       3,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-glucose-measurement-manual-adult",
+     "name": "Blood glucose measurement (manual) - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "blood-glucose-measurement-visual-test-strip",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       7,
+       8,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-glucose-measurement-electronic-adult",
+     "name": "Blood glucose measurement (electronic) - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "blood-glucose-measurement-use-of-glucometer",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       30
+      ],
+      "WCG-DIPEMC": [
+       20,
+       20,
+       20
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-pressure-measurement-nibp-adult",
+     "name": "Blood pressure measurement: NIBP - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "blood-pressure-measurement-non-inasive-blood-pressure-nibp",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       40
+      ],
+      "WCG-DIPEMC": [
+       40,
+       20,
+       20
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-pressure-measurement-manual-sphygmomanometer-adult",
+     "name": "Blood pressure measurement: manual sphygmomanometer - adult",
+     "group": "Patient Assessment Skills",
+     "hpcsaSkillId": "blood-pressure-measurement-manual-sphygmomanometer",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       50
+      ],
+      "WCG-DIPEMC": [
+       40,
+       25,
+       30
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/basic-manual-airway-manoeuvres",
+     "name": "Basic manual airway manoeuvres",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "manual-airway-manoeuvre",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       5,
+       10,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/suctioning-oropharynx-nasopharynx",
+     "name": "Suctioning: oropharynx/nasopharynx",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "suctioning-oropharynx-nasopharynx",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       3,
+       3,
+       4
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/suctioning-of-the-airway-with-a-supraglottic-extraglottic-device-in-place",
+     "name": "Suctioning of the airway with a supraglottic/extraglottic device in place",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "suctioning-supraglottic-extraglottic-device",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/manual-airway-obstruction-manoeuvres-conscious-choking-patient",
+     "name": "Manual airway obstruction manoeuvres (conscious choking patient)",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "removal-of-foreign-body-manual-airway-obstruction-manoeuvre",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/oropharyngeal-airway-insertion",
+     "name": "Oropharyngeal airway insertion",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-an-oropharyngeal-nasopharyngeal-tube-opt-npt",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       3,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/nasopharyngeal-tube-insertion",
+     "name": "Nasopharyngeal tube insertion",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-an-oropharyngeal-nasopharyngeal-tube-opt-npt",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-magill-s-forceps-or-equivalent",
+     "name": "Use of Magill's forceps or equivalent",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "removal-of-foreign-body-manual-airway-obstruction-manoeuvre",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Magill forceps counted as foreign body removal, the same HPCSA row as the choking manoeuvre",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/supraglottic-airway-device-insertion-cardiac-arrest-only",
+     "name": "Supraglottic airway device insertion (cardiac arrest only)",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-supraglottic-extraglottic-device",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/needle-cricothyroidotomy",
+     "name": "Needle cricothyroidotomy",
+     "group": "Airway Skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: No Annexure A row; nearest is transtracheal jet ventilation (minimum 0)",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/mask-oxygen-administration-adult",
+     "name": "Mask oxygen administration - adult",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "mask-oxygen-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       10,
+       10,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/nasal-cannula-oxygen-administration-adult",
+     "name": "Nasal cannula oxygen administration - adult",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "nasal-cannula-oxygen-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       5,
+       5,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/nebulised-oxygen-administration",
+     "name": "Nebulised oxygen administration",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "nebulised-oxygen-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       2
+      ],
+      "WCG-DIPEMC": [
+       5,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/nebulisation-of-medications-as-per-scope-of-practice",
+     "name": "Nebulisation of medications as per scope of practice",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "nebulised-medication-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       2
+      ],
+      "WCG-DIPEMC": [
+       5,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-a-pulse-oximeter-adult",
+     "name": "Use of a pulse oximeter - adult",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "use-of-a-pulse-oximeter",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       50
+      ],
+      "WCG-DIPEMC": [
+       45,
+       40,
+       20
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/needle-thoracentesis-adult-and-paediatric",
+     "name": "Needle thoracentesis - adult and paediatric",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "needle-thoracentesis",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/bag-valve-mask-manual-ventilation-or-equivalent",
+     "name": "Bag valve mask manual ventilation (or equivalent)",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "bag-valve-mask-ventilation-or-equivalent",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       5,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/bag-valve-tube-manual-ventilation-or-equivalent",
+     "name": "Bag valve tube manual ventilation (or equivalent)",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "bag-valve-tube-ventilation-or-equivalent",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       10,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/non-invasive-ventilation-oxygen-driven-without-mechanical-ventilator",
+     "name": "Non-invasive ventilation - oxygen driven (without mechanical ventilator)",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "non-invasive-ventilation-manual-device",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: listed twice in DIPEMC Y3 (2 and 3); higher used",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-capnography-capnometry-via-endotracheal-tube-extra-glottic-device",
+     "name": "Use of capnography/capnometry - via endotracheal tube/extra-glottic device",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "use-of-endotracheal-extraglottic-confirmation-device",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: HC minimum (5) matches HPCSA ECA confirmation device (5); for the diploma this and the confirmation-device row both count, so one intubation logged under both is counted twice",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-capnography-capnometry-via-facemask-nasal-cannula",
+     "name": "Use of capnography/capnometry - via facemask/nasal cannula",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: listed twice in DIPEMC Y3 (5 and 3); higher used",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/peak-flow-measurement-and-interpretation",
+     "name": "Peak flow measurement and interpretation",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "use-of-a-peak-flow-meter",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/peripheral-intravenous-cannulation-limbs-and-hands",
+     "name": "Peripheral intravenous cannulation - limbs and hands",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intravenous-infusion-peripheral-limb-cannulation-and-attachment",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       30
+      ],
+      "WCG-DIPEMC": [
+       20,
+       25,
+       25
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/intraosseous-insertion-adult",
+     "name": "Intraosseous insertion - adult",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intraosseous-io-infusion-adult-limb-cannulation-and-attachment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/intravenous-intraosseous-fluid-therapy-other-than-medication-administration",
+     "name": "Intravenous/intraosseous fluid therapy (other than medication administration)",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       20,
+       25,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/oral-rehydration",
+     "name": "Oral rehydration",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "oral-rehydration",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/intravenous-intraosseous-medication-administration",
+     "name": "Intravenous/intraosseous medication administration",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "iv-io-medication-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       10,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/subcutaneous-medication-administration",
+     "name": "Subcutaneous medication administration",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "subcutaneous-medication-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/oral-medication-administration",
+     "name": "Oral medication administration",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "oral-medication-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/intramuscular-medication-administration",
+     "name": "Intramuscular medication administration",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intramuscular-medication-administration",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       7,
+       8
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/topical-haemostatic-agents",
+     "name": "Topical haemostatic agents",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "use-of-a-topical-haemostatic-agent",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/wound-care-and-application-of-dressing-including-pressure-dressings",
+     "name": "Wound care and application of dressing, including pressure dressings",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "use-of-wound-dressing-including-pressure-dressings",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Some years include tourniquet in this row; counted as wound dressing only",
+     "minimums": {
+      "WCG-HCEMC": [
+       7
+      ],
+      "WCG-DIPEMC": [
+       7,
+       8,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/precordial-thump",
+     "name": "Precordial thump",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "precordial-thump",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/automated-external-defibrillation",
+     "name": "Automated external defibrillation",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "defibrillation-automated-external-defibrillator",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       2,
+       1,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/manual-defibrillation-asynchronous",
+     "name": "Manual defibrillation (asynchronous)",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "manual-defibrillation",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/3-lead-ecg-monitoring-and-diagnosis-adult",
+     "name": "3 lead ECG monitoring and diagnosis - adult",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "use-of-a-electrocardiogram-ecg-3-5-lead",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       25
+      ],
+      "WCG-DIPEMC": [
+       null,
+       25,
+       25
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/cardiac-arrest-management-adult",
+     "name": "Cardiac arrest management - adult",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "cardiopulmonary-cpr-adult",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/cardiac-arrest-management-child-infant-and-neonate",
+     "name": "Cardiac arrest management - child, infant and neonate",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "cpr-child-infant",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Counted as child/infant CPR; Annexure A lists neonate CPR separately (both minimum 0)",
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/cervical-spinal-clearance-using-recognised-techniques",
+     "name": "Cervical spinal clearance using recognised techniques",
+     "group": "General skills",
+     "hpcsaSkillId": "clearance-of-cervical-spine-using-recognised-technique",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       4
+      ],
+      "WCG-DIPEMC": [
+       null,
+       4,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/spinal-movement-restriction",
+     "name": "Spinal movement restriction",
+     "group": "General skills",
+     "hpcsaSkillId": "spinal-motion-restriction-immobilisation",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       3,
+       3,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/application-of-limb-splints-including-traction-splints",
+     "name": "Application of limb splints including traction splints",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-limb-immobilisation-device-including-traction-devices",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       2,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/application-of-pelvic-binding-device",
+     "name": "Application of pelvic binding device",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-pelvic-stabilisation-device",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/application-of-vacuum-mattress",
+     "name": "Application of vacuum mattress",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-vacuum-mattress",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-pneumatic-anti-shock-garment",
+     "name": "Use of pneumatic anti-shock garment",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-pneumatic-anti-shock-garment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-non-pneumatic-anti-shock-garment",
+     "name": "Use of non-pneumatic anti-shock garment",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-non-pneumatic-anti-shock-garment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-a-stretcher",
+     "name": "Use of a stretcher",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-stretcher",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       15,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/patient-lifting-and-carrying",
+     "name": "Patient lifting and carrying",
+     "group": "General skills",
+     "hpcsaSkillId": "patient-lifting-and-carrying",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       15,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/declaration-of-death",
+     "name": "Declaration of death",
+     "group": "General skills",
+     "hpcsaSkillId": "declaration-of-death",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/withdrawal-of-resuscitation-efforts",
+     "name": "Withdrawal of resuscitation efforts",
+     "group": "General skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/withholding-resuscitation-in-cases-of-obvious-death",
+     "name": "Withholding resuscitation in cases of obvious death",
+     "group": "General skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/interfacility-transfer-as-per-relevant-scope-of-practice",
+     "name": "Interfacility transfer as per relevant scope of practice",
+     "group": "General skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/set-up-and-monitoring-of-a-patient-in-an-incubator",
+     "name": "Set up and monitoring of a patient in an incubator",
+     "group": "General skills",
+     "hpcsaSkillId": "setup-and-monitoring-of-an-incubator",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/normal-vaginal-delivery",
+     "name": "Normal vaginal delivery",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "normal-vaginal-delivery",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       5,
+       5,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/prolapsed-cord-management",
+     "name": "Prolapsed cord management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "care-of-prolapsed-umbilical-cord",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/breech-delivery-management",
+     "name": "Breech delivery management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "breech-delivery-assisted-and-unassisted",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/malpresentation-management",
+     "name": "Malpresentation management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/preterm-labour-management",
+     "name": "Preterm labour management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Annexure A tocolysis (minimum 0) is related but not equivalent",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/obstructed-labour-management",
+     "name": "Obstructed labour management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/post-partum-haemorrhage-management",
+     "name": "Post-partum haemorrhage management",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Annexure A fundal massage (ECP minimum 1) is part of PPH care but not equivalent",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/apgar-score",
+     "name": "APGAR score",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "apgar-score",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       10,
+       10,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/ante-natal-examination",
+     "name": "Ante-natal examination",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "ante-natal-examination",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       5,
+       5,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/post-natal-examination",
+     "name": "Post-natal examination",
+     "group": "Obstetrics and Gynaecology skills",
+     "hpcsaSkillId": "post-natal-examination",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       10
+      ],
+      "WCG-DIPEMC": [
+       5,
+       5,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/glasgow-coma-scale-paediatric",
+     "name": "Glasgow coma scale - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "gcs-score-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/history-taking-paediatric",
+     "name": "History taking - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "history-taking-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/general-physical-assessment-medical-paediatric",
+     "name": "General physical assessment: medical - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "general-physical-assessment-medical-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       7
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/general-physical-assessment-trauma-paediatric",
+     "name": "General physical assessment: trauma - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "general-physical-assessment-trauma-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/pulse-with-characteristics-measurement-paediatric",
+     "name": "Pulse (with characteristics) measurement - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "pulse-measurement-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       7
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/respirations-with-characteristics-measurement-paediatric",
+     "name": "Respirations (with characteristics) measurement - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "respirations-measurement-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       7
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/temperature-measurement-non-invasive-paediatric",
+     "name": "Temperature measurement: non-invasive - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "temperature-non-invasive-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-glucose-measurement-electronic-paediatric",
+     "name": "Blood glucose measurement (electronic) - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "blood-glucose-glucometer-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-pressure-measurement-nibp-paediatric",
+     "name": "Blood pressure measurement: NIBP - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "blood-pressure-measurement-nibp-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/blood-pressure-measurement-manual-sphygmomanometer-paediatric",
+     "name": "Blood pressure measurement: manual sphygmomanometer - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "blood-pressure-measurement-manual-sphygmomanometer-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/mask-oxygen-administration-paediatric",
+     "name": "Mask oxygen administration - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "mask-oxygen-administration-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/nasal-cannula-oxygen-administration-paediatric",
+     "name": "Nasal cannula oxygen administration - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "nasal-cannula-oxygen-administration-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       2
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-a-pulse-oximeter-paediatric",
+     "name": "Use of a pulse oximeter - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "use-of-a-pulse-oximeter-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       10
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/3-lead-ecg-monitoring-and-diagnosis-paediatric",
+     "name": "3 lead ECG monitoring and diagnosis - paediatric",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": "use-of-a-ecg-monitor-3-lead-paediatric",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       3
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/mechanical-infant-resuscitator-bvmr-neo-puff",
+     "name": "Mechanical infant resuscitator (BVMR/Neo Puff)",
+     "group": "Paediatric Skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: listed twice in DIPEMC Y3 (3 and 2); higher used",
+     "minimums": {
+      "WCG-HCEMC": [
+       5
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-acetyl-salicylic-acid",
+     "name": "Acetyl Salicylic Acid",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-activated-charcoal",
+     "name": "Activated Charcoal",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-adrenaline",
+     "name": "Adrenaline",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-atropine-sulphate",
+     "name": "Atropine sulphate",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-hydrocortisone",
+     "name": "Hydrocortisone",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-methylprednisole",
+     "name": "Methylprednisole",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-dextrose-intravenous-adult",
+     "name": "Dextrose Intravenous (Adult)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-diazepam",
+     "name": "Diazepam",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-flumazenil",
+     "name": "Flumazenil",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-glucagon",
+     "name": "Glucagon",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-ipratropium-bromide",
+     "name": "Ipratropium Bromide",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-lignocaine-hydrochloride-io-flush-local-anaesthetic",
+     "name": "Lignocaine Hydrochloride (IO flush - local anaesthetic)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-lorazepam",
+     "name": "Lorazepam",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-magnesium-sulphate",
+     "name": "Magnesium Sulphate",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-medical-oxygen",
+     "name": "Medical Oxygen",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-midazolam",
+     "name": "Midazolam",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-naloxone-hydrochloride",
+     "name": "Naloxone Hydrochloride",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-nitrous-oxide",
+     "name": "Nitrous oxide",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-oral-glucose-powder-gel",
+     "name": "Oral glucose powder/gel",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-thiamine",
+     "name": "Thiamine",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-beta-2-stimulants-inhaled",
+     "name": "Beta 2 stimulants (inhaled)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-penthroxyflurane",
+     "name": "Penthroxyflurane",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       0
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/ecg-interpretation-logbook-ecgs-1-25",
+     "name": "ECG interpretation (logbook ECGs 1-25)",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Logbook row \"ECG 1 - 25\" with minimum 1; confirm what the college counts here",
+     "minimums": {
+      "WCG-HCEMC": [
+       1
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-amiodarone-cardiac-arrest",
+     "name": "Amiodarone (Cardiac Arrest)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-lignocaine-cardiac-arrest",
+     "name": "Lignocaine (Cardiac Arrest)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-corticosteroids",
+     "name": "Corticosteroids",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-lorazepam-midazolam-diazepam-for-seizure",
+     "name": "(Lorazepam, Midazolam, Diazepam) for seizure",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       null,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-promethazine",
+     "name": "Promethazine",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-oxytocin",
+     "name": "Oxytocin",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       0,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/suctioning-of-the-airway-with-an-endotracheal-tube-or-tracheostomy-in-place",
+     "name": "Suctioning of the airway with an endotracheal tube or tracheostomy in place",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "suctioning-endotracheal-tube-tracheostomy",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/supraglottic-airway-device-insertion",
+     "name": "Supraglottic airway device insertion",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-supraglottic-extraglottic-device",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-endotracheal-extra-glottic-confirmation-device",
+     "name": "Use of endotracheal/extra-glottic confirmation device",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-endotracheal-extraglottic-confirmation-device",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       5,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-an-oropharyngeal-nasopharyngeal-tube-opt-npt",
+     "name": "Use of an oropharyngeal/nasopharyngeal tube (OPT/NPT)",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "use-of-an-oropharyngeal-nasopharyngeal-tube-opt-npt",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-a-mechanical-ventilator",
+     "name": "Use of a mechanical ventilator",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "use-of-a-mechanical-ventilator",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       7
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/humidification",
+     "name": "Humidification",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/setup-monitoring-of-infusion-device-infusion-pump",
+     "name": "Setup/monitoring of infusion device: infusion pump",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "setup-monitoring-of-infusion-device-infusion-pump-must-demonstrate-setting",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       3,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/setup-monitoring-of-infusion-device-syringe-driver",
+     "name": "Setup/monitoring of infusion device: syringe driver",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "setup-monitoring-of-infusion-device-syringe-driver-must-demonstrate-setting",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/external-jugular-vein-cannulation",
+     "name": "External jugular vein cannulation",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intravenous-iv-infusion-external-jugular-cannulation-and-attachment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/synchronised-cardioversion",
+     "name": "Synchronised cardioversion",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "synchronised-cardioversion",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/vagal-manoeuvres",
+     "name": "Vagal manoeuvres",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "vagal-manoeuvres",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/urinary-catheterisation-male",
+     "name": "Urinary catheterisation: male",
+     "group": "General skills",
+     "hpcsaSkillId": "urinary-catheterisation-male",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       4
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/urinary-catheterisation-female",
+     "name": "Urinary catheterisation: female",
+     "group": "General skills",
+     "hpcsaSkillId": "urinary-catheterisation-female",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       1,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/external-haemorrhage-control-including-the-use-of-tourniquet",
+     "name": "External haemorrhage control including the use of tourniquet",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-tourniquet",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Counted as tourniquet use; not every haemorrhage control uses one",
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       2,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-adenosine",
+     "name": "Adenosine",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-amiodarone-hydrochloride",
+     "name": "Amiodarone Hydrochloride",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-beta-2-stimulants-systemic",
+     "name": "Beta 2 stimulants (systemic)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-calcium-chloride-10",
+     "name": "Calcium chloride 10%",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-clopidogrel",
+     "name": "Clopidogrel",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-dextrose-intravenous-paediatric-and-neonate",
+     "name": "Dextrose Intravenous (Paediatric and Neonate)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-fentanyl-iv-and-in",
+     "name": "Fentanyl (IV and IN)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-furosemide",
+     "name": "Furosemide",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-glyceryl-trinitrate",
+     "name": "Glyceryl Trinitrate",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-ketamine",
+     "name": "Ketamine",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-metoclopramide-monohydrochloride",
+     "name": "Metoclopramide monohydrochloride",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-morphine-sulphate",
+     "name": "Morphine Sulphate",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-paracetamol-intravenous",
+     "name": "Paracetamol (Intravenous)",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-sodium-bicarbonate-8-5",
+     "name": "Sodium Bicarbonate 8.5%",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/med-tranexamic-acid",
+     "name": "Tranexamic Acid",
+     "group": "Medication Administered as per scope of practise",
+     "hpcsaSkillId": null,
+     "collegeSpecific": false,
+     "recordOnly": true,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       0,
+       null
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/naso-orogastric-tube-insertion",
+     "name": "Naso/orogastric tube insertion",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "naso-orogastric-intubation",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       5
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/surgical-cricothyroidotomy",
+     "name": "Surgical cricothyroidotomy",
+     "group": "Airway Skills",
+     "hpcsaSkillId": "surgical-cricothyroidotomy",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/mechanical-ventilator-non-invasive-ventilation",
+     "name": "Mechanical ventilator: non-invasive ventilation",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": "mechanical-ventilator-non-invasive-ventilation",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/endotracheal-drug-administration",
+     "name": "Endotracheal drug administration",
+     "group": "Respiratory System related skills",
+     "hpcsaSkillId": null,
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/monitoring-and-assessment-of-central-line-central-venous-pressure",
+     "name": "Monitoring and assessment of central line/central venous pressure",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "monitoring-and-assessment-of-central-line-central-venous-pressure",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-a-manual-pressure-infuser",
+     "name": "Use of a manual pressure infuser",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "use-of-a-manual-pressure-infuser",
+     "collegeSpecific": false,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/peripheral-intravenous-cannulation-limbs-and-hands-1-year-old",
+     "name": "Peripheral intravenous cannulation - limbs and hands (<1 year old)",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intravenous-infusion-peripheral-limb-cannulation-and-attachment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: Annexure A has no separate infant peripheral row; counted with peripheral limb cannulation",
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/peripheral-intravenous-cannulation-infant-scalp",
+     "name": "Peripheral intravenous cannulation - infant scalp",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "scalp-cannulation",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/intraosseous-insertion-all-ages",
+     "name": "Intraosseous insertion - all ages",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intraosseous-io-infusion-adult-limb-cannulation-and-attachment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "note": "REVIEW: All ages counted as adult IO; Annexure A splits adult and paediatric IO (both minimum 0)",
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/umbilical-vein-cannulation",
+     "name": "Umbilical vein cannulation",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "intravenous-infusion-umbilical-vein-cannulation-and-attachment",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       3
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/oral-rehydration-via-ngt",
+     "name": "Oral rehydration via NGT",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "oral-rehydration-via-naso-orogastric-tube",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/transcutaneous-cardiac-pacing",
+     "name": "Transcutaneous cardiac pacing",
+     "group": "Cardiovascular system related skills",
+     "hpcsaSkillId": "transcutaneous-external-pacing",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       2
+      ]
+     }
+    },
+    {
+     "id": "wcg-cec-2024/use-of-ultrasound",
+     "name": "Use of ultrasound",
+     "group": "General skills",
+     "hpcsaSkillId": "use-of-a-doppler-ultrasound",
+     "collegeSpecific": true,
+     "recordOnly": false,
+     "derived": false,
+     "minimums": {
+      "WCG-HCEMC": [
+       null
+      ],
+      "WCG-DIPEMC": [
+       null,
+       null,
+       1
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

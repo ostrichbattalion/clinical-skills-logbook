@@ -12,6 +12,11 @@ export function parseGroups(raw: unknown): Role[] {
   return list.filter((g): g is Role => (ROLES as readonly string[]).includes(g));
 }
 
+export function parseYear(v: unknown): number | undefined {
+  const n = Number(v);
+  return Number.isInteger(n) && n >= 1 && n <= 6 ? n : undefined;
+}
+
 /** Builds the caller from the verified Cognito ID token claims (signature is already checked by API Gateway). */
 export function callerFromEvent(event: APIGatewayProxyEventV2WithJWTAuthorizer): Caller {
   const claims = event.requestContext.authorizer?.jwt?.claims ?? {};
@@ -27,6 +32,8 @@ export function callerFromEvent(event: APIGatewayProxyEventV2WithJWTAuthorizer):
     institution: String(claims['custom:institution'] ?? ''),
     ...(isCategory(category) && { category }),
     ...(claims['custom:reg_no'] && { regNo: String(claims['custom:reg_no']) }),
+    ...(claims['custom:programme'] && { programmeId: String(claims['custom:programme']) }),
+    ...(parseYear(claims['custom:study_year']) && { studyYear: parseYear(claims['custom:study_year']) }),
   };
 }
 

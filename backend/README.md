@@ -27,6 +27,46 @@ Rules enforced on the server: students can't sign their own entries; only the re
 an entry can be signed once; lecturers only see students at their own institution; concurrent edits are
 rejected rather than overwritten.
 
+## College requirement sets
+
+Institutions usually have their own logbook on top of Annexure A: more skills, adult/paediatric splits,
+minimums per year of study, and record-only lists such as medications. Each one is a **requirement set** in
+`data/requirement-sets/`:
+
+- `<id>.json`: the institution's exact name (must match the users' `custom:institution`) and its programmes,
+  each with the HPCSA category it leads to and its number of years
+- `<id>.csv`: one row per college skill, with `hpcsa_skill_id` (the Annexure A skill it counts toward, blank for
+  college-only skills), `record_only`, and a minimum column per programme year (`HCEMC_Y1`, `DIPEMC_Y1`…).
+  A number is that year's minimum, `0` means offered with no minimum, and blank means not in that year's list.
+
+`npm run requirements` rebuilds `src/requirement-sets.json` and checks every mapping.
+
+Students on a programme log against their college list. Every entry is stamped with their year of study at the
+time, so progress shows **this year's college target**, the **college total to graduation**, and the
+**HPCSA minimums** (through the mapping). Students without a programme log against Annexure A directly.
+
+`wcg-cec-2024` is the WCG College of Emergency Care logbook (2024/2025). It was built from
+`requirements/college_logbook_requirements.csv`. Spelling variants across years are merged so a student's
+counts carry over from year to year, and 14 judgement calls are marked `REVIEW:` in the `mapping_note`
+column for a clinical lead to confirm before real data goes in.
+
+## Reports
+
+For lecturers and admins, limited to their own institution:
+
+- **Cohort progress** (`reports.html`): every student's pace this year (on track, behind, at risk, no activity),
+  filterable by programme and year; per-skill view of where the cohort is lagging; CSV export with one row per
+  student per skill (college and HPCSA).
+- **HPCSA progress summary** (`hpcsa_summary.html`): printable report in the shape of the PBEC mid-year
+  progress report, including whether difficulties are anticipated, per Annexure A skill. Student names are
+  left out unless the user chooses to include them.
+- **Requirement gap check** (`requirements_gap.html`): college minimums added across all years, compared with
+  the Annexure A minimum for each skill.
+
+Pace compares progress with how far through the academic year it is (default 1 February to 30 November; set
+`ACADEMIC_YEAR=MM-DD:MM-DD` on the Lambda to change it). The thresholds are in `src/progress.ts` and
+`src/reports.ts`.
+
 ## Accounts and roles
 
 Accounts are created by an administrator (no self sign-up). Each person is in one Cognito group:
@@ -36,6 +76,8 @@ changed by the user** (the web client has no attribute write access):
 - `custom:institution` — the training institution
 - `custom:category` — students only: `ECA` (higher certificate), `PARAMEDIC` (diploma) or `ECP` (degree)
 - `custom:reg_no` — HPCSA registration number (pre-fills the signature form for verifiers)
+- `custom:programme` — students on a college programme, e.g. `WCG-DIPEMC` (sets institution and category)
+- `custom:study_year` — the student's current year of study
 
 ## Deploy
 
@@ -66,10 +108,16 @@ The table is always kept and has point-in-time recovery.
 
 ```bash
 npm run create-user -- --email jane@college.ac.za --name "Jane Doe" --role student \
-  --institution "WCG College of Emergency Care" --category ECA
+  --programme WCG-DIPEMC --year 1
+npm run create-user -- --email lee@college.ac.za --name "L. Lecturer" --role lecturer \
+  --institution "WCG College of Emergency Care" --reg-no PA7654321
 npm run create-user -- --email b.jones@ems.gov.za --name "B. Jones" --role supervisor \
   --institution "WCG College of Emergency Care" --reg-no PA1234567
+npm run set-year -- --email jane@college.ac.za --year 2     # at the start of each academic year
 ```
+
+Students at an institution without a requirement set use `--institution "…" --category ECA|PARAMEDIC|ECP`
+instead of `--programme`.
 
 Cognito emails a temporary password; the login page makes them choose a new one on first sign-in.
 
@@ -80,12 +128,15 @@ All routes need the Cognito **ID token** in the `Authorization` header.
 | Route | Role | Purpose |
 |---|---|---|
 | `GET /me` | any | Your profile from the token |
-| `GET /catalogue` | any | Annexure A skills with minimums for your category |
+| `GET /catalogue` | any | The skills you log against: your college programme's list, or Annexure A |
 | `GET /entries` | student | Your entries, newest first |
 | `POST /entries` | student | Create an entry `{kind, performedOn, setting, encounterRef?, notes?, skills:[{skillId,count}]}` |
 | `DELETE /entries/{entryId}` | student | Delete a draft or returned entry |
 | `POST /entries/request-signature` | student | `{entryIds:[…], verifierEmail}` (up to 25 at once, all-or-nothing) |
-| `GET /progress[?studentSub=]` | student, lecturer, admin | Progress against Annexure A |
+| `GET /progress[?studentSub=]` | student, lecturer, admin | `{hpcsa, college}` progress |
+| `GET /reports/cohort[?programme=&year=&detail=1]` | lecturer, admin | Cohort pace, lagging skills, export rows |
+| `GET /reports/hpcsa-summary?programme=` | lecturer, admin | PBEC-style progress summary |
+| `GET /reports/gap` | lecturer, admin | College requirements vs Annexure A |
 | `GET /queue` | supervisor, lecturer | Entries awaiting your signature |
 | `GET /queue/{studentSub}/{entryId}` | supervisor, lecturer | One entry in your queue |
 | `POST /queue/{studentSub}/{entryId}/sign` | supervisor, lecturer | `{witnessedSkillIds:[…], regNo, comment?}` |
@@ -94,7 +145,8 @@ All routes need the Cognito **ID token** in the `Authorization` header.
 ## Data
 
 One DynamoDB table. Entries: `PK=STUDENT#<sub>`, `SK=ENTRY#<entryId>`. While an entry awaits a signature
-it is also indexed on `GSI1` by `VERIFIER#<sub>` so each verifier's queue is a single query.
+it is also indexed on `GSI1` by `VERIFIER#<sub>` so each verifier's queue is a single query. Every entry is
+indexed on `GSI2` by `INST#<institution>` so a cohort report is a single query.
 
 The skill catalogue is generated from `data/hpcsa_2021_annexure_a.csv` into `src/catalogue.json`
 (`npm run catalogue`). Skill ids are slugs of the HPCSA wording, so keep the names stable once real data
@@ -113,6 +165,6 @@ npm run synth     # renders the CloudFormation template without deploying
 
 ## Not in this first slice
 
-Admin user management UI, institution/cohort reports for the HPCSA, QR-code and hand-over signing,
+Admin user management UI, QR-code and hand-over signing,
 peer sign-off, the paper-scan verification flow, offline logging, and audit export. The data model keeps
 the signer, registration number and timestamps on every signed entry so these can be built on top.
