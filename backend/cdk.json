@@ -1,0 +1,8 @@
+{
+  "app": "npx tsx bin/app.ts",
+  "context": {
+    "stage": "dev",
+    "region": "af-south-1",
+    "allowedOrigins": ["*"]
+  }
+}

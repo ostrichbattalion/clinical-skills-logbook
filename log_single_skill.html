@@ -3,32 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Single Skill</title>
+    <title>Log Skills Session</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
 </head>
 <body>
     <div class="container">
-        <h1>Log Single Skill (e.g., Triage)</h1>
-        <form action="student_pwa_dashboard.html">
-            <input type="hidden" name="location" value="Triage">
+        <a href="student_pwa_dashboard.html" class="btn btn-link">&larr; Back to Dashboard</a>
+        <h1 id="page-title">Log Skills Session</h1>
+        <p id="entry-msg" role="alert" hidden></p>
+
+        <form id="entry-form" novalidate>
+            <div class="field">
+                <span id="kind-label" style="font-weight:600;display:block;margin-bottom:5px">What are you logging?</span>
+                <div class="segmented" role="radiogroup" aria-labelledby="kind-label">
+                    <label><input type="radio" name="kind" value="encounter" ><span>Patient encounter</span></label>
+                    <label><input type="radio" name="kind" value="skills" checked><span>Skills only (e.g. triage desk)</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="performed-on">Date performed</label>
+                <input type="date" id="performed-on" required>
+            </div>
+
+            <div class="field">
+                <label for="setting">Setting</label>
+                <input type="text" id="setting" list="settings" maxlength="120" placeholder="e.g. Ambulance, Emergency unit, Clinic" required>
+                <datalist id="settings">
+                    <option value="Ambulance"><option value="Emergency unit"><option value="Triage"><option value="Clinic">
+                    <option value="Labour ward"><option value="ICU"><option value="Theatre"><option value="Aeromedical">
+                </datalist>
+            </div>
+
+            <div class="field" id="ref-field">
+                <label for="encounter-ref">Encounter reference</label>
+                <input type="text" id="encounter-ref" maxlength="60" placeholder="e.g. call number, or 'Male, 40s, chest pain'">
+                <div class="hint">Do not enter patient names, ID numbers or contact details (POPIA).</div>
+            </div>
 
             <div class="skill-group">
-                <h3>Common Skills (Triage)</h3>
-                <ul class="skill-checklist">
-                    <li><input type="checkbox" id="skill-assess" checked><label for="skill-assess"><strong>Clinical assessment</strong></label></li>
-                    <li><input type="checkbox" id="skill-vitals"><label for="skill-vitals"><strong>Vital Sign Assessment</strong></label></li>
-                    <li><input type="checkbox" id="skill-glucose"><label for="skill-glucose">Finger prick and blood glucose</label></li>
-                    <li><input type="checkbox" id="skill-wound"><label for="skill-wound">Emergency wound care</label></li>
-                </ul>
+                <h3>Common skills</h3>
+                <ul class="skill-checklist" id="common-skills"><li class="empty">Loading skills…</li></ul>
             </div>
-            
-            <a href="skill_reference_list.html" class="btn btn-link">[+ Add Advanced/Other Skill from Master List]</a>
-            
+
+            <div class="field">
+                <label for="skill-search">Add any other Annexure A skill</label>
+                <input type="search" id="skill-search" placeholder="Type to search, e.g. intubation, ECG, delivery" autocomplete="off" aria-controls="skill-results">
+                <ul class="picker-results" id="skill-results" hidden></ul>
+            </div>
+
+            <h3>Skills in this entry</h3>
+            <ul class="chosen-skills" id="chosen-skills"></ul>
+
+            <div class="field">
+                <label for="notes">Notes (optional)</label>
+                <textarea id="notes" rows="3" maxlength="500" placeholder="Anything your supervisor should know"></textarea>
+            </div>
+
             <div>
                 <button type="submit" class="btn btn-primary">Save to Pending List</button>
                 <a href="student_pwa_dashboard.html" class="btn btn-link">Cancel</a>
             </div>
         </form>
     </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/log-entry.js"></script>
 </body>
 </html>

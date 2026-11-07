@@ -1,0 +1,1674 @@
+{
+  "source": "HPCSA Professional Board for Emergency Care, Clinical Skill Requirements letter, 14 March 2021, Annexure A",
+  "version": "HPCSA-PBEC-2021-03",
+  "skills": [
+    {
+      "id": "patients-seen",
+      "name": "Total number of patients seen",
+      "order": 0,
+      "paediatric": false,
+      "derived": true,
+      "minimums": {
+        "ECP": 450,
+        "PARAMEDIC": 200,
+        "ECA": 100
+      }
+    },
+    {
+      "id": "history-taking-registration-category-specific",
+      "name": "History-Taking (Registration Category Specific)",
+      "order": 1,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 330,
+        "PARAMEDIC": 115,
+        "ECA": 60
+      }
+    },
+    {
+      "id": "general-physical-assessment-medical",
+      "name": "General Physical Assessment: Medical",
+      "order": 2,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 235,
+        "PARAMEDIC": 115,
+        "ECA": 60
+      }
+    },
+    {
+      "id": "general-physical-assessment-trauma",
+      "name": "General Physical Assessment: Trauma",
+      "order": 3,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 125,
+        "PARAMEDIC": 60,
+        "ECA": 30
+      }
+    },
+    {
+      "id": "glasgow-coma-scale-gcs-score",
+      "name": "Glasgow Coma Scale (GCS) Score",
+      "order": 4,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 285,
+        "PARAMEDIC": 140,
+        "ECA": 70
+      }
+    },
+    {
+      "id": "blood-pressure-measurement-non-inasive-blood-pressure-nibp",
+      "name": "Blood Pressure Measurement: Non Inasive Blood Pressure (NIBP)",
+      "order": 5,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 170,
+        "PARAMEDIC": 80,
+        "ECA": 40
+      }
+    },
+    {
+      "id": "blood-pressure-measurement-manual-sphygmomanometer",
+      "name": "Blood Pressure measurement: Manual Sphygmomanometer",
+      "order": 6,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 220,
+        "PARAMEDIC": 100,
+        "ECA": 50
+      }
+    },
+    {
+      "id": "use-of-a-electrocardiogram-ecg-3-5-lead",
+      "name": "Use of a Electrocardiogram (ECG): 3/5-Lead",
+      "order": 7,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 100,
+        "PARAMEDIC": 50,
+        "ECA": 25
+      }
+    },
+    {
+      "id": "use-of-a-ecg-monitor-12-15-lead",
+      "name": "Use of a ECG Monitor: 12/15-Lead",
+      "order": 8,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 50,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "pulse-with-characteristics-measurement",
+      "name": "Pulse (with characteristics) Measurement",
+      "order": 9,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 300,
+        "PARAMEDIC": 150,
+        "ECA": 80
+      }
+    },
+    {
+      "id": "respirations-with-characteristics-measurement",
+      "name": "Respirations (with characteristics) Measurement",
+      "order": 10,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 300,
+        "PARAMEDIC": 150,
+        "ECA": 80
+      }
+    },
+    {
+      "id": "use-of-a-pulse-oximeter",
+      "name": "Use of a Pulse Oximeter",
+      "order": 11,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 200,
+        "PARAMEDIC": 100,
+        "ECA": 50
+      }
+    },
+    {
+      "id": "blood-glucose-measurement-visual-test-strip",
+      "name": "Blood Glucose Measurement: Visual (Test Strip)",
+      "order": 12,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 30,
+        "PARAMEDIC": 15,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "blood-glucose-measurement-use-of-glucometer",
+      "name": "Blood Glucose Measurement: Use of Glucometer",
+      "order": 13,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 120,
+        "PARAMEDIC": 60,
+        "ECA": 30
+      }
+    },
+    {
+      "id": "temperature-measurement-oral-axillary-skin",
+      "name": "Temperature Measurement: Oral/Axillary/Skin",
+      "order": 14,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 80,
+        "PARAMEDIC": 40,
+        "ECA": 20
+      }
+    },
+    {
+      "id": "temperature-measurement-tympanic",
+      "name": "Temperature Measurement: Tympanic",
+      "order": 15,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 5,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "temperature-measurement-rectal-oesophageal",
+      "name": "Temperature Measurement: Rectal/Oesophageal",
+      "order": 16,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "airway-assessment-with-all-characteristics-described",
+      "name": "Airway Assessment (with all characteristics described)",
+      "order": 17,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 60,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "out-of-hospital-rapid-sequence-intubation-rsi-medication-administration",
+      "name": "Out-of-Hospital Rapid Sequence Intubation (RSI): Medication Administration",
+      "order": 18,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "out-of-hospital-rsi-clinical-decision-making",
+      "name": "Out-of-Hospital RSI : Clinical Decision Making",
+      "order": 19,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "out-of-hospital-rsi-management-and-control",
+      "name": "Out-of-Hospital RSI: Management & Control",
+      "order": 20,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "rsi-medication-administration",
+      "name": "RSI: Medication Administration",
+      "order": 21,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "rsi-clinical-decision-making",
+      "name": "RSI: Clinical Decision Making",
+      "order": 22,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "rsi-management-and-control",
+      "name": "RSI: Management & Control",
+      "order": 23,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "oral-endotracheal-intubation-routine",
+      "name": "Oral Endotracheal Intubation - Routine",
+      "order": 24,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 30,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "nasal-intubation-routine",
+      "name": "Nasal Intubation - Routine",
+      "order": 25,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "video-assisted-laryngoscopy",
+      "name": "Video-Assisted Laryngoscopy",
+      "order": 26,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "bag-valve-mask-ventilation-or-equivalent",
+      "name": "Bag-valve-mask Ventilation (or equivalent)",
+      "order": 27,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 35,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "bag-valve-tube-ventilation-or-equivalent",
+      "name": "Bag-valve-tube Ventilation (or equivalent)",
+      "order": 28,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 35,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "use-of-a-bougie-or-equivalent",
+      "name": "Use of a Bougie or equivalent",
+      "order": 29,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-supraglottic-extraglottic-device",
+      "name": "Use of Supraglottic/Extraglottic Device",
+      "order": 30,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 10,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-an-oropharyngeal-nasopharyngeal-tube-opt-npt",
+      "name": "Use of an Oropharyngeal/Nasopharyngeal Tube (OPT/NPT)",
+      "order": 31,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 12,
+        "PARAMEDIC": 5,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "suctioning-oropharynx-nasopharynx",
+      "name": "Suctioning: Oropharynx/Nasopharynx",
+      "order": 32,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "suctioning-endotracheal-tube-tracheostomy",
+      "name": "Suctioning: Endotracheal Tube/Tracheostomy",
+      "order": 33,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 5,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "suctioning-supraglottic-extraglottic-device",
+      "name": "Suctioning: Supraglottic/Extraglottic Device",
+      "order": 34,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "manual-airway-manoeuvre",
+      "name": "Manual Airway Manoeuvre",
+      "order": 35,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 35,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "surgical-cricothyroidotomy",
+      "name": "Surgical Cricothyroidotomy",
+      "order": 36,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "finger-sweep",
+      "name": "Finger Sweep",
+      "order": 37,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "removal-of-foreign-body-manual-airway-obstruction-manoeuvre",
+      "name": "Removal of Foreign Body/Manual Airway Obstruction Manoeuvre",
+      "order": 38,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "naso-orogastric-intubation",
+      "name": "Naso/Orogastric Intubation",
+      "order": 39,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 5,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-mechanical-ventilator",
+      "name": "Use of a Mechanical Ventilator",
+      "order": 40,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 20,
+        "PARAMEDIC": 10,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "mechanical-ventilator-non-invasive-ventilation",
+      "name": "Mechanical Ventilator: Non-Invasive Ventilation",
+      "order": 41,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 1,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "non-invasive-ventilation-manual-device",
+      "name": "Non-Invasive Ventilation (manual device)",
+      "order": 42,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-endotracheal-extraglottic-confirmation-device",
+      "name": "Use of endotracheal/extraglottic confirmation device",
+      "order": 43,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 40,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "mask-oxygen-administration",
+      "name": "Mask Oxygen Administration",
+      "order": 44,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 45,
+        "PARAMEDIC": 15,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "nasal-cannula-oxygen-administration",
+      "name": "Nasal Cannula Oxygen Administration",
+      "order": 45,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 25,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "nebulised-oxygen-administration",
+      "name": "Nebulised Oxygen Administration",
+      "order": 46,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 5,
+        "ECA": 2
+      }
+    },
+    {
+      "id": "transtracheal-jet-ventilation",
+      "name": "Transtracheal Jet Ventilation",
+      "order": 47,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "needle-thoracentesis",
+      "name": "Needle Thoracentesis",
+      "order": 48,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "intraosseous-io-infusion-adult-limb-cannulation-and-attachment",
+      "name": "Intraosseous (IO) Infusion -Adult Limb (Cannulation and Attachment)",
+      "order": 49,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "intravenous-iv-infusion-external-jugular-cannulation-and-attachment",
+      "name": "Intravenous (IV) Infusion - External Jugular (Cannulation and Attachment)",
+      "order": 50,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "intravenous-infusion-peripheral-limb-cannulation-and-attachment",
+      "name": "Intravenous Infusion - Peripheral Limb (Cannulation and Attachment)",
+      "order": 51,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 130,
+        "PARAMEDIC": 70,
+        "ECA": 30
+      }
+    },
+    {
+      "id": "oral-rehydration",
+      "name": "Oral Rehydration",
+      "order": 52,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 1,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "oral-rehydration-via-naso-orogastric-tube",
+      "name": "Oral Rehydration (via naso/orogastric tube)",
+      "order": 53,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "mask-oxygen-administration-paediatric",
+      "name": "Mask Oxygen Administration - Paediatric",
+      "order": 54,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 1,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "nasal-cannula-oxygen-administration-paediatric",
+      "name": "Nasal Cannula Oxygen Administration- Paediatric",
+      "order": 55,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 2,
+        "ECA": 2
+      }
+    },
+    {
+      "id": "use-of-a-ecg-monitor-3-lead-paediatric",
+      "name": "Use of a ECG Monitor: 3-Lead- Paediatric",
+      "order": 56,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 7,
+        "PARAMEDIC": 3,
+        "ECA": 3
+      }
+    },
+    {
+      "id": "use-of-a-pulse-oximeter-paediatric",
+      "name": "Use of a Pulse Oximeter- Paediatric",
+      "order": 57,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 22,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "general-physical-assessment-medical-paediatric",
+      "name": "General Physical Assessment: Medical- Paediatric",
+      "order": 58,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 19,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "general-physical-assessment-trauma-paediatric",
+      "name": "General Physical Assessment: Trauma- Paediatric",
+      "order": 59,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 1,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "history-taking-paediatric",
+      "name": "History Taking- Paediatric",
+      "order": 60,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 18,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "gcs-score-paediatric",
+      "name": "GCS Score- Paediatric",
+      "order": 61,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 18,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "blood-glucose-glucometer-paediatric",
+      "name": "Blood Glucose: Glucometer- Paediatric",
+      "order": 62,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 13,
+        "PARAMEDIC": 7,
+        "ECA": 3
+      }
+    },
+    {
+      "id": "blood-pressure-measurement-nibp-paediatric",
+      "name": "Blood Pressure measurement: NIBP- Paediatric",
+      "order": 63,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 16,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "blood-pressure-measurement-manual-sphygmomanometer-paediatric",
+      "name": "Blood Pressure measurement: Manual Sphygmomanometer - Paediatric",
+      "order": 64,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 7,
+        "PARAMEDIC": 5,
+        "ECA": 3
+      }
+    },
+    {
+      "id": "pulse-measurement-paediatric",
+      "name": "Pulse measurement - Paediatric",
+      "order": 65,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 23,
+        "PARAMEDIC": 15,
+        "ECA": 7
+      }
+    },
+    {
+      "id": "respirations-measurement-paediatric",
+      "name": "Respirations measurement - Paediatric",
+      "order": 66,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 22,
+        "PARAMEDIC": 15,
+        "ECA": 7
+      }
+    },
+    {
+      "id": "temperature-non-invasive-paediatric",
+      "name": "Temperature (non-invasive): Paediatric",
+      "order": 67,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 5,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "apgar-score",
+      "name": "APGAR Score",
+      "order": 68,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 100,
+        "PARAMEDIC": 25,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "intravenous-infusion-umbilical-vein-cannulation-and-attachment",
+      "name": "Intravenous Infusion - Umbilical Vein (Cannulation and Attachment)",
+      "order": 69,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "scalp-cannulation",
+      "name": "Scalp Cannulation",
+      "order": 70,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "intraosseous-io-infusion-paediatric-limb-cannulation-and-attachment",
+      "name": "Intraosseous (IO) Infusion -Paediatric Limb (Cannulation and Attachment)",
+      "order": 71,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "invasive-haemodynamic-monitoring",
+      "name": "Invasive Haemodynamic Monitoring",
+      "order": 72,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "monitoring-and-assessment-of-central-line-central-venous-pressure",
+      "name": "Monitoring and assessment of Central Line/Central Venous Pressure",
+      "order": 73,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 3,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "setup-monitoring-of-infusion-device-infusion-pump-must-demonstrate-setting",
+      "name": "Setup/Monitoring of Infusion Device: Infusion Pump (must demonstrate setting",
+      "order": 74,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 7,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "setup-monitoring-of-infusion-device-syringe-driver-must-demonstrate-setting",
+      "name": "Setup/Monitoring of Infusion Device: Syringe Driver (must demonstrate setting",
+      "order": 75,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 8,
+        "PARAMEDIC": 5,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-manual-pressure-infuser",
+      "name": "Use of a Manual Pressure Infuser",
+      "order": 76,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 1,
+        "PARAMEDIC": 1,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "arterial-blood-gas-sampling-and-analysis",
+      "name": "Arterial Blood Gas Sampling and Analysis",
+      "order": 77,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "intramuscular-medication-administration",
+      "name": "Intramuscular Medication Administration",
+      "order": 78,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 30,
+        "PARAMEDIC": 15,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "subcutaneous-medication-administration",
+      "name": "Subcutaneous Medication Administration",
+      "order": 79,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 3,
+        "PARAMEDIC": 1,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "iv-io-medication-administration",
+      "name": "IV/IO Medication Administration",
+      "order": 80,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 80,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "nebulised-medication-administration",
+      "name": "Nebulised Medication Administration",
+      "order": 81,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 20,
+        "PARAMEDIC": 5,
+        "ECA": 2
+      }
+    },
+    {
+      "id": "oral-medication-administration",
+      "name": "Oral Medication Administration",
+      "order": 82,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 7,
+        "PARAMEDIC": 5,
+        "ECA": 3
+      }
+    },
+    {
+      "id": "rectal-medication-administration",
+      "name": "Rectal Medication Administration",
+      "order": 83,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "sublingual-medication-administration",
+      "name": "Sublingual Medication Administration",
+      "order": 84,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "buccal-nasal-medication-administration",
+      "name": "Buccal/Nasal Medication Administration",
+      "order": 85,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "cardiopulmonary-cpr-adult",
+      "name": "Cardiopulmonary (CPR) - Adult",
+      "order": 86,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 2,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "cpr-child-infant",
+      "name": "CPR-Child/Infant",
+      "order": 87,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "cpr-neonate",
+      "name": "CPR-Neonate",
+      "order": 88,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "defibrillation-automated-external-defibrillator",
+      "name": "Defibrillation-Automated External Defibrillator",
+      "order": 89,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "manual-defibrillation",
+      "name": "Manual Defibrillation",
+      "order": 90,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "precordial-thump",
+      "name": "Precordial Thump",
+      "order": 91,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "spinal-motion-restriction-immobilisation",
+      "name": "Spinal Motion Restriction/Immobilisation",
+      "order": 92,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 20,
+        "PARAMEDIC": 10,
+        "ECA": 5
+      }
+    },
+    {
+      "id": "use-of-an-extrication-device",
+      "name": "Use of an Extrication Device",
+      "order": 93,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 1,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-vacuum-mattress",
+      "name": "Use of a Vacuum Mattress",
+      "order": 94,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 3,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "use-of-limb-immobilisation-device-including-traction-devices",
+      "name": "Use of Limb Immobilisation Device (including traction devices)",
+      "order": 95,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 3,
+        "ECA": 1
+      }
+    },
+    {
+      "id": "use-of-a-pelvic-stabilisation-device",
+      "name": "Use of a Pelvic Stabilisation Device",
+      "order": 96,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "normal-vaginal-delivery",
+      "name": "Normal Vaginal Delivery",
+      "order": 97,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 10,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "breech-delivery-assisted-and-unassisted",
+      "name": "Breech Delivery (assisted and unassisted)",
+      "order": 98,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "care-of-prolapsed-umbilical-cord",
+      "name": "Care of Prolapsed Umbilical Cord",
+      "order": 99,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "ante-natal-examination",
+      "name": "Ante-natal Examination",
+      "order": 100,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 10,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "post-natal-examination",
+      "name": "Post-natal Examination",
+      "order": 101,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 10,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "fundal-massage",
+      "name": "Fundal Massage",
+      "order": 102,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 1,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "tocolysis",
+      "name": "Tocolysis",
+      "order": 103,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "transcutaneous-external-pacing",
+      "name": "Transcutaneous External Pacing",
+      "order": 104,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "synchronised-cardioversion",
+      "name": "Synchronised Cardioversion",
+      "order": 105,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-wound-dressing-including-pressure-dressings",
+      "name": "Use of Wound Dressing (including pressure dressings)",
+      "order": 106,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 40,
+        "PARAMEDIC": 15,
+        "ECA": 7
+      }
+    },
+    {
+      "id": "use-of-a-pneumatic-anti-shock-garment",
+      "name": "Use of a Pneumatic Anti-Shock Garment",
+      "order": 107,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-non-pneumatic-anti-shock-garment",
+      "name": "Use of Non-Pneumatic Anti-Shock Garment",
+      "order": 108,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-tourniquet",
+      "name": "Use of a Tourniquet",
+      "order": 109,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 1,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-topical-haemostatic-agent",
+      "name": "Use of a Topical Haemostatic Agent",
+      "order": 110,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "care-of-impaled-objects",
+      "name": "Care of Impaled Objects",
+      "order": 111,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "urinary-catheterisation-male",
+      "name": "Urinary Catheterisation: Male",
+      "order": 112,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 8,
+        "PARAMEDIC": 5,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "urinary-catheterisation-female",
+      "name": "Urinary Catheterisation: Female",
+      "order": 113,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 7,
+        "PARAMEDIC": 4,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "vagal-manoeuvres",
+      "name": "Vagal Manoeuvres",
+      "order": 114,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-stretcher",
+      "name": "Use of a Stretcher",
+      "order": 115,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 40,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "use-of-a-stair-stretcher-chair",
+      "name": "Use of a Stair-stretcher/chair",
+      "order": 116,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "use-of-a-peak-flow-meter",
+      "name": "Use of a Peak-Flow Meter",
+      "order": 117,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "thrombolysis",
+      "name": "Thrombolysis",
+      "order": 118,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "suturing",
+      "name": "Suturing",
+      "order": 119,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "patient-lifting-and-carrying",
+      "name": "Patient Lifting and Carrying",
+      "order": 120,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 40,
+        "PARAMEDIC": 20,
+        "ECA": 10
+      }
+    },
+    {
+      "id": "use-of-a-doppler-ultrasound",
+      "name": "Use of a Doppler/Ultrasound",
+      "order": 121,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "death-notification",
+      "name": "Death Notification",
+      "order": 122,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "declaration-of-death",
+      "name": "Declaration of Death",
+      "order": 123,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 10,
+        "PARAMEDIC": 5,
+        "ECA": 3
+      }
+    },
+    {
+      "id": "comprehensive-respiratory-system-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Respiratory System Assessment Leading to Working Diagnosis",
+      "order": 124,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 90,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "comprehensive-cardiovascular-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Cardiovascular Assessment Leading to Working Diagnosis",
+      "order": 125,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 45,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "comprehensive-abdominal-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Abdominal Assessment Leading to Working Diagnosis",
+      "order": 126,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 50,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "comprehensive-genito-urinary-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Genito-Urinary Assessment Leading to Working Diagnosis",
+      "order": 127,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 20,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "comprehensive-musculo-skeletal-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Musculo-Skeletal Assessment Leading to Working Diagnosis",
+      "order": 128,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 45,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "comprehensive-peripheral-vascular-assessment-leading-to-working-diagnosis",
+      "name": "Comprehensive Peripheral Vascular Assessment Leading to Working Diagnosis",
+      "order": 129,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 50,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "fundoscopy-with-definitive-finding",
+      "name": "Fundoscopy with Definitive Finding",
+      "order": 130,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "otoscopy-with-definitive-finding",
+      "name": "Otoscopy with Definitive Finding",
+      "order": 131,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 5,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "x-ray-interpretation-chest",
+      "name": "X-ray Interpretation: Chest",
+      "order": 132,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 25,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "care-of-intra-aoritc-balloon-pump",
+      "name": "Care of Intra-Aoritc Balloon Pump",
+      "order": 133,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "care-of-transvenous-pacemaker",
+      "name": "Care of Transvenous Pacemaker",
+      "order": 134,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "on-scene-discharge",
+      "name": "On-scene Discharge",
+      "order": 135,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "clearance-of-cervical-spine-using-recognised-technique",
+      "name": "Clearance of Cervical Spine using Recognised Technique",
+      "order": 136,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 15,
+        "PARAMEDIC": 8,
+        "ECA": 4
+      }
+    },
+    {
+      "id": "targeted-temperature-management",
+      "name": "Targeted Temperature Management",
+      "order": 137,
+      "paediatric": false,
+      "derived": false,
+      "minimums": {
+        "ECP": 0,
+        "PARAMEDIC": 0,
+        "ECA": 0
+      }
+    },
+    {
+      "id": "setup-and-monitoring-of-an-incubator",
+      "name": "Setup and Monitoring of an Incubator",
+      "order": 138,
+      "paediatric": true,
+      "derived": false,
+      "minimums": {
+        "ECP": 2,
+        "PARAMEDIC": 1,
+        "ECA": 1
+      }
+    }
+  ]
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logbook Login</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
     <style>
         body {
             display: flex;
@@ -62,18 +63,29 @@
 <body>
 
     <div class="login-container">
-        <div class="logo-placeholder">LB</div>
-        <h1>Student Logbook</h1>
-        <p>Please sign in to continue</p>
+        <div class="logo-placeholder" aria-hidden="true">LB</div>
+        <h1>Clinical Skills Logbook</h1>
+        <p id="login-intro">Sign in with your institution email</p>
 
-        <form class="login-form" onsubmit="handleLogin(event)">
-            <input type="text" id="username" placeholder="Student ID or Email" required>
-            <input type="password" id="password" placeholder="Password" required>
+        <p id="login-msg" role="alert" hidden></p>
+
+        <form class="login-form" id="signin-form" novalidate>
+            <label class="visually-hidden" for="username">Email</label>
+            <input type="email" id="username" autocomplete="username" placeholder="Email" required>
+            <label class="visually-hidden" for="password">Password</label>
+            <input type="password" id="password" autocomplete="current-password" placeholder="Password" required>
             <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
 
-        <div class="demo-links">
-            <p><strong>Demo Shortcuts:</strong></p>
+        <form class="login-form" id="challenge-form" hidden novalidate>
+            <label class="visually-hidden" for="challenge-input" id="challenge-label">Answer</label>
+            <input id="challenge-input" required>
+            <input type="password" id="challenge-confirm" autocomplete="new-password" placeholder="Repeat new password" hidden>
+            <button type="submit" class="btn btn-primary" id="challenge-btn">Continue</button>
+        </form>
+
+        <div class="demo-links" id="demo-links" hidden>
+            <p><strong>Demo Shortcuts</strong> (no backend configured):</p>
             <a href="student_dashboard_locked.html">Login as Student (New)</a>
             <a href="student_pwa_dashboard.html">Login as Student (Active)</a>
             <a href="lecturer_dashboard.html">Login as Lecturer</a>
@@ -81,20 +93,91 @@
         </div>
     </div>
 
-    <script> // Changed login script
-    function handleLogin(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value.toLowerCase();
-        
-        if (username.includes('admin')) {
-            window.location.href = 'admin_dashboard.html';
-        } else if (username.includes('lecturer')) {
-            window.location.href = 'lecturer_dashboard.html';
-        } else {
-            // FIX: Changed filename to match the actual file
-            window.location.href = 'student_dashboard_locked.html'; 
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+    (function () {
+        const L = window.Logbook;
+        const msg = document.getElementById('login-msg');
+        const signinForm = document.getElementById('signin-form');
+        const challengeForm = document.getElementById('challenge-form');
+        const challengeInput = document.getElementById('challenge-input');
+        const confirmInput = document.getElementById('challenge-confirm');
+        let challenge = null;
+
+        if (!L.configured) {
+            document.getElementById('demo-links').hidden = false;
+            signinForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                L.notice(msg, 'No backend is configured yet, so use a demo shortcut below.', 'info');
+            });
+            return;
         }
-    }
+
+        const existing = L.session();
+        if (existing && existing.user.exp * 1000 > Date.now()) window.location.replace(L.homeFor(existing.user));
+
+        function busy(form, on) {
+            const b = form.querySelector('button');
+            b.disabled = on;
+            b.dataset.label = b.dataset.label || b.textContent;
+            b.textContent = on ? 'Please wait…' : b.dataset.label;
+        }
+
+        function done(result) {
+            if (result.session) { window.location.replace(L.homeFor(result.session.user)); return; }
+            challenge = result.challenge;
+            signinForm.hidden = true;
+            challengeForm.hidden = false;
+            challengeInput.value = '';
+            confirmInput.value = '';
+            if (challenge.name === 'NEW_PASSWORD_REQUIRED') {
+                document.getElementById('login-intro').textContent = 'Choose a new password (at least 10 characters, with upper- and lower-case letters and a number).';
+                challengeInput.type = 'password';
+                challengeInput.autocomplete = 'new-password';
+                challengeInput.placeholder = 'New password';
+                confirmInput.hidden = false;
+                document.getElementById('challenge-btn').textContent = 'Set password and sign in';
+            } else if (challenge.name === 'SOFTWARE_TOKEN_MFA') {
+                document.getElementById('login-intro').textContent = 'Enter the 6-digit code from your authenticator app.';
+                challengeInput.type = 'text';
+                challengeInput.inputMode = 'numeric';
+                challengeInput.autocomplete = 'one-time-code';
+                challengeInput.placeholder = '6-digit code';
+                confirmInput.hidden = true;
+                document.getElementById('challenge-btn').textContent = 'Verify';
+            } else {
+                L.notice(msg, 'This account needs a sign-in step this page does not support yet. Contact your administrator.');
+                return;
+            }
+            challengeInput.focus();
+        }
+
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            L.notice(msg, '');
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!email || !password) return L.notice(msg, 'Enter your email and password.');
+            busy(signinForm, true);
+            try { done(await L.signIn(email, password)); }
+            catch (err) { L.notice(msg, err.message); }
+            finally { busy(signinForm, false); }
+        });
+
+        challengeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            L.notice(msg, '');
+            const answer = challengeInput.value.trim();
+            if (!answer) return;
+            if (challenge.name === 'NEW_PASSWORD_REQUIRED' && answer !== confirmInput.value.trim())
+                return L.notice(msg, 'The two passwords do not match.');
+            busy(challengeForm, true);
+            try { done(await L.answerChallenge(challenge, answer)); }
+            catch (err) { L.notice(msg, err.message); }
+            finally { busy(challengeForm, false); }
+        });
+    })();
     </script>
 
 </body>

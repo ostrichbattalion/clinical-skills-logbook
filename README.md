@@ -5,8 +5,10 @@ skills of emergency-care students — the digital replacement for a paper skills
 logbook. Built from the perspective of someone who has been both the student
 carrying the logbook and the lecturer signing it off.
 
-> Status: interactive front-end prototype (static HTML/CSS/JS). All data shown is
-> mock/placeholder data — no real student or patient information.
+> Status: the core loop (sign in → log skills → request signature → supervisor signs →
+> progress against HPCSA minimums) runs on a real AWS serverless backend in `backend/`.
+> Other pages are still front-end mock-ups with placeholder data. With no backend
+> configured, the wired pages show a demo notice and the login page offers demo shortcuts.
 
 ## The problem it solves
 
@@ -26,6 +28,17 @@ digitises that workflow.
 - **QR code identification** — each record carries a QR code for quick lookup.
 - **Offline-friendly student view** — a lightweight PWA-style dashboard the student
   can use on scene.
+
+## Backend
+
+`backend/` is an AWS CDK app: Cognito sign-in, an API Gateway HTTP API, one Lambda
+function and a DynamoDB table, deployed to af-south-1 (Cape Town). The skill catalogue
+and minimums come from HPCSA PBEC Annexure A (March 2021). See
+[backend/README.md](backend/README.md) for deploy steps, roles and the API.
+
+Pages wired to it: `login`, `log_new_encounter`, `log_single_skill`,
+`student_pwa_dashboard`, `request_signature`, `lecturer_dashboard` (sign-off queue),
+`supervisor_sig_form` and `skills_tracker`. Shared browser code is in `js/api.js`.
 
 ## Structure
 
@@ -55,6 +68,8 @@ I want to take my career — health informatics and clinical systems.
 
 ## Roadmap
 
-- Back this with a real datastore (Supabase / PostgreSQL) and authentication.
-- Move signatures and QR verification to a secure, auditable record.
+- ~~Back this with a real datastore and authentication~~ (done: AWS Cognito + DynamoDB).
+- Institution and cohort reports for the HPCSA.
+- QR-code / hand-over signing and peer sign-off on the same auditable record.
+- Admin screens for managing users and cohorts.
 - Align the data model with health-interoperability standards (HL7 FHIR).
