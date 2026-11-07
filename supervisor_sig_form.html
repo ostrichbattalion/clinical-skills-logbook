@@ -3,45 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supervisor Signature</title>
+    <title>Review &amp; Sign</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
 </head>
 <body>
     <div class="container">
-        <h1>Supervisor Digital Signature</h1>
-        <p>You are signing off on encounters for <strong>Jane Doe</strong>. Please review the skills below and uncheck any you did not witness.</p>
-        
+        <a href="lecturer_dashboard.html" class="btn btn-link">&larr; Back to Queue</a>
+        <h1>Digital Signature</h1>
+        <p>You are signing off for <strong id="student-name">…</strong>. Untick any skill you did not witness; it will be recorded as not witnessed and will not count.</p>
+        <p id="sign-msg" role="alert" hidden></p>
+
         <div class="encounter-group">
-            <h3>Encounter: Patient #123 (Ambulance)</h3>
-            <ul class="skill-list">
-                <li><input type="checkbox" id="s1" checked><label for="s1">Clinical assessment</label></li>
-                <li><input type="checkbox" id="s2" checked><label for="s2">Vital Signs</label></li>
-                <li><input type="checkbox" id="s3" checked><label for="s3">IV Insertion</label></li>
-            </ul>
-        </div>
-        
-        <div class="encounter-group">
-            <h3>Encounter: Skills @ Triage Desk</h3>
-            <ul class="skill-list">
-                <li><input type="checkbox" id="s4" checked><label for="s4">Clinical assessment</label></li>
-                <li><input type="checkbox" id="s5" checked><label for="s5">Vital Signs</label></li>
-                <li><input type="checkbox" id="s6" checked><label for="s6">History Taking</label></li>
-            </ul>
+            <h3 id="entry-title">Loading…</h3>
+            <p id="entry-notes" class="sub-details" hidden></p>
+            <ul class="skill-list skill-checklist" id="skill-list"></ul>
         </div>
 
-        <form action="student_pwa_dashboard.html">
-            <div>
-                <label for="supervisor-name">Your Full Name</label>
-                <input type="text" id="supervisor-name" name="supervisor-name" placeholder="e.g., B. Jones">
+        <form id="sign-form" hidden novalidate>
+            <div class="field">
+                <label for="signer-name">Your full name</label>
+                <input type="text" id="signer-name" readonly>
+                <div class="hint">From your logbook account.</div>
             </div>
-            <div>
-                <label for="reg-code">Your Professional Reg. Code</label>
-                <input type="text" id="reg-code" name="reg-code" placeholder="e.g., PC-12345">
+            <div class="field">
+                <label for="reg-code">Your professional registration number</label>
+                <input type="text" id="reg-code" maxlength="40" placeholder="e.g. PA1234567" required>
             </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Sign & Approve Selected Skills</button>
+            <div class="field">
+                <label for="comment">Comment for the student (optional)</label>
+                <textarea id="comment" rows="2" maxlength="500"></textarea>
             </div>
+            <div class="field">
+                <input type="checkbox" id="attest">
+                <label for="attest" style="display:inline;font-weight:normal">I personally witnessed the ticked skills being performed by this student on actual patients.</label>
+            </div>
+            <button type="submit" class="btn btn-approve">Sign &amp; Approve Ticked Skills</button>
         </form>
+
+        <div id="return-section" hidden style="margin-top:30px;border-top:2px solid #eee;padding-top:20px">
+            <h3>Something wrong with this entry?</h3>
+            <form id="return-form" novalidate>
+                <div class="field">
+                    <label for="return-reason">Reason for returning it to the student</label>
+                    <input type="text" id="return-reason" maxlength="500" placeholder="e.g. I wasn't on shift that day">
+                </div>
+                <button type="submit" class="btn btn-reject">Return to Student</button>
+            </form>
+        </div>
     </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/sign-entry.js"></script>
 </body>
 </html>
