@@ -6,6 +6,7 @@
   const user = L.requireUser('student');
   if (!user) return;
   L.mountUserBar(user);
+  L.mountConnectivity();
 
   const COMMON = [
     'history-taking-registration-category-specific', 'general-physical-assessment-medical', 'general-physical-assessment-trauma',
@@ -107,7 +108,7 @@
   }
   search.addEventListener('input', renderResults);
 
-  L.api('GET', '/catalogue').then((c) => {
+  L.cachedGet('/catalogue').then((c) => {
     skills = c.skills;
     document.getElementById('framework').textContent = c.programme
       ? `Logging against ${c.programme.name}, year ${c.studyYear} (${c.source}). Skills also count toward the HPCSA minimums.`
@@ -130,11 +131,15 @@
     };
     const btn = form.querySelector('button[type=submit]');
     btn.disabled = true;
+    const queue = () => { L.outbox.add(body); window.location.href = 'student_pwa_dashboard.html?queued=1'; };
     try {
+      if (navigator.onLine === false) return queue();
       await L.api('POST', '/entries', body);
       window.location.href = 'student_pwa_dashboard.html?saved=1';
     } catch (err) {
-      L.notice(msg, err.message);
+      if (err.offline) {
+        try { return queue(); } catch (e2) { L.notice(msg, e2.message); }
+      } else L.notice(msg, err.message);
       btn.disabled = false;
     }
   });

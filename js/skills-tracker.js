@@ -97,8 +97,9 @@
   }));
   showZero.addEventListener('change', render);
 
-  L.api('GET', '/progress' + (studentSub ? `?studentSub=${encodeURIComponent(studentSub)}` : '')).then((p) => {
+  L.cachedGet('/progress' + (studentSub ? `?studentSub=${encodeURIComponent(studentSub)}` : '')).then((p) => {
     data = p;
+    if (p.offline) L.notice(msg, `No connection: showing progress as it was at ${new Date(p.savedAt).toLocaleString('en-ZA')}.`, 'info');
     document.getElementById('who').textContent = studentSub ? p.student.name : '';
     if (p.college) {
       tabs.hidden = false;

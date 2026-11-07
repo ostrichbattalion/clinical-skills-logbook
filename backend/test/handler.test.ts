@@ -304,3 +304,23 @@ test('on-the-spot signing: single-use code, claimed by a verifier, expires, refu
   // other students' entries can't be put in a code
   assert.equal((await call('stu-2', 'POST /entries/sign-requests', { body: { entryIds: [ids[1]] } })).status, 404);
 });
+
+test('offline uploads are idempotent: the same clientId never creates two entries', async () => {
+  const clientId = '3f2b8a4e-1c2d-4e5f-8a9b-0c1d2e3f4a5b';
+  const recordedAt = Date.now() - 3 * 3600_000;
+  const first = await call('stu-1', 'POST /entries', { body: newEntry({ clientId, recordedAt }) });
+  assert.equal(first.status, 200, JSON.stringify(first.data));
+  const again = await call('stu-1', 'POST /entries', { body: newEntry({ clientId, recordedAt, setting: 'changed on retry' }) });
+  assert.equal(again.status, 200);
+  assert.equal(again.data.duplicate, true);
+  assert.equal(again.data.entry.entryId, first.data.entry.entryId);
+  assert.equal(again.data.entry.setting, 'Ambulance', 'the first upload wins');
+  assert.equal((await call('stu-1', 'GET /entries')).data.entries.length, 1);
+  // the id sorts by when it was recorded on the phone, not when it arrived
+  assert.ok(first.data.entry.entryId.startsWith(recordedAt.toString(36).padStart(9, '0')));
+  // another student using the same clientId gets their own entry
+  const other = await call('stu-2', 'POST /entries', { body: newEntry({ clientId, recordedAt }) });
+  assert.notEqual(other.data.entry.entryId, first.data.entry.entryId);
+  assert.equal((await call('stu-1', 'POST /entries', { body: newEntry({ clientId: 'nope', recordedAt }) })).status, 400);
+  assert.equal((await call('stu-1', 'POST /entries', { body: newEntry({ clientId, recordedAt: 'x' }) })).status, 400);
+});

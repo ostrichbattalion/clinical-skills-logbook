@@ -1,0 +1,11 @@
+{
+  "name": "Clinical Skills Logbook",
+  "short_name": "Logbook",
+  "description": "Log and verify clinical skills against college and HPCSA minimums.",
+  "start_url": "student_pwa_dashboard.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f6",
+  "theme_color": "#007bff",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

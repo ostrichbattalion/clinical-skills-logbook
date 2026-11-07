@@ -25,9 +25,10 @@ digitises that workflow.
   against the official skill reference list.
 - **Signature capture & verification** — lecturer, supervisor and peer sign-off
   forms, plus a *rapid verification* view for confirming a logged skill at a glance.
-- **QR code identification** — each record carries a QR code for quick lookup.
-- **Offline-friendly student view** — a lightweight PWA-style dashboard the student
-  can use on scene.
+- **Sign on the spot** — the supervisor scans a QR code with their own phone, or signs on
+  the student's phone with a session that is never stored and ends straight afterwards.
+- **Works offline** — students log on scene without signal; entries upload by themselves
+  when the phone is back online, without duplicates.
 
 ## Backend
 

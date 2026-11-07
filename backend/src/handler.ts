@@ -1,4 +1,4 @@
-import { randomBytes } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import type { APIGatewayProxyEventV2WithJWTAuthorizer, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { callerFromEvent, requireRole } from './auth.js';
 import * as db from './db.js';
@@ -55,6 +55,24 @@ export function newEntryId(now = Date.now()) {
   return `${now.toString(36).padStart(9, '0')}-${randomBytes(6).toString('hex')}`;
 }
 
+/**
+ * Entries logged offline carry a client-made id (a UUID) and the time they were recorded on the phone. The entry id
+ * is derived from them, so uploading the same entry twice (e.g. the reply was lost) can't create a duplicate.
+ */
+export function offlineEntryId(studentSub: string, clientId: string, recordedAt: number, now = Date.now()) {
+  const t = Math.min(now, Math.max(now - 60 * 86_400_000, Math.round(recordedAt)));
+  return `${t.toString(36).padStart(9, '0')}-${createHash('sha256').update(`${studentSub}:${clientId}`).digest('hex').slice(0, 12)}`;
+}
+
+function parseOffline(b: unknown) {
+  const { clientId, recordedAt } = (b ?? {}) as { clientId?: unknown; recordedAt?: unknown };
+  if (clientId === undefined) return null;
+  if (typeof clientId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(clientId))
+    throw new HttpError(400, 'clientId must be a UUID');
+  if (typeof recordedAt !== 'number' || !Number.isFinite(recordedAt)) throw new HttpError(400, 'recordedAt must be a timestamp');
+  return { clientId: clientId.toLowerCase(), recordedAt };
+}
+
 const todayInSA = () => new Date(Date.now() + 2 * 3600_000).toISOString().slice(0, 10); // SAST, no DST
 
 function body(event: Event): unknown {
@@ -109,9 +127,20 @@ const routes: Record<string, (event: Event, caller: Caller) => Promise<unknown>>
 
   'POST /entries': async (event, caller) => {
     requireRole(caller, 'student');
-    const input = validateNewEntry(body(event), todayInSA(), (id) => lookupLoggable(id, caller.programmeId));
-    const entry = buildEntry(input, caller, newEntryId(), new Date().toISOString());
-    await db.createEntry(entry);
+    const b = body(event);
+    const input = validateNewEntry(b, todayInSA(), (id) => lookupLoggable(id, caller.programmeId));
+    const offline = parseOffline(b);
+    const entryId = offline ? offlineEntryId(caller.sub, offline.clientId, offline.recordedAt) : newEntryId();
+    const entry = buildEntry(input, caller, entryId, new Date().toISOString());
+    try {
+      await db.createEntry(entry);
+    } catch (err) {
+      if (offline && (err as Error).name === 'ConditionalCheckFailedException') {
+        const existing = await db.getEntry(caller.sub, entryId);
+        if (existing) return { entry: view(existing), duplicate: true };
+      }
+      throw err;
+    }
     return { entry: view(entry) };
   },
 

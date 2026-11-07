@@ -35,13 +35,18 @@
     };
   }
 
+  const offlineError = () => Object.assign(new Error('No connection. Check your signal and try again.'), { offline: true });
+
   async function cognito(target, payload) {
     const endpoint = config.cognitoEndpoint || `https://cognito-idp.${config.region}.amazonaws.com/`; // override only for local testing
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-amz-json-1.1', 'X-Amz-Target': `AWSCognitoIdentityProviderService.${target}` },
-      body: JSON.stringify(payload),
-    });
+    let res;
+    try {
+      res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-amz-json-1.1', 'X-Amz-Target': `AWSCognitoIdentityProviderService.${target}` },
+        body: JSON.stringify(payload),
+      });
+    } catch { throw offlineError(); }
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       const type = String(data.__type || '').split('#').pop();
@@ -117,7 +122,11 @@
 
     session() { return store.get() || memory; },
 
-    signOut() { store.clear(); memory = null; window.location.href = 'login.html'; },
+    signOut() {
+      const waiting = Logbook.session() ? Logbook.outbox.list().length : 0;
+      if (waiting && !confirm(`${waiting} entr${waiting === 1 ? 'y is' : 'ies are'} still waiting to upload. They stay on this phone and upload the next time you sign in here. Sign out?`)) return;
+      store.clear(); memory = null; window.location.href = 'login.html';
+    },
 
     homeFor(user) {
       if (user.roles.includes('student')) return 'student_pwa_dashboard.html';
@@ -148,7 +157,8 @@
           AuthFlow: 'REFRESH_TOKEN_AUTH', ClientId: config.userPoolClientId, AuthParameters: { REFRESH_TOKEN: s.refreshToken },
         });
         return saveTokens(data.AuthenticationResult, s.refreshToken);
-      } catch {
+      } catch (err) {
+        if (err.offline) throw err; // no signal: keep the session, try again later
         Logbook.signOut();
         throw new Error('Your session has ended. Please sign in again.');
       }
@@ -166,18 +176,93 @@
   };
 
   async function request(idToken, method, path, body, on401) {
-      const res = await fetch(config.apiUrl + path, {
-        method,
-        headers: { Authorization: idToken, ...(body !== undefined && { 'Content-Type': 'application/json' }) },
-        body: body === undefined ? undefined : JSON.stringify(body),
-      });
+      let res;
+      try {
+        res = await fetch(config.apiUrl + path, {
+          method,
+          headers: { Authorization: idToken, ...(body !== undefined && { 'Content-Type': 'application/json' }) },
+          body: body === undefined ? undefined : JSON.stringify(body),
+        });
+      } catch { throw offlineError(); }
       const data = await res.json().catch(() => ({}));
       if (res.status === 401) { on401(); throw new Error('Please sign in again.'); }
       if (!res.ok) throw Object.assign(new Error(data.error || `Request failed (${res.status})`), { status: res.status, fields: data.fields });
       return data;
   }
 
+  // ---------------- offline support ----------------
+  const local = {
+    get(k, fallback) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+  };
+  const userKey = (name) => `logbook.${name}.${Logbook.session()?.user.sub || 'anon'}`;
+  const uuid = () => (crypto.randomUUID ? crypto.randomUUID()
+    : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)));
+  let syncing = null;
+
   Object.assign(Logbook, {
+    /**
+     * GET with a per-user copy kept on the phone. Without signal, returns the saved copy with
+     * { offline: true, savedAt } so the page can say how old it is.
+     */
+    async cachedGet(path) {
+      const key = userKey('cache') + path;
+      try {
+        const data = await Logbook.api('GET', path);
+        local.set(key, { savedAt: new Date().toISOString(), data });
+        return { ...data, offline: false };
+      } catch (err) {
+        const saved = err.offline && local.get(key, null);
+        if (saved) return { ...saved.data, offline: true, savedAt: saved.savedAt };
+        throw err;
+      }
+    },
+
+    /** Entries logged without signal, kept on this phone (per student) until they upload. */
+    outbox: {
+      list() { return local.get(userKey('outbox'), []); },
+      add(body) {
+        const item = { clientId: uuid(), recordedAt: Date.now(), body, status: 'waiting' };
+        if (!local.set(userKey('outbox'), [...Logbook.outbox.list(), item])) throw new Error('This phone is out of storage space, so the entry could not be saved.');
+        return item;
+      },
+      remove(clientId) { local.set(userKey('outbox'), Logbook.outbox.list().filter((i) => i.clientId !== clientId)); },
+      /** Uploads waiting entries one by one. Safe to call often: only one sync runs at a time. */
+      sync() {
+        if (syncing) return syncing;
+        syncing = (async () => {
+          const result = { uploaded: 0, problems: 0, offline: false };
+          for (const item of Logbook.outbox.list().filter((i) => i.status === 'waiting')) {
+            try {
+              await Logbook.api('POST', '/entries', { ...item.body, clientId: item.clientId, recordedAt: item.recordedAt });
+              Logbook.outbox.remove(item.clientId);
+              result.uploaded++;
+            } catch (err) {
+              if (err.offline) { result.offline = true; break; }
+              if (err.status >= 400 && err.status < 500) {
+                local.set(userKey('outbox'), Logbook.outbox.list().map((i) => (i.clientId === item.clientId ? { ...i, status: 'problem', error: err.message } : i)));
+                result.problems++;
+              } else { result.offline = true; break; } // server trouble: try again later
+            }
+          }
+          return result;
+        })().finally(() => { syncing = null; });
+        return syncing;
+      },
+    },
+
+    /** A small "no connection" bar that follows the phone's connection state. */
+    mountConnectivity() {
+      const bar = document.createElement('p');
+      bar.className = 'notice notice-info offline-bar';
+      bar.setAttribute('role', 'status');
+      bar.textContent = 'No connection. You can keep logging; entries upload when you have signal.';
+      const update = () => { bar.hidden = navigator.onLine !== false; };
+      update();
+      window.addEventListener('online', update);
+      window.addEventListener('offline', update);
+      document.querySelector('.container').prepend(bar);
+    },
 
     /** Escapes text for safe insertion into HTML. Use for every value that came from the API. */
     esc(v) {
@@ -220,4 +305,9 @@
   });
 
   window.Logbook = Logbook;
+
+  // Cache the app on the phone so it opens without signal (see sw.js). Not on file:// or in tests.
+  if (Logbook.configured && 'serviceWorker' in navigator && location.protocol === 'https:') {
+    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { /* app still works online */ }); });
+  }
 })();

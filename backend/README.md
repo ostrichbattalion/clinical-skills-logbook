@@ -84,6 +84,27 @@ DynamoDB TTL a day after expiry). The code travels in the URL fragment, which br
 signing pages set `referrer` to `no-referrer`. Claiming assigns the entries to that verifier in one transaction, so
 two people can't claim the same code; signing then uses the normal queue routes and rules.
 
+## Offline logging
+
+Students often have no signal on scene. The student pages work offline:
+
+- **The app is kept on the phone** by a service worker (`sw.js`, HTTPS only). It fetches from the network first,
+  so updates arrive whenever there is signal, and falls back to the saved copy. Only the site's own files are
+  cached; API and sign-in requests are never touched. Students can also add it to their home screen
+  (`manifest.webmanifest`).
+- **The skill list, entries and progress are saved per student** in the browser after each successful load, so the
+  log form and dashboard work offline (the dashboard says how old the list is).
+- **Entries logged without signal go into an outbox** on the phone (shown as "Saved on this phone") and upload
+  automatically when signal returns: on page load, when the phone comes back online, and every 30 seconds.
+- **No duplicates:** each queued entry carries a UUID and the time it was recorded. The server derives the entry
+  id from them, so if a reply is lost and the phone uploads the same entry again, the server returns the existing
+  entry instead of creating a second one.
+- An entry the server rejects (e.g. a skill no longer in the programme) stays on the phone with the reason, for the
+  student to delete. Losing signal never signs anyone out; only a real rejection from Cognito does.
+
+Offline entries still need a supervisor's signature once uploaded. When you remove a page or file from the app,
+change `VERSION` in `sw.js` so phones drop the old copy.
+
 ## Accounts and roles
 
 Accounts are created by an administrator (no self sign-up). Each person is in one Cognito group:
@@ -170,7 +191,7 @@ All routes need the Cognito **ID token** in the `Authorization` header.
 | `GET /me` | any | Your profile from the token |
 | `GET /catalogue` | any | The skills you log against: your college programme's list, or Annexure A |
 | `GET /entries` | student | Your entries, newest first |
-| `POST /entries` | student | Create an entry `{kind, performedOn, setting, encounterRef?, notes?, skills:[{skillId,count}]}` |
+| `POST /entries` | student | Create an entry `{kind, performedOn, setting, encounterRef?, notes?, skills:[{skillId,count}]}`; offline uploads add `{clientId, recordedAt}` and are idempotent |
 | `DELETE /entries/{entryId}` | student | Delete a draft or returned entry |
 | `POST /entries/request-signature` | student | `{entryIds:[…], verifierEmail}` (up to 25 at once, all-or-nothing) |
 | `POST /entries/sign-requests` | student | `{entryIds}` → single-use signing code (15 minutes) |
@@ -213,8 +234,7 @@ npm run typecheck
 npm run synth     # renders the CloudFormation template without deploying
 ```
 
-## Not in this first slice
+## Not built yet
 
-offline logging,
-peer sign-off, the paper-scan verification flow, offline logging, and audit export. The data model keeps
-the signer, registration number and timestamps on every signed entry so these can be built on top.
+Peer sign-off, the paper-scan verification flow, and audit export. The data model keeps the signer, registration
+number and timestamps on every signed entry so these can be built on top.

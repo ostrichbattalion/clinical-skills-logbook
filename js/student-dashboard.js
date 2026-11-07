@@ -6,6 +6,7 @@
   const user = L.requireUser('student');
   if (!user) return;
   L.mountUserBar(user);
+  L.mountConnectivity();
 
   const msg = document.getElementById('dash-msg');
   const pendingList = document.getElementById('pending-list');
@@ -15,6 +16,39 @@
 
   if (new URLSearchParams(location.search).get('saved')) L.notice(msg, 'Entry saved to your pending list.', 'ok');
   if (new URLSearchParams(location.search).get('requested')) L.notice(msg, 'Signature request sent.', 'ok');
+  if (new URLSearchParams(location.search).get('queued')) L.notice(msg, 'No connection, so the entry is saved on this phone. It uploads automatically when you have signal.', 'info');
+  const outboxBox = document.getElementById('outbox');
+
+  function renderOutbox() {
+    const items = L.outbox.list();
+    document.getElementById('outbox-section').hidden = items.length === 0;
+    document.getElementById('outbox-count').textContent = items.length;
+    outboxBox.innerHTML = '';
+    for (const it of items) {
+      const b = it.body;
+      const li = document.createElement('li');
+      li.innerHTML = `<div class="details"><strong>${b.kind === 'encounter' ? 'Patient encounter' : 'Skills session'} · ${L.esc(b.setting)}${b.encounterRef ? ' · ' + L.esc(b.encounterRef) : ''}</strong>
+        <div class="sub-details">${L.esc(L.formatDate(b.performedOn))} · ${b.skills.length} skill${b.skills.length === 1 ? '' : 's'}</div>
+        ${it.status === 'problem' ? `<div class="sub-details" style="color:#a12a2a">Could not upload: ${L.esc(it.error)}</div>` : '<div class="sub-details">Waiting for signal</div>'}</div>`;
+      if (it.status === 'problem') {
+        const del = document.createElement('button');
+        del.type = 'button'; del.className = 'link-button'; del.textContent = 'Delete';
+        del.addEventListener('click', () => { if (confirm('Delete this entry from the phone? It was never uploaded.')) { L.outbox.remove(it.clientId); renderOutbox(); } });
+        li.appendChild(del);
+      }
+      outboxBox.appendChild(li);
+    }
+  }
+
+  async function sync() {
+    if (!L.outbox.list().some((i) => i.status === 'waiting')) return;
+    const r = await L.outbox.sync();
+    renderOutbox();
+    if (r.uploaded) { L.notice(msg, `${r.uploaded} saved entr${r.uploaded === 1 ? 'y' : 'ies'} uploaded.`, 'ok'); load(); }
+    if (r.problems) L.notice(msg, 'Some saved entries could not be uploaded. See "Saved on this phone" below.');
+  }
+  window.addEventListener('online', sync);
+  setInterval(sync, 30000);
 
   const skillLine = (e) => e.skills.map((s) => {
     const n = L.esc(s.name || s.skillId) + (s.count > 1 ? ` ×${s.count}` : '');
@@ -84,8 +118,10 @@
 
   async function load() {
     try {
-      const data = await L.api('GET', '/entries');
+      const data = await L.cachedGet('/entries');
       render(data.entries);
+      document.getElementById('stale').hidden = !data.offline;
+      if (data.offline) document.getElementById('stale').textContent = `No connection: showing your entries as they were at ${new Date(data.savedAt).toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })}.`;
     } catch (err) { L.notice(msg, err.message); }
   }
 
@@ -94,5 +130,6 @@
     if (ids.length) location.href = 'request_signature.html?ids=' + encodeURIComponent(ids.join(','));
   });
 
-  load();
+  renderOutbox();
+  load().then(sync);
 })();
