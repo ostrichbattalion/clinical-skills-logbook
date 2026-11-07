@@ -76,3 +76,17 @@
   textarea { border: 1px solid #999; resize: none; }
   a { color: inherit; text-decoration: none; }
 }
+
+/* ---- admin ---- */
+.pill.active { background: #e6f6ea; color: #1c6b2f; }
+.pill.invited { background: #eef5ff; color: #084298; }
+.pill.disabled { background: #eee; color: #666; }
+.panel { border: 1px solid #cfe0f5; background: #f7fbff; border-radius: 8px; padding: 16px; margin: 15px 0; }
+.panel h2 { margin-top: 0; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 16px; }
+.field-error { color: #a12a2a; font-size: 0.85em; margin-top: 4px; }
+.field.invalid input, .field.invalid select { border-color: #dc3545; }
+.row-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.data-table tr.muted td { color: #888; }
+.data-table tr.bad td { background: #fdf0f1; }
+.data-table tr.good td { background: #f3fbf5; }

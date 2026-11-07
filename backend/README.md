@@ -104,7 +104,30 @@ npx tsx scripts/write-frontend-config.ts --stage prod
 The `prod` stage turns on DynamoDB deletion protection and keeps the user pool if the stack is deleted.
 The table is always kept and has point-in-time recovery.
 
-## Create users
+## Managing people
+
+Institution administrators manage their own institution's people in the browser at `admin_users.html`:
+
+- add students, supervisors and lecturers one at a time, or **import a class list** from CSV (checked row by
+  row before anything is created; a template is downloadable on the page)
+- edit names, roles, programme, year of study and HPCSA registration numbers
+- **move students to the next year** in bulk (final-year students are skipped)
+- disable leavers (signs them out everywhere; their entries are kept), re-enable, resend invitations
+- see a log of recent changes and who made them (stored as `AUDIT#<institution>` items in the table)
+
+Admins can't create or change administrator accounts, change their own account, or touch other institutions.
+New administrators are created by the platform operator with the command below.
+
+### Invitation emails: use Amazon SES before importing classes
+
+Cognito's built-in email sender only allows a small number of emails a day, which one class import can use up.
+For a pilot, verify a sender address in Amazon SES (and request production access), then deploy with it:
+
+```bash
+npx cdk deploy -c sesFromEmail=logbook@yourcollege.ac.za -c sesRegion=<region where the address is verified> --outputs-file cdk-outputs.json
+```
+
+## Create users from the command line
 
 ```bash
 npm run create-user -- --email jane@college.ac.za --name "Jane Doe" --role student \
@@ -137,6 +160,14 @@ All routes need the Cognito **ID token** in the `Authorization` header.
 | `GET /reports/cohort[?programme=&year=&detail=1]` | lecturer, admin | Cohort pace, lagging skills, export rows |
 | `GET /reports/hpcsa-summary?programme=` | lecturer, admin | PBEC-style progress summary |
 | `GET /reports/gap` | lecturer, admin | College requirements vs Annexure A |
+| `GET /admin/people` | admin | Everyone at your institution with roles and status |
+| `POST /admin/people` | admin | Add a person (sends an invitation) |
+| `POST /admin/people/import` | admin | `{rows, dryRun}`, up to 50 rows per request |
+| `POST /admin/people/promote` | admin | `{subs}`: move students to their next year |
+| `POST /admin/people/{sub}` | admin | Change name, role, programme, year, registration number |
+| `POST /admin/people/{sub}/enabled` | admin | `{enabled}`: disable or re-enable |
+| `POST /admin/people/{sub}/resend-invite` | admin | Resend the invitation email |
+| `GET /admin/audit` | admin | Recent changes |
 | `GET /queue` | supervisor, lecturer | Entries awaiting your signature |
 | `GET /queue/{studentSub}/{entryId}` | supervisor, lecturer | One entry in your queue |
 | `POST /queue/{studentSub}/{entryId}/sign` | supervisor, lecturer | `{witnessedSkillIds:[…], regNo, comment?}` |
@@ -165,6 +196,6 @@ npm run synth     # renders the CloudFormation template without deploying
 
 ## Not in this first slice
 
-Admin user management UI, QR-code and hand-over signing,
+QR-code and hand-over signing,
 peer sign-off, the paper-scan verification flow, offline logging, and audit export. The data model keeps
 the signer, registration number and timestamps on every signed entry so these can be built on top.

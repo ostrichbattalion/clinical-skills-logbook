@@ -104,7 +104,7 @@
     homeFor(user) {
       if (user.roles.includes('student')) return 'student_pwa_dashboard.html';
       if (user.roles.includes('supervisor') || user.roles.includes('lecturer')) return 'lecturer_dashboard.html';
-      if (user.roles.includes('admin')) return 'reports.html';
+      if (user.roles.includes('admin')) return 'admin_users.html';
       return 'login.html';
     },
 
@@ -141,7 +141,7 @@
       });
       const data = await res.json().catch(() => ({}));
       if (res.status === 401) { Logbook.signOut(); throw new Error('Please sign in again.'); }
-      if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+      if (!res.ok) throw Object.assign(new Error(data.error || `Request failed (${res.status})`), { status: res.status, fields: data.fields });
       return data;
     },
 

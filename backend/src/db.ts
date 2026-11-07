@@ -124,3 +124,32 @@ export async function deleteDraft(studentSub: string, entryId: string) {
     }),
   );
 }
+
+export interface AuditEvent {
+  institution: string;
+  at: string;
+  actorSub: string;
+  actorName: string;
+  action: string;
+  targetEmail?: string;
+  details?: string;
+}
+
+/** Records an admin action. Audit items: PK = AUDIT#<institution>, SK = <timestamp>#<random>. */
+export async function putAudit(e: AuditEvent) {
+  await doc.send(new PutCommand({
+    TableName: table(),
+    Item: { PK: `AUDIT#${e.institution}`, SK: `${e.at}#${Math.random().toString(36).slice(2, 10)}`, entityType: 'Audit', ...e },
+  }));
+}
+
+export async function listAudit(institution: string, limit = 50): Promise<AuditEvent[]> {
+  const r = await doc.send(new QueryCommand({
+    TableName: table(),
+    KeyConditionExpression: 'PK = :pk',
+    ExpressionAttributeValues: { ':pk': `AUDIT#${institution}` },
+    ScanIndexForward: false,
+    Limit: limit,
+  }));
+  return (r.Items ?? []).map(({ PK: _p, SK: _s, entityType: _t, ...rest }) => rest as AuditEvent);
+}

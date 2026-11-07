@@ -19,6 +19,11 @@ const here = dirname(fileURLToPath(import.meta.url));
 export interface LogbookStackProps extends cdk.StackProps {
   stage: string;
   allowedOrigins: string[];
+  /**
+   * Send invitation and password emails through Amazon SES from this verified address. Cognito's built-in sender
+   * only allows a small number of emails a day, which a class import quickly uses up.
+   */
+  ses?: { fromEmail: string; fromName?: string; region?: string };
 }
 
 export class LogbookStack extends cdk.Stack {
@@ -70,6 +75,13 @@ export class LogbookStack extends cdk.Stack {
         emailSubject: 'Your clinical skills logbook account',
         emailBody: 'You have been given a clinical skills logbook account. Sign in with {username} and the temporary password {####}. You will be asked to choose a new password.',
       },
+      ...(props.ses && {
+        email: cognito.UserPoolEmail.withSES({
+          fromEmail: props.ses.fromEmail,
+          fromName: props.ses.fromName ?? 'Clinical Skills Logbook',
+          sesRegion: props.ses.region ?? this.region,
+        }),
+      }),
       removalPolicy: isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
     });
 
@@ -111,7 +123,13 @@ export class LogbookStack extends cdk.Stack {
     table.grantReadWriteData(fn);
     fn.addToRolePolicy(
       new iam.PolicyStatement({
-        actions: ['cognito-idp:ListUsers', 'cognito-idp:ListUsersInGroup', 'cognito-idp:AdminListGroupsForUser'],
+        actions: [
+          'cognito-idp:ListUsers', 'cognito-idp:ListUsersInGroup', 'cognito-idp:AdminListGroupsForUser',
+          // institution admin screen
+          'cognito-idp:AdminCreateUser', 'cognito-idp:AdminAddUserToGroup', 'cognito-idp:AdminRemoveUserFromGroup',
+          'cognito-idp:AdminUpdateUserAttributes', 'cognito-idp:AdminDeleteUserAttributes',
+          'cognito-idp:AdminDisableUser', 'cognito-idp:AdminEnableUser', 'cognito-idp:AdminUserGlobalSignOut',
+        ],
         resources: [userPool.userPoolArn],
       }),
     );

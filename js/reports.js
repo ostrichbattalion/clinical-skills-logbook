@@ -6,6 +6,7 @@
   const user = L.requireUser('lecturer', 'admin');
   if (!user) return;
   L.mountUserBar(user);
+  if (!user.roles.includes('lecturer')) { const b = document.getElementById('back'); b.href = 'admin_users.html'; b.innerHTML = '&larr; People'; }
 
   const $ = (id) => document.getElementById(id);
   const msg = $('report-msg');

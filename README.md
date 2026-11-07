@@ -41,7 +41,7 @@ Pages wired to it: `login`, `log_new_encounter`, `log_single_skill`,
 `supervisor_sig_form` and `skills_tracker`, plus the institution reports `reports` (cohort progress and
 CSV export), `hpcsa_summary` (printable PBEC progress report) and `requirements_gap`. Students on a college
 programme log against their college logbook list (the WCG CEC logbook is loaded), mapped to HPCSA Annexure A.
-Shared browser code is in `js/api.js`.
+Institution administrators manage people at `admin_users.html`. Shared browser code is in `js/api.js`.
 
 ## Structure
 
@@ -74,5 +74,5 @@ I want to take my career — health informatics and clinical systems.
 - ~~Back this with a real datastore and authentication~~ (done: AWS Cognito + DynamoDB).
 - ~~Institution and cohort reports for the HPCSA~~ (done: cohort view, export, PBEC summary, gap check).
 - QR-code / hand-over signing and peer sign-off on the same auditable record.
-- Admin screens for managing users and cohorts.
+- ~~Admin screens for managing users and cohorts~~ (done: `admin_users.html`, with class-list import and year moves).
 - Align the data model with health-interoperability standards (HL7 FHIR).

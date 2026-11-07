@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
+</head>
+<body>
+    <div class="container wide">
+        <p><a href="reports.html">📊 Cohort progress &amp; HPCSA reports</a></p>
+        <h1>People</h1>
+        <p><strong id="institution">…</strong></p>
+        <p id="admin-msg" role="status" hidden></p>
+
+        <div class="toolbar">
+            <button type="button" class="btn btn-primary" id="add">+ Add a person</button>
+            <button type="button" class="btn btn-secondary" id="import">⬆ Import class list (CSV)</button>
+            <button type="button" class="btn btn-secondary" id="promote" disabled>Move selected to next year</button>
+        </div>
+
+        <section class="panel" id="person-panel" hidden aria-labelledby="form-title">
+            <h2 id="form-title">Add a person</h2>
+            <form id="person-form" novalidate>
+                <div class="form-grid">
+                    <div class="field"><label for="p-email">Email</label><input type="email" id="p-email" autocomplete="off" required></div>
+                    <div class="field"><label for="p-name">Full name</label><input type="text" id="p-name" maxlength="80" required></div>
+                    <div class="field"><label for="p-role">Role</label>
+                        <select id="p-role"><option value="student">Student</option><option value="supervisor">Supervisor</option><option value="lecturer">Lecturer</option></select></div>
+                    <div class="field"><label for="p-regno">HPCSA registration number</label><input type="text" id="p-regno" maxlength="40" placeholder="Supervisors and lecturers">
+                        <div class="hint">Pre-fills their signature on sign-offs.</div></div>
+                </div>
+                <div class="form-grid" id="programme-fields" data-mode="programme">
+                    <div class="field" id="f-prog-wrap"><label for="p-programme">Programme</label><select id="p-programme"></select></div>
+                    <div class="field" id="f-year-wrap"><label for="p-year">Year of study</label><select id="p-year"></select></div>
+                    <div class="field" id="f-cat-wrap" hidden><label for="p-category">HPCSA category</label>
+                        <select id="p-category"><option value="ECA">ECA (higher certificate)</option><option value="PARAMEDIC">Paramedic (diploma)</option><option value="ECP">ECP (degree)</option></select></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="save" style="width:auto">Add and send invitation</button>
+                <button type="button" class="btn btn-link" id="cancel" style="width:auto">Cancel</button>
+            </form>
+        </section>
+
+        <section class="panel" id="import-panel" hidden aria-labelledby="import-title">
+            <h2 id="import-title">Import a class list</h2>
+            <p>A CSV file with a header row: <code>email, name, role, programme, year, reg_no, category</code>. Excel can save as CSV. Nothing is created until you've checked the preview.</p>
+            <p><button type="button" class="link-button" id="template">Download a template</button></p>
+            <div class="field"><label for="import-file">Choose the CSV file</label><input type="file" id="import-file" accept=".csv,text/csv"></div>
+            <p id="import-summary" role="status"></p>
+            <div class="table-wrap" id="import-table" hidden>
+                <table class="data-table"><thead><tr><th class="num">Line</th><th>Email</th><th>Name</th><th>Role</th><th>Details</th><th>Check</th></tr></thead><tbody id="import-preview"></tbody></table>
+            </div>
+            <button type="button" class="btn btn-primary" id="import-go" hidden style="width:auto">Create accounts</button>
+            <button type="button" class="btn btn-link" id="import-cancel" style="width:auto">Close</button>
+        </section>
+
+        <div class="toolbar">
+            <div class="field"><label for="search">Search</label><input type="search" id="search" placeholder="Name, email or registration number"></div>
+            <div class="field"><label for="f-role">Role</label><select id="f-role"><option value="">All roles</option><option value="student">Students</option><option value="supervisor">Supervisors</option><option value="lecturer">Lecturers</option><option value="admin">Administrators</option></select></div>
+            <div class="field"><label for="f-programme">Programme</label><select id="f-programme"></select></div>
+            <div class="field"><label for="f-year">Year</label><select id="f-year"></select></div>
+            <span class="sub-details" id="count"></span>
+        </div>
+
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead><tr><th><span class="visually-hidden">Select</span></th><th>Name</th><th>Role</th><th>Programme</th><th>Reg. no.</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="people"><tr><td colspan="7" class="empty">Loading…</td></tr></tbody>
+            </table>
+        </div>
+
+        <details>
+            <summary>Recent changes</summary>
+            <ul id="audit"></ul>
+        </details>
+        <p class="method">Disabling someone signs them out everywhere and keeps all their logbook entries. Administrator accounts are managed by the platform operator. Every change here is recorded with who made it.</p>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin-users.js"></script>
+</body>
+</html>
