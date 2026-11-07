@@ -90,3 +90,7 @@
 .data-table tr.muted td { color: #888; }
 .data-table tr.bad td { background: #fdf0f1; }
 .data-table tr.good td { background: #f3fbf5; }
+
+/* ---- on-the-spot signing ---- */
+.qr-box { max-width: 300px; margin: 10px auto; background: #fff; padding: 8px; border-radius: 8px; }
+.qr-box svg { width: 100%; height: auto; display: block; }

@@ -67,6 +67,23 @@ Pace compares progress with how far through the academic year it is (default 1 F
 `ACADEMIC_YEAR=MM-DD:MM-DD` on the Lambda to change it). The thresholds are in `src/progress.ts` and
 `src/reports.ts`.
 
+## Signing on the spot
+
+Besides sending entries to a supervisor's queue by email, a student can get them signed there and then:
+
+- **QR code** (`request_signature.html` → *Show QR code*): the student's phone shows a code; the supervisor scans it
+  with their own phone camera, signs in with their own account if needed, and signs (`qr_sign.html`). The student's
+  screen updates when it's done.
+- **Hand-over** (`handover.html`): the supervisor signs in on the student's phone. Their session is kept in page
+  memory only, never in browser storage, and is revoked as soon as they finish, cancel, go idle for 3 minutes or
+  leave the page. The student's own session is untouched.
+
+Both use a single-use sign request: a random 128-bit code that expires after 15 minutes and can only be claimed by a
+supervisor or lecturer other than the student. Only its SHA-256 hash is stored (`PK = SIGNREQ#<hash>`, removed by
+DynamoDB TTL a day after expiry). The code travels in the URL fragment, which browsers never send to servers, and the
+signing pages set `referrer` to `no-referrer`. Claiming assigns the entries to that verifier in one transaction, so
+two people can't claim the same code; signing then uses the normal queue routes and rules.
+
 ## Accounts and roles
 
 Accounts are created by an administrator (no self sign-up). Each person is in one Cognito group:
@@ -156,6 +173,8 @@ All routes need the Cognito **ID token** in the `Authorization` header.
 | `POST /entries` | student | Create an entry `{kind, performedOn, setting, encounterRef?, notes?, skills:[{skillId,count}]}` |
 | `DELETE /entries/{entryId}` | student | Delete a draft or returned entry |
 | `POST /entries/request-signature` | student | `{entryIds:[…], verifierEmail}` (up to 25 at once, all-or-nothing) |
+| `POST /entries/sign-requests` | student | `{entryIds}` → single-use signing code (15 minutes) |
+| `POST /sign-requests/claim` | supervisor, lecturer | `{token}`: assigns the entries to you for signing |
 | `GET /progress[?studentSub=]` | student, lecturer, admin | `{hpcsa, college}` progress |
 | `GET /reports/cohort[?programme=&year=&detail=1]` | lecturer, admin | Cohort pace, lagging skills, export rows |
 | `GET /reports/hpcsa-summary?programme=` | lecturer, admin | PBEC-style progress summary |
@@ -196,6 +215,6 @@ npm run synth     # renders the CloudFormation template without deploying
 
 ## Not in this first slice
 
-QR-code and hand-over signing,
+offline logging,
 peer sign-off, the paper-scan verification flow, offline logging, and audit export. The data model keeps
 the signer, registration number and timestamps on every signed entry so these can be built on top.

@@ -8,6 +8,7 @@ import {
   TransactWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import type { Entry } from './domain.js';
+import type { SignRequest } from './sign-requests.js';
 
 /**
  * Single-table layout
@@ -152,4 +153,47 @@ export async function listAudit(institution: string, limit = 50): Promise<AuditE
     Limit: limit,
   }));
   return (r.Items ?? []).map(({ PK: _p, SK: _s, entityType: _t, ...rest }) => rest as AuditEvent);
+}
+
+
+/** Sign requests: PK = SIGNREQ#<sha256 of code>, SK = SIGNREQ; `ttl` lets DynamoDB delete them a day after expiry. */
+export async function putSignRequest(r: SignRequest) {
+  await doc.send(new PutCommand({
+    TableName: table(),
+    Item: { PK: `SIGNREQ#${r.tokenHash}`, SK: 'SIGNREQ', entityType: 'SignRequest', ttl: Math.floor(Date.parse(r.expiresAt) / 1000) + 86400, ...r },
+    ConditionExpression: 'attribute_not_exists(PK)',
+  }));
+}
+
+export async function getSignRequest(tokenHash: string): Promise<SignRequest | undefined> {
+  const r = await doc.send(new GetCommand({ TableName: table(), Key: { PK: `SIGNREQ#${tokenHash}`, SK: 'SIGNREQ' }, ConsistentRead: true }));
+  if (!r.Item) return undefined;
+  const { PK: _p, SK: _s, entityType: _t, ttl: _ttl, ...rest } = r.Item;
+  return rest as SignRequest;
+}
+
+/** Marks the request claimed and assigns its entries in one transaction: it fails if anyone got there first. */
+export async function claimSignRequest(claimed: SignRequest, changes: { before: Entry; after: Entry }[]) {
+  await doc.send(new TransactWriteCommand({
+    TransactItems: [
+      {
+        Put: {
+          TableName: table(),
+          Item: { PK: `SIGNREQ#${claimed.tokenHash}`, SK: 'SIGNREQ', entityType: 'SignRequest', ttl: Math.floor(Date.parse(claimed.expiresAt) / 1000) + 86400, ...claimed },
+          ConditionExpression: '#status = :open AND expiresAt > :now',
+          ExpressionAttributeNames: { '#status': 'status' },
+          ExpressionAttributeValues: { ':open': 'OPEN', ':now': claimed.claimedBy!.at },
+        },
+      },
+      ...changes.map(({ before, after }) => ({
+        Put: {
+          TableName: table(),
+          Item: toItem(after),
+          ConditionExpression: '#status = :status AND updatedAt = :updatedAt',
+          ExpressionAttributeNames: { '#status': 'status' },
+          ExpressionAttributeValues: { ':status': before.status, ':updatedAt': before.updatedAt },
+        },
+      })),
+    ],
+  }));
 }

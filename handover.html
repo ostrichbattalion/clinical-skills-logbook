@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Supervisor Signs on This Phone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/live.css">
+</head>
+<body>
+    <div class="container">
+        <a href="student_pwa_dashboard.html" class="btn btn-link">&larr; Back</a>
+        <h1>Supervisor Signs on This Phone</h1>
+        <p id="sup-banner" class="notice notice-info" hidden></p>
+        <p id="ho-msg" role="alert" hidden></p>
+
+        <section id="step-hand" hidden>
+            <p><strong id="student-name"></strong>, these entries will be signed:</p>
+            <ul id="selected" class="skill-summary"><li class="empty">Loading…</li></ul>
+            <p>Hand your phone to your supervisor. They sign in with their own logbook account just for this sign-off; you stay signed in, and they are signed out of this phone straight afterwards.</p>
+            <button type="button" class="btn btn-primary" id="start">I'm the supervisor: sign in to sign</button>
+        </section>
+
+        <section id="step-signin" class="panel" hidden>
+            <h2>Supervisor sign-in</h2>
+            <p class="sub-details">Your session stays on this page only and ends when you finish. If the browser offers to save your password, choose "Never".</p>
+            <form id="signin-form" novalidate autocomplete="off">
+                <div class="field"><label for="sup-email">Your email</label><input type="email" id="sup-email" autocomplete="off" autocapitalize="none" spellcheck="false" required></div>
+                <div class="field"><label for="sup-password">Your password</label><input type="password" id="sup-password" autocomplete="off" required></div>
+                <div class="field" id="mfa-field" hidden><label for="sup-code">Code from your authenticator app</label><input id="sup-code" inputmode="numeric" autocomplete="one-time-code"></div>
+                <button type="submit" class="btn btn-primary" style="width:auto">Sign in</button>
+                <button type="button" class="btn btn-link" id="cancel" style="width:auto">Cancel</button>
+            </form>
+        </section>
+
+        <section id="step-sign" hidden><div id="batch"></div></section>
+
+        <section id="step-done" hidden>
+            <p class="notice notice-ok" id="done-text"></p>
+            <a class="btn btn-primary" href="student_pwa_dashboard.html">Back to dashboard</a>
+        </section>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/sign-batch.js"></script>
+    <script src="js/handover.js"></script>
+</body>
+</html>

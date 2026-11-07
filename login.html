@@ -115,7 +115,7 @@
         }
 
         const existing = L.session();
-        if (existing && existing.user.exp * 1000 > Date.now()) window.location.replace(L.homeFor(existing.user));
+        if (existing && existing.user.exp * 1000 > Date.now()) window.location.replace(L.afterSignIn(existing.user));
 
         function busy(form, on) {
             const b = form.querySelector('button');
@@ -125,7 +125,7 @@
         }
 
         function done(result) {
-            if (result.session) { window.location.replace(L.homeFor(result.session.user)); return; }
+            if (result.session) { window.location.replace(L.afterSignIn(result.session.user)); return; }
             challenge = result.challenge;
             signinForm.hidden = true;
             challengeForm.hidden = false;

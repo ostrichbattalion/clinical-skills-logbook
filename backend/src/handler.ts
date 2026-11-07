@@ -20,6 +20,7 @@ import { getProgramme, loggableSkills, lookupLoggable, setsForInstitution, skill
 import { findUserByEmail, findUserBySub, listStudents } from './users.js';
 import { institutionProgrammes, validateChanges, validatePerson } from './admin.js';
 import * as people from './admin-users.js';
+import { buildSignRequest, hashToken, newToken, planClaim, validateToken } from './sign-requests.js';
 
 type Event = APIGatewayProxyEventV2WithJWTAuthorizer;
 
@@ -157,6 +158,28 @@ const routes: Record<string, (event: Event, caller: Caller) => Promise<unknown>>
     });
     await db.replaceEntries(changes);
     return { requested: changes.length, verifier: { name: verifier.name, email: verifier.email } };
+  },
+
+  'POST /entries/sign-requests': async (event, caller) => {
+    requireRole(caller, 'student');
+    const ids = (body(event) as { entryIds?: unknown }).entryIds;
+    if (!Array.isArray(ids) || !ids.every((x) => typeof x === 'string')) throw new HttpError(400, 'Choose at least one entry');
+    const unique = [...new Set(ids as string[])];
+    const entries = await Promise.all(unique.map((id) => db.getEntry(caller.sub, id)));
+    if (entries.some((e) => !e)) throw new HttpError(404, 'One of those entries was not found');
+    const token = newToken();
+    const req = buildSignRequest(caller, entries as Entry[], token, new Date());
+    await db.putSignRequest(req);
+    return { token, expiresAt: req.expiresAt, entries: req.entryIds.length };
+  },
+
+  'POST /sign-requests/claim': async (event, caller) => {
+    const token = validateToken((body(event) as { token?: unknown }).token);
+    const req = await db.getSignRequest(hashToken(token));
+    const entries = req ? await Promise.all(req.entryIds.map((id) => db.getEntry(req.studentSub, id))) : [];
+    const { claimed, changes } = planClaim(req, entries, caller, new Date());
+    await db.claimSignRequest(claimed, changes);
+    return { studentName: claimed.studentName, studentSub: claimed.studentSub, entries: changes.map((c) => view(c.after)) };
   },
 
   'GET /progress': async (event, caller) => {

@@ -58,32 +58,37 @@
     return data;
   }
 
-  function saveTokens(result, refreshToken) {
+  function saveTokens(result, refreshToken, persist = true) {
     const session = {
       idToken: result.IdToken,
       refreshToken: result.RefreshToken || refreshToken,
       user: profile(result.IdToken),
     };
-    memory = session;
-    store.set(session);
+    if (persist) { memory = session; store.set(session); }
     return session;
   }
 
-  /** Returns { session } when signed in, or { challenge } when Cognito needs more (new password, MFA code). */
-  function handleAuthResult(data, username) {
-    if (data.AuthenticationResult) return { session: saveTokens(data.AuthenticationResult) };
-    return { challenge: { name: data.ChallengeName, session: data.Session, username } };
+  /**
+   * Returns { session } when signed in, or { challenge } when Cognito needs more (new password, MFA code).
+   * persist: false keeps the session in the caller's hands only (hand-over signing on someone else's phone).
+   */
+  function handleAuthResult(data, username, persist) {
+    if (data.AuthenticationResult) return { session: saveTokens(data.AuthenticationResult, undefined, persist) };
+    return { challenge: { name: data.ChallengeName, session: data.Session, username, persist } };
   }
+
+  const NEXT = 'logbook.next';
+  const safeNext = (v) => (typeof v === 'string' && /^[a-z_]+\.html(\?[A-Za-z0-9_=&%.-]*)?$/.test(v) ? v : null);
 
   const Logbook = {
     configured: !!(config && config.apiUrl),
 
-    async signIn(email, password) {
+    async signIn(email, password, { persist = true } = {}) {
       const username = email.trim().toLowerCase();
       const data = await cognito('InitiateAuth', {
         AuthFlow: 'USER_PASSWORD_AUTH', ClientId: config.userPoolClientId, AuthParameters: { USERNAME: username, PASSWORD: password },
       });
-      return handleAuthResult(data, username);
+      return handleAuthResult(data, username, persist);
     },
 
     async answerChallenge(challenge, answer) {
@@ -94,7 +99,20 @@
       const data = await cognito('RespondToAuthChallenge', {
         ChallengeName: challenge.name, ClientId: config.userPoolClientId, Session: challenge.session, ChallengeResponses: responses,
       });
-      return handleAuthResult(data, challenge.username);
+      return handleAuthResult(data, challenge.username, challenge.persist !== false);
+    },
+
+    /** Ends a session that was never stored (hand-over): revokes its refresh token so it can't be reused. */
+    async revoke(session) {
+      if (!session?.refreshToken) return;
+      try { await cognito('RevokeToken', { Token: session.refreshToken, ClientId: config.userPoolClientId }); } catch { /* best effort */ }
+    },
+
+    /** Where to go after signing in: the page that sent us to login, else the role's home page. */
+    afterSignIn(user) {
+      let next = null;
+      try { next = safeNext(sessionStorage.getItem(NEXT)); sessionStorage.removeItem(NEXT); } catch { /* ignore */ }
+      return next || Logbook.homeFor(user);
     },
 
     session() { return store.get() || memory; },
@@ -112,7 +130,11 @@
     requireUser(...roles) {
       if (!Logbook.configured) return null;
       const s = Logbook.session();
-      if (!s) { window.location.replace('login.html'); return null; }
+      if (!s) {
+        try { sessionStorage.setItem(NEXT, location.pathname.split('/').pop() + location.search); } catch { /* ignore */ }
+        window.location.replace('login.html');
+        return null;
+      }
       if (roles.length && !roles.some((r) => s.user.roles.includes(r))) { window.location.replace(Logbook.homeFor(s.user)); return null; }
       return s.user;
     },
@@ -134,16 +156,28 @@
 
     async api(method, path, body) {
       const s = await Logbook.refreshIfNeeded();
+      return request(s.idToken, method, path, body, () => Logbook.signOut());
+    },
+
+    /** Calls the API as a session that isn't stored (hand-over). No refresh: these sessions last minutes. */
+    apiAs(session, method, path, body) {
+      return request(session.idToken, method, path, body, () => { throw new Error('The supervisor session has ended. Sign in again.'); });
+    },
+  };
+
+  async function request(idToken, method, path, body, on401) {
       const res = await fetch(config.apiUrl + path, {
         method,
-        headers: { Authorization: s.idToken, ...(body !== undefined && { 'Content-Type': 'application/json' }) },
+        headers: { Authorization: idToken, ...(body !== undefined && { 'Content-Type': 'application/json' }) },
         body: body === undefined ? undefined : JSON.stringify(body),
       });
       const data = await res.json().catch(() => ({}));
-      if (res.status === 401) { Logbook.signOut(); throw new Error('Please sign in again.'); }
+      if (res.status === 401) { on401(); throw new Error('Please sign in again.'); }
       if (!res.ok) throw Object.assign(new Error(data.error || `Request failed (${res.status})`), { status: res.status, fields: data.fields });
       return data;
-    },
+  }
+
+  Object.assign(Logbook, {
 
     /** Escapes text for safe insertion into HTML. Use for every value that came from the API. */
     esc(v) {
@@ -183,7 +217,7 @@
       p.innerHTML = 'Demo mode: no backend is configured, so this page cannot load real data. Deploy the backend (see backend/README.md) to use it.';
       document.querySelector('.container').prepend(p);
     },
-  };
+  });
 
   window.Logbook = Logbook;
 })();

@@ -73,6 +73,6 @@ I want to take my career — health informatics and clinical systems.
 
 - ~~Back this with a real datastore and authentication~~ (done: AWS Cognito + DynamoDB).
 - ~~Institution and cohort reports for the HPCSA~~ (done: cohort view, export, PBEC summary, gap check).
-- QR-code / hand-over signing and peer sign-off on the same auditable record.
+- ~~QR-code / hand-over signing~~ (done: `qr_sign.html`, `handover.html`); peer sign-off on the same record.
 - ~~Admin screens for managing users and cohorts~~ (done: `admin_users.html`, with class-list import and year moves).
 - Align the data model with health-interoperability standards (HL7 FHIR).

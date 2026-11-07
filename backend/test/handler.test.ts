@@ -61,8 +61,11 @@ beforeEach(() => {
   ddb.on(TransactWriteCommand).callsFake(({ TransactItems }) => {
     for (const t of TransactItems) {
       const p = t.Put;
-      if (!checkStatusCondition(items.get(key(p.Item.PK, p.Item.SK)), p.ExpressionAttributeValues))
-        throw conditionError('TransactionCanceledException');
+      const existing = items.get(key(p.Item.PK, p.Item.SK));
+      const ok = p.Item.entityType === 'SignRequest'
+        ? existing && existing.status === 'OPEN' && existing.expiresAt > p.ExpressionAttributeValues[':now']
+        : checkStatusCondition(existing, p.ExpressionAttributeValues);
+      if (!ok) throw conditionError('TransactionCanceledException');
     }
     for (const t of TransactItems) items.set(key(t.Put.Item.PK, t.Put.Item.SK), structuredClone(t.Put.Item));
     return {};
@@ -252,4 +255,52 @@ test('programme students log college skills; lecturers get cohort, HPCSA summary
   assert.equal((await call('cec-sup', 'GET /reports/cohort')).status, 403);
   assert.equal((await call('dip-1', 'GET /reports/cohort')).status, 403);
   assert.equal((await call('cec-lec', 'GET /reports/cohort', { query: { year: '9' } })).status, 400);
+});
+
+test('on-the-spot signing: single-use code, claimed by a verifier, expires, refuses changed entries', async () => {
+  const a = await call('stu-1', 'POST /entries', { body: newEntry() });
+  const b = await call('stu-1', 'POST /entries', { body: newEntry({ kind: 'skills', setting: 'Triage' }) });
+  const ids = [a.data.entry.entryId, b.data.entry.entryId];
+  const req = await call('stu-1', 'POST /entries/sign-requests', { body: { entryIds: ids } });
+  assert.equal(req.status, 200, JSON.stringify(req.data));
+  const token = req.data.token;
+  assert.match(token, /^[A-Za-z0-9_-]{22}$/);
+  const stored = [...items.values()].find((i) => i.entityType === 'SignRequest')!;
+  assert.ok(stored.PK.length > 70 && !JSON.stringify(stored).includes(token), 'only a hash of the code is stored');
+  assert.ok(stored.ttl > Date.now() / 1000);
+
+  // students (including the owner) can't claim; bad and unknown codes are refused
+  assert.equal((await call('stu-1', 'POST /sign-requests/claim', { body: { token } })).status, 403);
+  assert.equal((await call('stu-2', 'POST /sign-requests/claim', { body: { token } })).status, 403);
+  assert.equal((await call('sup-1', 'POST /sign-requests/claim', { body: { token: 'short' } })).status, 400);
+  assert.equal((await call('sup-1', 'POST /sign-requests/claim', { body: { token: 'A'.repeat(22) } })).status, 404);
+
+  const claim = await call('sup-1', 'POST /sign-requests/claim', { body: { token } });
+  assert.equal(claim.status, 200, JSON.stringify(claim.data));
+  assert.equal(claim.data.studentName, 'Jane Doe');
+  assert.deepEqual(claim.data.entries.map((e: any) => [e.status, e.request.verifierName]), [['AWAITING_SIGNATURE', 'B Jones'], ['AWAITING_SIGNATURE', 'B Jones']]);
+  assert.ok(claim.data.entries[0].skills[0].name, 'skill names included');
+  // single use
+  const again = await call('sup-1', 'POST /sign-requests/claim', { body: { token } });
+  assert.deepEqual([again.status, /already opened/.test(again.data.error)], [409, true]);
+  assert.equal((await call('lec-1', 'POST /sign-requests/claim', { body: { token } })).status, 409);
+  // signing then goes through the normal queue route
+  const signed = await call('sup-1', 'POST /queue/{studentSub}/{entryId}/sign', { path: { studentSub: 'stu-1', entryId: ids[0] }, body: { witnessedSkillIds: [GCS], regNo: 'PA1' } });
+  assert.equal(signed.status, 200);
+  // a code for already-sent entries can't be made
+  assert.equal((await call('stu-1', 'POST /entries/sign-requests', { body: { entryIds: [ids[0]] } })).status, 409);
+
+  // expiry
+  const c = await call('stu-1', 'POST /entries', { body: newEntry() });
+  const r2 = await call('stu-1', 'POST /entries/sign-requests', { body: { entryIds: [c.data.entry.entryId] } });
+  for (const i of items.values()) if (i.entityType === 'SignRequest' && i.status === 'OPEN') i.expiresAt = '2000-01-01T00:00:00.000Z';
+  assert.equal((await call('sup-1', 'POST /sign-requests/claim', { body: { token: r2.data.token } })).status, 410);
+
+  // an entry deleted after the code was made
+  const r3 = await call('stu-1', 'POST /entries/sign-requests', { body: { entryIds: [c.data.entry.entryId] } });
+  await call('stu-1', 'DELETE /entries/{entryId}', { path: { entryId: c.data.entry.entryId } });
+  const changed = await call('sup-1', 'POST /sign-requests/claim', { body: { token: r3.data.token } });
+  assert.deepEqual([changed.status, /changed since/.test(changed.data.error)], [409, true]);
+  // other students' entries can't be put in a code
+  assert.equal((await call('stu-2', 'POST /entries/sign-requests', { body: { entryIds: [ids[1]] } })).status, 404);
 });

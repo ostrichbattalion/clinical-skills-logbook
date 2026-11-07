@@ -39,6 +39,7 @@ export class LogbookStack extends cdk.Stack {
       pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
       deletionProtection: isProd,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
+      timeToLiveAttribute: 'ttl', // expired sign requests
       globalSecondaryIndexes: [
         {
           indexName: 'GSI1',
@@ -95,6 +96,7 @@ export class LogbookStack extends cdk.Stack {
       authFlows: { userPassword: true, userSrp: true },
       generateSecret: false,
       preventUserExistenceErrors: true,
+      enableTokenRevocation: true, // hand-over signing revokes the supervisor's session on the student's phone
       idTokenValidity: cdk.Duration.hours(1),
       accessTokenValidity: cdk.Duration.hours(1),
       refreshTokenValidity: cdk.Duration.days(30),

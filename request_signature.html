@@ -19,20 +19,36 @@
             <ul id="selected"><li class="empty">Loading…</li></ul>
         </div>
 
-        <form id="req-form" novalidate>
-            <div class="field">
-                <label for="verifier">Supervisor's or lecturer's email</label>
-                <input type="email" id="verifier" name="verifier" autocomplete="email" placeholder="e.g. b.jones@ems.gov.za" required>
-                <div class="hint">They must have a logbook account. The request appears in their sign-off queue; they sign with their own login.</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Send for Signature</button>
-        </form>
+        <div id="choices">
+            <h2>Sign now</h2>
+            <button type="button" class="btn btn-primary" id="show-qr" style="margin-bottom:10px">Show QR code for your supervisor's phone</button>
+            <a class="btn btn-secondary" id="handover-link" href="handover.html" style="margin-bottom:10px">Supervisor signs on this phone</a>
 
-        <p class="sub-details" style="margin-top:20px">Signing on this device, by QR code or by share link is coming in a later version.</p>
-        <a href="paper_flow.html" class="btn btn-link" style="text-align: center;">...or log with a paper form</a>
+            <h2>Sign later</h2>
+            <form id="req-form" novalidate>
+                <div class="field">
+                    <label for="verifier">Send to their sign-off queue: supervisor's or lecturer's email</label>
+                    <input type="email" id="verifier" name="verifier" autocomplete="email" placeholder="e.g. b.jones@ems.gov.za" required>
+                    <div class="hint">They must have a logbook account. They sign with their own login when they're ready.</div>
+                </div>
+                <button type="submit" class="btn btn-secondary">Send for Signature</button>
+            </form>
+            <a href="paper_flow.html" class="btn btn-link" style="text-align: center;">...or log with a paper form</a>
+        </div>
+
+        <section id="qr-panel" class="panel" hidden style="text-align:center">
+            <h2>Ask your supervisor to scan this</h2>
+            <p class="sub-details">They scan it with their phone camera and sign with their own logbook login. The code works once and only for a supervisor or lecturer.</p>
+            <div id="qr" class="qr-box"></div>
+            <p id="countdown" class="sub-details" aria-live="polite"></p>
+            <p id="qr-status" role="status"></p>
+            <button type="button" class="btn btn-primary" id="new-code" hidden style="width:auto">Make a new code</button>
+            <a class="btn btn-secondary" id="qr-done" href="student_pwa_dashboard.html" hidden style="width:auto">Back to dashboard</a>
+        </section>
     </div>
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/vendor/qrcode.js"></script>
     <script src="js/request-signature.js"></script>
 </body>
 </html>
